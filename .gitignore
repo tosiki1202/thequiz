@@ -76,5 +76,5 @@ crashlytics-build.properties
 
 .DS_Store 
 /[Aa]ssets/[Ff]onts
-/[Aa]ssets/[Ss]cripts/ChatGPTConnection.cs
+/[Aa]ssets/[Ss]cripts/ChatGPTConnection.cs 
 /[Aa]ssets/[Ss]cripts/ChatGPTConnection.cs.meta
