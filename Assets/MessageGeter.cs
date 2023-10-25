@@ -24,7 +24,7 @@ public class MessageGeter : MonoBehaviour
 
     private async UniTask GenerateMessage(string str)
     {
-        var chatGPTConnection = new ChatGPTConnection("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");
+        var chatGPTConnection = new ChatGPTConnection("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");
         await chatGPTConnection.RequestAsync(str);
         string context = chatGPTConnection.GetMessageList();
         Regex rex = new Regex("\n+");

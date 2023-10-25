@@ -50,7 +50,7 @@ public class ChatGPTConnection : MonoBehaviour
     }
 
 
-    private readonly string _apiKey = "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";
+    private readonly string _apiKey = "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";
     //会話履歴を保持するリスト
     private readonly List<ChatGPTMessageModel> _messageList = new();
 
