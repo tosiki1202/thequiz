@@ -31,6 +31,7 @@ public class MessageGeter : MonoBehaviour
         context = rex.Replace(context, "\n");
         string[] lines = context.Split("\n");
 
+        //１問当たり6行
         if (lines.Length > 18)
         {
             Debug.Log("格納エラー");
