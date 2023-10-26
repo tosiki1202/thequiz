@@ -28,7 +28,7 @@ public class StoreButtonData : MonoBehaviour{
         data.Add(dt);
         for (int i = 0; i < data.Count; i++)
         {
-            Debug.Log("Data at index " + i + ": idx = " + data[i].id + ", timeStop = " + data[i].time);
+            //Debug.Log("Data at index " + i + ": idx = " + data[i].id + ", timeStop = " + data[i].time);
         }
     }
 }

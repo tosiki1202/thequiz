@@ -8,6 +8,7 @@ public class SetButton : MonoBehaviour
 {
     public Timer timer;
     public StoreButtonData data;
+    public JudgeCollect judgeCollect;
     private float timeUp;
     private float timeStop; 
     private int idx;
@@ -25,7 +26,6 @@ public class SetButton : MonoBehaviour
         //Debug.Log(timeUp);
         if(click){
             //Debug.Log("Condition met");
-            StoreInfo();
             timer.GoTimer();
             InitButton();
         }
@@ -54,6 +54,8 @@ public class SetButton : MonoBehaviour
         MyCanvas.SetActive("Button3", false);
         MyCanvas.SetActive("Button4", false);        
     }
+
+    //OnClickに追加
     public void ClickButton(string button)
     {
         //Debug.Log("Button clicked: " + button);
@@ -77,6 +79,18 @@ public class SetButton : MonoBehaviour
         timeStop = timeUp;
         timeStop = Mathf.Max(timeStop, 0) % 60;
         click = true;
+
+        StoreInfo();
+        bool answer = judgeCollect.CompareIndex();
+        if (answer)
+        {
+            Debug.Log("正解！");
+        }
+        else
+        {
+            Debug.Log("惜しい！");
+        }
+
         ButtonNotAct();
     }
     public void StoreInfo(){
