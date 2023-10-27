@@ -55,7 +55,7 @@ public class MessageGeter : MonoBehaviour
     {
         if (Request_sentence == null)
         {
-            Debug.Log("Empty jyanru");
+            Debug.Log("Empty jyanru"); 
             return;
         }
         this.Request_sentence = Request_sentence;
