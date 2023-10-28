@@ -29,17 +29,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public GameObject errorPanel;
     //エラーテキスト
     public TextMeshProUGUI errorText;
-    //ルーム一覧
-    public GameObject roomListPanel;
-    //ルームボタン格納
-    public Room originalRoomButton;
-    //ルームボタンの親オブジェクト
-    public GameObject roomButtonContent;
-    //ルームの情報を扱う辞書(添え字の代わりにキー(今はstring)を使う)
-    Dictionary<string, RoomInfo> roomsList = new Dictionary<string, RoomInfo>();
-    //ルームボタンを扱うリスト
-    private List<Room> allRoomButtons = new List<Room>();
-
 
     //Awake
     private void Awake()
@@ -63,9 +52,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         LobbyMenuDisplay();
-
-        //辞書の初期化
-        roomsList.Clear();
     }
 
     //Start//
@@ -94,7 +80,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         createRoomPanel.SetActive(false);
         roomPanel.SetActive(false);
         errorPanel.SetActive(false);
-        roomListPanel.SetActive(false);
     }
 
     //ロビーUIを表示する関数
@@ -165,58 +150,5 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         errorText.text = "ルームの作成に失敗しました"+message;
 
         errorPanel.SetActive(true);
-    }
-
-    //ルーム一覧表示
-    public void FindRoom()
-    {
-        CloseMenuUI();
-        roomListPanel.SetActive(true);
-    }
-
-    //ルームリストに更新があった時に呼ばれる関数(継承：コールバック)
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
-    {
-        //辞書に登録
-        UpdateRoomList(roomList);
-    }
-
-    //ルーム情報を辞書に登録
-    public void UpdateRoomList(List<RoomInfo> roomList)
-    {
-        //辞書にルーム登録
-        for (int i=0; i<roomList.Count; i++)
-        {
-            RoomInfo info = roomList[i];
-            
-            if (info.RemovedFromList)//満室ならtrue
-            {
-                roomsList.Remove(info.Name);
-            }
-            else
-            {
-                roomsList[info.Name] = info;
-            }
-        }
-
-        //ルームボタン表示関数
-        RoomListDisplay(roomsList);
-    }
-
-    public void RoomListDisplay(Dictionary<string,RoomInfo> cachedRoomList)
-    {
-        foreach (var roomInfo in cachedRoomList)
-        {
-            //ボタン作成
-            Room newButton = Instantiate(originalRoomButton);
-
-            //生成したボタンにルーム情報設定
-            newButton.RegisterRoomDetails(roomInfo.Value);
-            
-            //親の設定
-            newButton.transform.SetParent(roomButtonContent.transform);
-
-            allRoomButtons.Add(newButton);
-        }
     }
 }
