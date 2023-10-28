@@ -1262,7 +1262,7 @@ GameObject:
   - component: {fileID: 446493723}
   - component: {fileID: 446493722}
   m_Layer: 5
-  m_Name: debugName (2)
+  m_Name: debugNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1397,7 +1397,7 @@ GameObject:
   - component: {fileID: 450775114}
   - component: {fileID: 450775113}
   m_Layer: 5
-  m_Name: AnswerIndex
+  m_Name: AnswerIndexText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3030,7 +3030,7 @@ GameObject:
   - component: {fileID: 1206826349}
   - component: {fileID: 1206826348}
   m_Layer: 5
-  m_Name: SelectedIndex
+  m_Name: SelectedIndexText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3218,7 +3218,7 @@ GameObject:
   - component: {fileID: 1290813524}
   - component: {fileID: 1290813523}
   m_Layer: 5
-  m_Name: debugName
+  m_Name: debugNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3488,7 +3488,7 @@ GameObject:
   - component: {fileID: 1483159815}
   - component: {fileID: 1483159814}
   m_Layer: 5
-  m_Name: debugName (1)
+  m_Name: debugNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3758,7 +3758,7 @@ GameObject:
   - component: {fileID: 1749550637}
   - component: {fileID: 1749550636}
   m_Layer: 5
-  m_Name: debugName (3)
+  m_Name: debugNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
