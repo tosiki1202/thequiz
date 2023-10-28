@@ -21,6 +21,7 @@ public class MessageGeter : MonoBehaviour
         public int answer_index;
     }
     public Question[] question = new Question[3];
+    public MessageManager messageManager;
 
     private async UniTask GenerateMessage(string str)
     {
@@ -32,13 +33,13 @@ public class MessageGeter : MonoBehaviour
         string[] lines = context.Split("\n");
 
         //１問当たり6行
-        if (lines.Length > 18)
+        if (lines.Length > 6*messageManager.GetMAXQUESTIONINDEX())
         {
             Debug.Log("格納エラー");
         }
         else
         {
-            for (int i=0; i<3; i++)
+            for (int i=0; i<messageManager.GetMAXQUESTIONINDEX(); i++)
             {
                 int lines_index = i * 6;
                 question[i].sentence = lines[lines_index];

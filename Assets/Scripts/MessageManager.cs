@@ -6,7 +6,8 @@ using TMPro;
 
 public class MessageManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private int MAXQUESTIONINDEX;
+
     public MessageGeter messageGeter;
     public StoreButtonData storeButtonData;
     public TextMeshProUGUI sentence_box;
@@ -17,11 +18,6 @@ public class MessageManager : MonoBehaviour
     public TextMeshProUGUI answer_index_box;
     public TextMeshProUGUI selected_index_box;
     [SerializeField] private int NowQuestionIndex;
-
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -43,5 +39,9 @@ public class MessageManager : MonoBehaviour
     public int GetQuestionIndex()
     {
         return NowQuestionIndex;
+    }
+    public int GetMAXQUESTIONINDEX()
+    {
+        return MAXQUESTIONINDEX;
     }
 }
