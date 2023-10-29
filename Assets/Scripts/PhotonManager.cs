@@ -177,6 +177,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     //ルームリストに更新があった時に呼ばれる関数(継承：コールバック)
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
+        //ルームボタンUI初期化
+        RoomUIinitialization();
+
         //辞書に登録
         UpdateRoomList(roomList);
     }
@@ -218,5 +221,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
             allRoomButtons.Add(newButton);
         }
+    }
+
+    public void RoomUIinitialization()
+    {
+        //ルームUIの数分ループ
+        foreach (Room rm in allRoomButtons)
+        {
+            Destroy(rm.gameObject);
+        }
+
+        //リストの初期化
+        allRoomButtons.Clear();
     }
 }
