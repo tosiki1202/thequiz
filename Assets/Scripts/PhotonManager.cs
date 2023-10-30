@@ -29,6 +29,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public GameObject errorPanel;
     //エラーテキスト
     public TextMeshProUGUI errorText;
+    //ルーム一覧
+    public GameObject roomListPanel;
 
     //Awake
     private void Awake()
@@ -80,6 +82,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         createRoomPanel.SetActive(false);
         roomPanel.SetActive(false);
         errorPanel.SetActive(false);
+        roomListPanel.SetActive(false);
     }
 
     //ロビーUIを表示する関数
@@ -150,5 +153,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         errorText.text = "ルームの作成に失敗しました"+message;
 
         errorPanel.SetActive(true);
+    }
+
+    //ルーム一覧パネルを開く関数
+    public void FindRoom()
+    {
+        CloseMenuUI();
+        roomListPanel.SetActive(true);
     }
 }
