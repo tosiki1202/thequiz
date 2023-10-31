@@ -1,4 +1,5 @@
-//Canvasにセットすることにより子のボタンのinteractableを操作する
+//引数でボタンの名前とboolを受け取りCanvasの中にあるボタンのinteractablを操作
+//Canvasにアタッチ
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,9 @@ public class MyCanvas : MonoBehaviour
     {
         _canvas = GetComponent<Canvas>();
     }
-
+    //SetActive(string name, bool act)
+    //引数で指定した文字列とcanvasの子や孫にあるボタンを比較し
+    //boolによってinteractable(ボタンを押下できるか)を操作
     public static void SetActive(string name, bool act) {
         if (_canvas == null)
         {
@@ -27,3 +30,4 @@ public class MyCanvas : MonoBehaviour
         }
     }
 }
+

@@ -8,6 +8,7 @@ public class SetButton : MonoBehaviour
 {
     public Timer timer;
     public StoreButtonData data;
+    public MessageManager messageManager;
     private float timeUp;
     private float timeStop; 
     private int idx;
@@ -15,7 +16,6 @@ public class SetButton : MonoBehaviour
  
 
     void Start(){
-        timer.GoTimer();
         InitButton();
     }
     void Update()
@@ -23,21 +23,17 @@ public class SetButton : MonoBehaviour
         //Debug.Log("Update method called");
         timeUp = timer.GetTimeUp();
         //Debug.Log(timeUp);
-        if(click){
+        if(timeUp == 10.0 && !click){
             //Debug.Log("Condition met");
+            timeStop = 10.0f;//タイマーの上限値に変更
             StoreInfo();
-            timer.GoTimer();
+            messageManager.NextQuestion();
             InitButton();
-        }
-        if(timeUp == 10.0){
-            //Debug.Log("Condition met");
-            timeStop = 10.0f;
-            StoreInfo();
-            timer.GoTimer();
-            InitButton();
+            click = true;
         }
     }
-    private void InitButton(){
+    public void InitButton(){
+        //timer.GoTimer();
         idx = 0;
         click = false;
         ButtonAct();
@@ -76,8 +72,9 @@ public class SetButton : MonoBehaviour
         }
         timeStop = timeUp;
         timeStop = Mathf.Max(timeStop, 0) % 60;
-        click = true;
+        StoreInfo();
         ButtonNotAct();
+        messageManager.NextQuestion();
     }
     public void StoreInfo(){
         data.DataSave(idx, timeStop);
