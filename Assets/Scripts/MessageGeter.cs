@@ -10,6 +10,7 @@ using TMPro;
 
 public class MessageGeter : MonoBehaviour
 {
+    public MessageManager messageManager;
     private string Request_sentence;
     public struct Question
     {
@@ -21,8 +22,6 @@ public class MessageGeter : MonoBehaviour
         public int answer_index;
     }
     public Question[] question = new Question[3];
-    public MessageManager messageManager;
-
     private async UniTask GenerateMessage(string str)
     {
         var chatGPTConnection = new ChatGPTConnection();
@@ -49,6 +48,7 @@ public class MessageGeter : MonoBehaviour
                 question[i].sel_4 = lines[lines_index+4];
                 question[i].answer_index = int.Parse(Regex.Replace (lines[lines_index+5], @"[^0-9]", ""));
             }
+            messageManager.Q_Displaycontrol();
         }
     }
 
