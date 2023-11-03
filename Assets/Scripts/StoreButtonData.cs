@@ -4,24 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StoreButtonData : MonoBehaviour{
+    [SerializeField] private int MAXQUESTIONINDEX = 3;
     public struct Data{
-        public int id;
-        public float time;
+        public int q_num;
+        public int q_sel;
+        public float q_time;
     }
 
-    public Data[] data = new Data[3];//問題数に応じて変更
+    public static Data[] data = new Data[3];//問題数に応じて変更
     public MessageManager messageManager;
     private int i;
     public void DataSave(int idx, float timeStop){
         i = messageManager.GetQuestionIndex();
-        if(i<3){
-            data[i].id = idx;
-            data[i].time = timeStop;
-            Debug.Log(i + "回目");
-            for (int j = 0; j < i + 1; j++)
-            {
-                Debug.Log("Data at index " + j + ": idx = " + data[j].id + ", timeStop = " + data[j].time);
-            }
+        if(i<MAXQUESTIONINDEX){
+            data[i].q_num = i;
+            data[i].q_sel = idx;
+            data[i].q_time = timeStop;
+            //Debug.Log(i + "回目");
+            //for (int j = 0; j < i + 1; j++)
+            //{
+            //    Debug.Log("Data at index " + j + ": idx = " + data[j].id + ", timeStop = " + data[j].time);
+            //}
             i += 1;
         }
         else{
