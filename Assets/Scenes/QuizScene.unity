@@ -1963,7 +1963,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MAXQUESTIONINDEX: 3
   NowQuestionIndex: 0
-  DELAYSHOWFRAME: 40
+  DELAYSHOWMS: 50
   timer: {fileID: 1059775566}
   setButton1: {fileID: 210107106}
   setButton2: {fileID: 556368026}
