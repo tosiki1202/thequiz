@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Cysharp.Threading.Tasks;
 using TMPro;
 
 public class MessageManager : MonoBehaviour
@@ -22,6 +24,10 @@ public class MessageManager : MonoBehaviour
 
     [SerializeField] private int NowQuestionIndex;
 
+    void Start()
+    {
+        Q_Displaycontrol();
+    }  
     public void Q_Displaycontrol()
     {
         sentence_box.text = MessageGeter.question[NowQuestionIndex].sentence;
@@ -33,7 +39,7 @@ public class MessageManager : MonoBehaviour
         //selected_index_box.text = storeButtonData.data[NowQuestionIndex].id.ToString("0");
         timer.GoTimer();
     }
-    public void NextQuestion(){
+    public async UniTask NextQuestion(){
         NowQuestionIndex+=1;
         if(NowQuestionIndex < 3){
             Q_Displaycontrol();
@@ -43,7 +49,9 @@ public class MessageManager : MonoBehaviour
             setButton4.InitButton();
         }
         else{
-            Debug.Log("error");
+            Debug.Log("問題終了");
+            await UniTask.DelayFrame(300);
+            SceneManager.LoadScene("ResultScene");
         }
     }
     public void SetQuestionIndex(int idx)

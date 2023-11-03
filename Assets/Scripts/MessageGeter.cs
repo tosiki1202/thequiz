@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using TMPro;
 
@@ -58,6 +59,8 @@ public class MessageGeter : MonoBehaviour
             }
         }
         Debug.Log("格納完了");
+        await UniTask.DelayFrame(300);
+        SceneManager.LoadScene("QuizScene");
     }
 
     public async void Generator(string Request_sentence)
