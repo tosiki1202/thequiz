@@ -17,6 +17,7 @@ public class SetButton : MonoBehaviour
 
     void Start(){
         InitButton();
+        ButtonNotAct();
     }
     void Update()
     {

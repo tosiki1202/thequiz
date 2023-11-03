@@ -9,8 +9,10 @@ using TMPro;
 public class MessageManager : MonoBehaviour
 {
     [SerializeField] private int MAXQUESTIONINDEX;
-    public Timer timer;
+    [SerializeField] private int NowQuestionIndex;
+    [SerializeField] private int DELAYSHOWFRAME;
 
+    public Timer timer;
     public SetButton setButton1;
     public SetButton setButton2;
     public SetButton setButton3;
@@ -22,38 +24,65 @@ public class MessageManager : MonoBehaviour
     public TextMeshProUGUI sel_3_box;
     public TextMeshProUGUI sel_4_box;
 
-    [SerializeField] private int NowQuestionIndex;
-
-    void Start()
+    async void Start()
     {
-        Q_Displaycontrol();
+        await Q_Displaycontrol();
     }  
-    public void Q_Displaycontrol()
+
+    public async UniTask Q_Displaycontrol()
     {
-        sentence_box.text = MessageGeter.question[NowQuestionIndex].sentence;
-        sel_1_box.text = MessageGeter.question[NowQuestionIndex].sel_1;
-        sel_2_box.text = MessageGeter.question[NowQuestionIndex].sel_2;
-        sel_3_box.text = MessageGeter.question[NowQuestionIndex].sel_3;
-        sel_4_box.text = MessageGeter.question[NowQuestionIndex].sel_4;
-        //if (storeButtonData.data.Count == 0) return;
-        //selected_index_box.text = storeButtonData.data[NowQuestionIndex].id.ToString("0");
+        ClearQuizSet();
+        await Show(sentence_box, MessageGeter.question[NowQuestionIndex].sentence);
+        await Show(sel_1_box, MessageGeter.question[NowQuestionIndex].sel_1);
+        await Show(sel_2_box, MessageGeter.question[NowQuestionIndex].sel_2);
+        await Show(sel_3_box, MessageGeter.question[NowQuestionIndex].sel_3);
+        await Show(sel_4_box, MessageGeter.question[NowQuestionIndex].sel_4);
+        InitButtons();
         timer.GoTimer();
     }
-    public async UniTask NextQuestion(){
-        NowQuestionIndex+=1;
-        if(NowQuestionIndex < 3){
-            Q_Displaycontrol();
-            setButton1.InitButton();
-            setButton2.InitButton();
-            setButton3.InitButton();
-            setButton4.InitButton();
-        }
-        else{
+
+    public async void NextQuestion(){
+        NowQuestionIndex++;
+        if (NowQuestionIndex+1 > MessageGeter.question.Length)
+        {
             Debug.Log("問題終了");
             await UniTask.DelayFrame(300);
             SceneManager.LoadScene("ResultScene");
+            return;
         }
+        await Q_Displaycontrol();
     }
+
+    //表示上限数を1ずつ上げることで、いい感じに文字表示する関数
+    public async UniTask Show(TextMeshProUGUI _box, string _text)
+    {
+        for (int i=0; i<_text.Length; i++)
+        {
+            _box.maxVisibleCharacters = i;
+            _box.text = _text;
+            //DELAYSHOWFRAMEだけ待つ
+            await UniTask.DelayFrame(DELAYSHOWFRAME);
+        }
+        _box.maxVisibleCharacters = _text.Length;
+    }
+
+    // 文章が入るボックスを綺麗にする関数
+    public void ClearQuizSet()
+    {
+        sentence_box.text = null;
+        sel_1_box.text = null;
+        sel_2_box.text = null;
+        sel_3_box.text = null;
+        sel_4_box.text = null;
+    }
+    public void InitButtons()
+    {
+        setButton1.InitButton();
+        setButton2.InitButton();
+        setButton3.InitButton();
+        setButton4.InitButton();
+    }
+
     public void SetQuestionIndex(int idx)
     {
         NowQuestionIndex = idx;
