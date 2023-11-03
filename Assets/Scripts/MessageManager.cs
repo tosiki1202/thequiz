@@ -24,6 +24,10 @@ public class MessageManager : MonoBehaviour
 
     [SerializeField] private int NowQuestionIndex;
 
+    void Start()
+    {
+        Q_Displaycontrol();
+    }  
     public void Q_Displaycontrol()
     {
         sentence_box.text = MessageGeter.question[NowQuestionIndex].sentence;
