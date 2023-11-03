@@ -17,7 +17,7 @@ public class StoreButtonData : MonoBehaviour{
     public void DataSave(int idx, float timeStop){
         i = messageManager.GetQuestionIndex();
         if(i<MAXQUESTIONINDEX){
-            data[i].q_num = i;
+            data[i].q_num = i + 1;
             data[i].q_sel = idx;
             data[i].q_time = timeStop;
             //Debug.Log(i + "回目");
