@@ -8,7 +8,7 @@ public class MessageManager : MonoBehaviour
 {
     [SerializeField] private int MAXQUESTIONINDEX;
     public Timer timer;
-    public MessageGeter messageGeter;
+
     public SetButton setButton1;
     public SetButton setButton2;
     public SetButton setButton3;
@@ -19,19 +19,16 @@ public class MessageManager : MonoBehaviour
     public TextMeshProUGUI sel_2_box;
     public TextMeshProUGUI sel_3_box;
     public TextMeshProUGUI sel_4_box;
-    public TextMeshProUGUI answer_index_box;
-    public TextMeshProUGUI selected_index_box;
 
     [SerializeField] private int NowQuestionIndex;
 
     public void Q_Displaycontrol()
     {
-        sentence_box.text = messageGeter.question[NowQuestionIndex].sentence;
-        sel_1_box.text = messageGeter.question[NowQuestionIndex].sel_1;
-        sel_2_box.text = messageGeter.question[NowQuestionIndex].sel_2;
-        sel_3_box.text = messageGeter.question[NowQuestionIndex].sel_3;
-        sel_4_box.text = messageGeter.question[NowQuestionIndex].sel_4;
-        answer_index_box.text = messageGeter.question[NowQuestionIndex].answer_index.ToString("0");
+        sentence_box.text = MessageGeter.question[NowQuestionIndex].sentence;
+        sel_1_box.text = MessageGeter.question[NowQuestionIndex].sel_1;
+        sel_2_box.text = MessageGeter.question[NowQuestionIndex].sel_2;
+        sel_3_box.text = MessageGeter.question[NowQuestionIndex].sel_3;
+        sel_4_box.text = MessageGeter.question[NowQuestionIndex].sel_4;
         //if (storeButtonData.data.Count == 0) return;
         //selected_index_box.text = storeButtonData.data[NowQuestionIndex].id.ToString("0");
         timer.GoTimer();
