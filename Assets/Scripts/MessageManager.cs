@@ -33,14 +33,16 @@ public class MessageManager : MonoBehaviour
     {
         ClearQuizSet();
         await Show(sentence_box, MessageGeter.question[NowQuestionIndex].sentence);
-        await Show(sel_1_box, MessageGeter.question[NowQuestionIndex].sel_1);
-        await Show(sel_2_box, MessageGeter.question[NowQuestionIndex].sel_2);
-        await Show(sel_3_box, MessageGeter.question[NowQuestionIndex].sel_3);
-        await Show(sel_4_box, MessageGeter.question[NowQuestionIndex].sel_4);
+        await UniTask.DelayFrame(500);
+        sel_1_box.text = MessageGeter.question[NowQuestionIndex].sel_1;
+        sel_2_box.text = MessageGeter.question[NowQuestionIndex].sel_2;
+        sel_3_box.text = MessageGeter.question[NowQuestionIndex].sel_3;
+        sel_4_box.text = MessageGeter.question[NowQuestionIndex].sel_4;
+        InitButtons();
         timer.GoTimer();
     }
 
-    public async void NextQuestion(){
+    public async UniTask NextQuestion(){
         NowQuestionIndex++;
         if (NowQuestionIndex+1 > MessageGeter.question.Length)
         {
@@ -49,7 +51,6 @@ public class MessageManager : MonoBehaviour
             SceneManager.LoadScene("ResultScene");
             return;
         }
-        InitButtons();
         await Q_Displaycontrol();
     }
 
