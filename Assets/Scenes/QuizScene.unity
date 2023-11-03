@@ -1962,6 +1962,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MAXQUESTIONINDEX: 3
+  NowQuestionIndex: 0
+  DELAYSHOWFRAME: 40
   timer: {fileID: 1059775566}
   setButton1: {fileID: 210107106}
   setButton2: {fileID: 556368026}
@@ -1973,7 +1975,6 @@ MonoBehaviour:
   sel_2_box: {fileID: 142840667}
   sel_3_box: {fileID: 1785788563}
   sel_4_box: {fileID: 1689858358}
-  NowQuestionIndex: 0
 --- !u!1 &1179511261
 GameObject:
   m_ObjectHideFlags: 0

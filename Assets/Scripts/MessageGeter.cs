@@ -25,7 +25,8 @@ public class MessageGeter : MonoBehaviour
     public static Question[] question = new Question[3];
     private async UniTask GenerateMessage(string str)
     {
-        Debug.Log("生成中・・");
+        GeneUIManager.instance.SetGeneratingText("生成中・・・");
+        GeneUIManager.instance.GeneratingUIDisplay();
         // APIは使用料かかるのでダミーデータをquestion[i]に入れるようにします
         //少し生成を待つコード(雰囲気的に)
         await UniTask.DelayFrame(500);
@@ -58,8 +59,9 @@ public class MessageGeter : MonoBehaviour
                 question[i].answer_index = int.Parse(Regex.Replace (lines[lines_index+5], @"[^0-9]", ""));
             }
         }
-        Debug.Log("格納完了");
+        GeneUIManager.instance.SetGeneratingText("生成完了！");
         await UniTask.DelayFrame(300);
+        GeneUIManager.instance.CloseGeneUI();
         SceneManager.LoadScene("QuizScene");
     }
 
