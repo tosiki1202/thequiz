@@ -681,6 +681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3beffafc83be847319a6783f06f363e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MAXQUESTIONINDEX: 3
   messageManager: {fileID: 1168500359}
 --- !u!4 &368253049
 Transform:
@@ -2312,7 +2313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b101ae542a8d54b4cb00846bc338000a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SCENENAME: GeneScene
+  SCENENAME: ResultScene
 --- !u!114 &1457205562
 MonoBehaviour:
   m_ObjectHideFlags: 0
