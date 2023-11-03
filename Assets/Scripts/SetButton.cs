@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading;
+using System.Threading.Tasks;
 public class SetButton : MonoBehaviour
 {
     public Timer timer;
@@ -18,7 +20,7 @@ public class SetButton : MonoBehaviour
     void Start(){
         InitButton();
     }
-    void Update()
+    async void Update()
     {
         //Debug.Log("Update method called");
         timeUp = timer.GetTimeUp();
@@ -27,7 +29,7 @@ public class SetButton : MonoBehaviour
             //Debug.Log("Condition met");
             timeStop = 10.0f;//タイマーの上限値に変更
             StoreInfo();
-            messageManager.NextQuestion();
+            await messageManager.NextQuestion();
             InitButton();
             click = true;
         }
@@ -51,7 +53,7 @@ public class SetButton : MonoBehaviour
     }
 
     //OnClickに追加
-    public void ClickButton(string button)
+    public async void ClickButton(string button)
     {
         //Debug.Log("Button clicked: " + button);
         switch (button)
@@ -76,7 +78,7 @@ public class SetButton : MonoBehaviour
         click = true;
         StoreInfo();
         ButtonNotAct();
-        messageManager.NextQuestion();
+        await messageManager.NextQuestion();
     }
     public void StoreInfo(){
         data.DataSave(idx, timeStop);
