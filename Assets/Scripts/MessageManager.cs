@@ -37,7 +37,6 @@ public class MessageManager : MonoBehaviour
         await Show(sel_2_box, MessageGeter.question[NowQuestionIndex].sel_2);
         await Show(sel_3_box, MessageGeter.question[NowQuestionIndex].sel_3);
         await Show(sel_4_box, MessageGeter.question[NowQuestionIndex].sel_4);
-        InitButtons();
         timer.GoTimer();
     }
 
@@ -50,6 +49,7 @@ public class MessageManager : MonoBehaviour
             SceneManager.LoadScene("ResultScene");
             return;
         }
+        InitButtons();
         await Q_Displaycontrol();
     }
 
