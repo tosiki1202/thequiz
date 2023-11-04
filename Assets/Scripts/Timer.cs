@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
     public float timeUp;
     public float timeDown; 
     private bool go;
+    [SerializeField] private float TIMELIMIT;
 
     void Start(){
         InitTimer();
@@ -20,10 +21,10 @@ public class Timer : MonoBehaviour
             TimerSet();
         }
     }
-    private void InitTimer()
+    public void InitTimer()
     {
         go = false;
-        timeDown = 10;
+        timeDown = TIMELIMIT;
         timeUp = 0;
     }
 
@@ -37,13 +38,13 @@ public class Timer : MonoBehaviour
         {
             timeDown = 0;
         }
-        if (timeUp < 10)
+        if (timeUp < TIMELIMIT)
         {
             timeUp += Time.deltaTime;
         }
         else
         {
-            timeUp = 10;
+            timeUp = TIMELIMIT;
         }
         timeUp = Mathf.Max(timeUp, 0) % 60;
         timeDown = Mathf.Max(timeDown, 0) % 60;
@@ -61,6 +62,10 @@ public class Timer : MonoBehaviour
     {
         InitTimer();
         go=true;
+    }
+    public float GetTIMELIMIT()
+    {
+        return TIMELIMIT;
     }
 }
 

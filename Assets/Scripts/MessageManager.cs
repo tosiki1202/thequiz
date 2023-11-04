@@ -12,22 +12,11 @@ public class MessageManager : MonoBehaviour
     [SerializeField] private int NowQuestionIndex;
     [SerializeField] private int DELAYSHOWMS;
 
-    public Timer timer;
-    public SetButton setButton1;
-    public SetButton setButton2;
-    public SetButton setButton3;
-    public SetButton setButton4;
-    public StoreButtonData storeButtonData;
     public TextMeshProUGUI sentence_box;
     public TextMeshProUGUI sel_1_box;
     public TextMeshProUGUI sel_2_box;
     public TextMeshProUGUI sel_3_box;
     public TextMeshProUGUI sel_4_box;
-
-    async void Start()
-    {
-        await Q_Displaycontrol();
-    }  
 
     public async UniTask Q_Displaycontrol()
     {
@@ -38,8 +27,6 @@ public class MessageManager : MonoBehaviour
         sel_2_box.text = MessageGeter.question[NowQuestionIndex].sel_2;
         sel_3_box.text = MessageGeter.question[NowQuestionIndex].sel_3;
         sel_4_box.text = MessageGeter.question[NowQuestionIndex].sel_4;
-        InitButtons();
-        timer.GoTimer();
     }
 
     public async UniTask NextQuestion(){
@@ -61,7 +48,6 @@ public class MessageManager : MonoBehaviour
         {
             _box.maxVisibleCharacters = i;
             _box.text = _text;
-            //DELAYSHOWFRAMEだけ待つ
             await UniTask.Delay(DELAYSHOWMS);
         }
         _box.maxVisibleCharacters = _text.Length;
@@ -75,13 +61,6 @@ public class MessageManager : MonoBehaviour
         sel_2_box.text = null;
         sel_3_box.text = null;
         sel_4_box.text = null;
-    }
-    public void InitButtons()
-    {
-        setButton1.InitButton();
-        setButton2.InitButton();
-        setButton3.InitButton();
-        setButton4.InitButton();
     }
 
     public void SetQuestionIndex(int idx)
