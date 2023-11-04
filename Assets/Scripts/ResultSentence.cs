@@ -5,40 +5,45 @@ using UnityEngine.UI;
 using TMPro;
 public class ResultSentence : MonoBehaviour
 {
-    public TextMeshProUGUI id_1;
-    public TextMeshProUGUI id_2;
-    public TextMeshProUGUI id_3;
+    public TextMeshProUGUI id;
+    public TextMeshProUGUI ans;
+    public TextMeshProUGUI sel_Player;
+    public TextMeshProUGUI sentence;
     public TextMeshProUGUI sel_1;
     public TextMeshProUGUI sel_2;
     public TextMeshProUGUI sel_3;
-    public TextMeshProUGUI ans_1;
-    public TextMeshProUGUI ans_2;
-    public TextMeshProUGUI ans_3;
-    public TextMeshProUGUI sentence_1;
-    public TextMeshProUGUI sentence_2;
-    public TextMeshProUGUI sentence_3;
-    public Button button;
-    public GameObject QData;
-    public GameObject Question;
+    public TextMeshProUGUI sel_4;
+    public Button ExitButton;
+    public GameObject TruePanel;
+    public GameObject FalsePanel;
     void Start()
     {
-        button.onClick.AddListener(Transit);
-        id_1.text = StoreButtonData.data[0].q_num.ToString();
-        id_2.text = StoreButtonData.data[1].q_num.ToString();
-        id_3.text = StoreButtonData.data[2].q_num.ToString();
-        sel_1.text = StoreButtonData.data[0].q_sel.ToString();
-        sel_2.text = StoreButtonData.data[1].q_sel.ToString();
-        sel_3.text = StoreButtonData.data[2].q_sel.ToString();
-        ans_1.text = MessageGeter.question[0].answer_index.ToString();
-        ans_2.text = MessageGeter.question[1].answer_index.ToString();
-        ans_3.text = MessageGeter.question[2].answer_index.ToString();
-        sentence_1.text = MessageGeter.question[0].sentence;
-        sentence_2.text = MessageGeter.question[1].sentence;
-        sentence_3.text = MessageGeter.question[2].sentence;
+        ExitButton.onClick.AddListener(Transit);
+    }
+    public void SentenceDisplay(int selectNumber){
+        id.text = StoreButtonData.data[selectNumber].q_num.ToString() + "問目";
+        sel_Player.text = "あなたの解答：" + StoreButtonData.data[selectNumber].q_sel.ToString();
+        sentence.text = "問題\n" + MessageGeter.question[selectNumber].sentence;
+        sel_1.text = "選択肢１\n" + MessageGeter.question[selectNumber].sel_1;
+        sel_2.text = "選択肢２\n" + MessageGeter.question[selectNumber].sel_2;
+        sel_3.text = "選択肢３\n" + MessageGeter.question[selectNumber].sel_3;
+        sel_4.text = "選択肢４\n" + MessageGeter.question[selectNumber].sel_4;
+        if(MessageGeter.question[selectNumber].answer_index == 1){
+            ans.text = "解答：" + MessageGeter.question[selectNumber].answer_index;
+        }
+        else if(MessageGeter.question[selectNumber].answer_index == 2){
+            ans.text = "解答：" + MessageGeter.question[selectNumber].answer_index;
+        }
+        else if(MessageGeter.question[selectNumber].answer_index == 3){
+            ans.text = "解答：" + MessageGeter.question[selectNumber].answer_index;
+        }
+        else if(MessageGeter.question[selectNumber].answer_index == 4){
+            ans.text = "解答：" + MessageGeter.question[selectNumber].answer_index;
+        }
     }
     public void Transit()
     {
-        QData.SetActive(true);
-        Question.SetActive(false);
+        TruePanel.SetActive(true);
+        FalsePanel.SetActive(false);
     }
 }
