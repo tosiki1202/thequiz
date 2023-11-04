@@ -38,13 +38,13 @@ public class Timer : MonoBehaviour
         {
             timeDown = 0;
         }
-        if (timeUp < 10)
+        if (timeUp < TIMELIMIT)
         {
             timeUp += Time.deltaTime;
         }
         else
         {
-            timeUp = 10;
+            timeUp = TIMELIMIT;
         }
         timeUp = Mathf.Max(timeUp, 0) % 60;
         timeDown = Mathf.Max(timeDown, 0) % 60;
