@@ -10,7 +10,7 @@ public class MessageManager : MonoBehaviour
 {
     [SerializeField] private int MAXQUESTIONINDEX;
     [SerializeField] private int NowQuestionIndex;
-    [SerializeField] private int DELAYSHOWFRAME;
+    [SerializeField] private int DELAYSHOWMS;
 
     public Timer timer;
     public SetButton setButton1;
@@ -33,20 +33,21 @@ public class MessageManager : MonoBehaviour
     {
         ClearQuizSet();
         await Show(sentence_box, MessageGeter.question[NowQuestionIndex].sentence);
-        await Show(sel_1_box, MessageGeter.question[NowQuestionIndex].sel_1);
-        await Show(sel_2_box, MessageGeter.question[NowQuestionIndex].sel_2);
-        await Show(sel_3_box, MessageGeter.question[NowQuestionIndex].sel_3);
-        await Show(sel_4_box, MessageGeter.question[NowQuestionIndex].sel_4);
+        await UniTask.Delay(1000);
+        sel_1_box.text = MessageGeter.question[NowQuestionIndex].sel_1;
+        sel_2_box.text = MessageGeter.question[NowQuestionIndex].sel_2;
+        sel_3_box.text = MessageGeter.question[NowQuestionIndex].sel_3;
+        sel_4_box.text = MessageGeter.question[NowQuestionIndex].sel_4;
         InitButtons();
         timer.GoTimer();
     }
 
-    public async void NextQuestion(){
+    public async UniTask NextQuestion(){
         NowQuestionIndex++;
         if (NowQuestionIndex+1 > MessageGeter.question.Length)
         {
             Debug.Log("問題終了");
-            await UniTask.DelayFrame(300);
+            await UniTask.Delay(1500);
             SceneManager.LoadScene("ResultScene");
             return;
         }
@@ -61,7 +62,7 @@ public class MessageManager : MonoBehaviour
             _box.maxVisibleCharacters = i;
             _box.text = _text;
             //DELAYSHOWFRAMEだけ待つ
-            await UniTask.DelayFrame(DELAYSHOWFRAME);
+            await UniTask.Delay(DELAYSHOWMS);
         }
         _box.maxVisibleCharacters = _text.Length;
     }
