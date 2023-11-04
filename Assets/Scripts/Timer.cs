@@ -24,7 +24,7 @@ public class Timer : MonoBehaviour
     public void InitTimer()
     {
         go = false;
-        timeDown = 10;
+        timeDown = TIMELIMIT;
         timeUp = 0;
     }
 
