@@ -13,39 +13,46 @@ public class SetButton : MonoBehaviour
     public MessageManager messageManager;
     private float timeUp;
     private float timeStop; 
-    private int idx;
-    private bool click;
- 
+    private int idx = 0;
+    private bool click = false;
 
-    void Start(){
-        InitButton();
+    async void Start(){
         ButtonNotAct();
+        await messageManager.Q_Displaycontrol();
+        InitButton();
+        timer.GoTimer();
     }
+
     async void Update()
     {
-        //Debug.Log("Update method called");
         timeUp = timer.GetTimeUp();
-        //Debug.Log(timeUp);
-        if(timeUp == 10.0 && !click){
-            //Debug.Log("Condition met");
-            timeStop = 10.0f;//タイマーの上限値に変更
+
+        if (click || timer.GetTimeUp() > timer.GetTIMELIMIT())
+        {
+            timeStop = float.Parse(timeUp.ToString("f2"));
             StoreInfo();
+            click = false;
+            timer.InitTimer();
+            ButtonNotAct();
             await messageManager.NextQuestion();
             InitButton();
-            click = true;
+            timer.GoTimer();
         }
     }
+
     public void InitButton(){
         idx = 0;
         click = false;
         ButtonAct();
     }
+
     private void ButtonAct(){
         MyCanvas.SetActive("Button1", true);
         MyCanvas.SetActive("Button2", true);
         MyCanvas.SetActive("Button3", true);
         MyCanvas.SetActive("Button4", true);
     }
+    
     private void ButtonNotAct(){
         MyCanvas.SetActive("Button1", false);
         MyCanvas.SetActive("Button2", false);
@@ -54,7 +61,7 @@ public class SetButton : MonoBehaviour
     }
 
     //OnClickに追加
-    public async void ClickButton(string button)
+    public void ClickButton(string button)
     {
         //Debug.Log("Button clicked: " + button);
         switch (button)
@@ -74,13 +81,9 @@ public class SetButton : MonoBehaviour
             default:
                 break;
         }
-        timeStop = timeUp;
-        timeStop = Mathf.Max(timeStop, 0) % 60;
         click = true;
-        StoreInfo();
-        ButtonNotAct();
-        await messageManager.NextQuestion();
     }
+
     public void StoreInfo(){
         data.DataSave(idx, timeStop);
     }

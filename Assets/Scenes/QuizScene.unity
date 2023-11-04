@@ -1858,6 +1858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeUp: 0
   timeDown: 0
+  TIMELIMIT: 10
 --- !u!4 &1059775567
 Transform:
   m_ObjectHideFlags: 0
@@ -1964,12 +1965,6 @@ MonoBehaviour:
   MAXQUESTIONINDEX: 3
   NowQuestionIndex: 0
   DELAYSHOWMS: 50
-  timer: {fileID: 1059775566}
-  setButton1: {fileID: 210107106}
-  setButton2: {fileID: 556368026}
-  setButton3: {fileID: 631121492}
-  setButton4: {fileID: 1179511266}
-  storeButtonData: {fileID: 368253048}
   sentence_box: {fileID: 986961923}
   sel_1_box: {fileID: 403225568}
   sel_2_box: {fileID: 142840667}
