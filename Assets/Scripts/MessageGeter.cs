@@ -13,6 +13,7 @@ public class MessageGeter : MonoBehaviour
 {
     [SerializeField] private int MAXQUESTIONINDEX = 3;
     private string Request_sentence;
+    public static string genre;
     public struct Question
     {
         public string sentence;
@@ -25,6 +26,7 @@ public class MessageGeter : MonoBehaviour
     public static Question[] question = new Question[3];
     private async UniTask GenerateMessage(string str)
     {
+        genre = str;
         GeneUIManager.instance.SetGeneratingText("生成中・・・");
         GeneUIManager.instance.GeneratingUIDisplay();
         // APIは使用料かかるのでダミーデータをquestion[i]に入れるようにします
