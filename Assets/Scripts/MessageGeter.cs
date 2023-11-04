@@ -29,7 +29,7 @@ public class MessageGeter : MonoBehaviour
         GeneUIManager.instance.GeneratingUIDisplay();
         // APIは使用料かかるのでダミーデータをquestion[i]に入れるようにします
         //少し生成を待つコード(雰囲気的に)
-        await UniTask.DelayFrame(500);
+        await UniTask.Delay(1200);
         string[] lines = new string[] {"問題1の文章","Q1_select1","Q1_select2","Q1_select3","Q1_select4","Q1_answerIndex",
                                         "問題2の文章","Q2_select1","Q2_select2","Q2_select3","Q2_select4","Q1_answerIndex",
                                         "問題3の文章","Q3_select1","Q3_select2","Q3_select3","Q3_select4","Q1_answerIndex"};
@@ -60,7 +60,7 @@ public class MessageGeter : MonoBehaviour
             }
         }
         GeneUIManager.instance.SetGeneratingText("生成完了！");
-        await UniTask.DelayFrame(300);
+        await UniTask.Delay(500);
         GeneUIManager.instance.CloseGeneUI();
         SceneManager.LoadScene("QuizScene");
     }
