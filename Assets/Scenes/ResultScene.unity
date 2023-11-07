@@ -853,6 +853,7 @@ MonoBehaviour:
   qContent: {fileID: 1999199943}
   questionPanel: {fileID: 1403715204}
   qDataPanel: {fileID: 435566389}
+  genre: {fileID: 2029601306}
 --- !u!1 &460622227
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StoreButtonData : MonoBehaviour{
-    [SerializeField] private int MAXQUESTIONINDEX = 3;
     public MessageManager messageManager;
     private int i;
     public struct Data{
@@ -24,7 +23,7 @@ public class StoreButtonData : MonoBehaviour{
     }
     public void DataSave(int idx, float timeStop){
         i = messageManager.GetQuestionIndex();
-        if(i<MAXQUESTIONINDEX){
+        if(i<MessageGeter.question.Length){
             data[i].q_num = i + 1;
             data[i].q_sel = idx;
             data[i].q_time = timeStop;
