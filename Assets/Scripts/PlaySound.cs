@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
  
+
 public class PlaySound : MonoBehaviour
 {
-    AudioSource audioSource;
+    public static AudioSource audioSource;
  
     void Start()
     {
+        //DontDestroyOnLoad (this);
         audioSource = GetComponent<AudioSource>();
     }
  
@@ -15,4 +17,8 @@ public class PlaySound : MonoBehaviour
     {
         audioSource.PlayOneShot(audioSource.clip);
     }
+    public void SoundSliderOnValueChange(float newSliderValue)
+	{
+		audioSource.volume = newSliderValue;
+	}
 }
