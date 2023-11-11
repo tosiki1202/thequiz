@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class PlaySound : MonoBehaviour
 {
-    public static AudioSource audioSource;
+    AudioSource audioSource;
  
     void Start()
     {
-        //DontDestroyOnLoad (this);
         audioSource = GetComponent<AudioSource>();
     }
  
@@ -17,8 +16,4 @@ public class PlaySound : MonoBehaviour
     {
         audioSource.PlayOneShot(audioSource.clip);
     }
-    public void SoundSliderOnValueChange(float newSliderValue)
-	{
-		audioSource.volume = newSliderValue;
-	}
 }
