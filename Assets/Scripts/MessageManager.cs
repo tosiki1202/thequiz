@@ -11,7 +11,8 @@ public class MessageManager : MonoBehaviour
     [SerializeField] private int MAXQUESTIONINDEX;
     [SerializeField] private int NowQuestionIndex;
     [SerializeField] private int DELAYSHOWMS;
-
+    private int correct = 0;
+    public TextMeshProUGUI correctAnsNum;
     public TextMeshProUGUI sentence_box;
     public TextMeshProUGUI sel_1_box;
     public TextMeshProUGUI sel_2_box;
@@ -20,6 +21,7 @@ public class MessageManager : MonoBehaviour
 
     public async UniTask Q_Displaycontrol()
     {
+        correctAnsNum.text = "正答数：" + correct;
         ClearQuizSet();
         await Show(sentence_box, MessageGeter.question[NowQuestionIndex].sentence);
         await UniTask.Delay(1000);
@@ -30,6 +32,9 @@ public class MessageManager : MonoBehaviour
     }
 
     public async UniTask NextQuestion(){
+        if(StoreButtonData.data[NowQuestionIndex].q_correct == true){
+            correct += 1;
+        }
         NowQuestionIndex++;
         if (NowQuestionIndex+1 > MessageGeter.question.Length)
         {
