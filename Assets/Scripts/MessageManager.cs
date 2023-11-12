@@ -11,7 +11,7 @@ public class MessageManager : MonoBehaviour
     [SerializeField] private int MAXQUESTIONINDEX;
     [SerializeField] private int NowQuestionIndex;
     [SerializeField] private int DELAYSHOWMS;
-
+    public TextMeshProUGUI qNumText;
     public TextMeshProUGUI sentence_box;
     public TextMeshProUGUI sel_1_box;
     public TextMeshProUGUI sel_2_box;
@@ -20,6 +20,7 @@ public class MessageManager : MonoBehaviour
 
     public async UniTask Q_Displaycontrol()
     {
+        qNumText.text = "Q:" + (NowQuestionIndex + 1) + "/" + MessageGeter.question.Length;
         ClearQuizSet();
         await Show(sentence_box, MessageGeter.question[NowQuestionIndex].sentence);
         await UniTask.Delay(1000);
