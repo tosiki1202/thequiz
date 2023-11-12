@@ -10,7 +10,7 @@ public class MessageManager : MonoBehaviour
 {
     [SerializeField] private int NowQuestionIndex;
     [SerializeField] private int DELAYSHOWMS;
-
+    public TextMeshProUGUI qNum_text;
     public TextMeshProUGUI sentence_box;
     public TextMeshProUGUI sel_1_box;
     public TextMeshProUGUI sel_2_box;
@@ -20,6 +20,7 @@ public class MessageManager : MonoBehaviour
     public async UniTask Q_Displaycontrol()
     {
         ClearQuizSet();
+        qNum_text.text = "Q:" + (NowQuestionIndex + 1) + "/" + MessageGeter.question.Length;
         await Show(sentence_box, MessageGeter.question[NowQuestionIndex].sentence);
         await UniTask.Delay(1000);
         sel_1_box.text = MessageGeter.question[NowQuestionIndex].sel_1;
