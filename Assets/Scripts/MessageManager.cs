@@ -22,6 +22,8 @@ public class MessageManager : MonoBehaviour
 
     public async UniTask Q_Displaycontrol()
     {
+        qNumText.text = "Q:" + (NowQuestionIndex + 1) + "/" + MessageGeter.question.Length;
+        correctAnsNum.text = "正答数：" + correct;
         ClearQuizSet();
         await Show(sentence_box, MessageGeter.question[NowQuestionIndex].sentence);
         await UniTask.Delay(1000);
