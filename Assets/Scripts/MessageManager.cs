@@ -8,7 +8,6 @@ using TMPro;
 
 public class MessageManager : MonoBehaviour
 {
-    [SerializeField] private int MAXQUESTIONINDEX;
     [SerializeField] private int NowQuestionIndex;
     [SerializeField] private int DELAYSHOWMS;
     private int correct = 0;
@@ -77,9 +76,5 @@ public class MessageManager : MonoBehaviour
     public int GetQuestionIndex()
     {
         return NowQuestionIndex;
-    }
-    public int GetMAXQUESTIONINDEX()
-    {
-        return MAXQUESTIONINDEX;
     }
 }
