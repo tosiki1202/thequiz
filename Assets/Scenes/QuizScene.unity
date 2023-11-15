@@ -571,22 +571,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 211217115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 98833abd884571d4a96f9af35a127339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 46637954}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -380.98834, y: 221.2792}
-  m_SizeDelta: {x: 198.0233, y: 97.4416}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!82 &322339762
 AudioSource:
   m_ObjectHideFlags: 0
@@ -596,9 +583,9 @@ AudioSource:
   m_GameObject: {fileID: 211217115}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: -8056467317186996010, guid: e681e11f2db2feb40bb6f61dd85e9574, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 95dae718cafd78943bd0eb5bde3261dd, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2441,7 +2428,7 @@ MonoBehaviour:
   NowQuestionIndex: 0
   DELAYSHOWMS: 50
   correctAnsNum: {fileID: 585309332}
-  qNumText: {fileID: 0}
+  qNumText: {fileID: 1859926446}
   sentence_box: {fileID: 986961923}
   sel_1_box: {fileID: 403225568}
   sel_2_box: {fileID: 142840667}
