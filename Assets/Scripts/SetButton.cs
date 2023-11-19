@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using System.Threading;
 using System.Threading.Tasks;
 public class SetButton : MonoBehaviour
@@ -11,6 +12,9 @@ public class SetButton : MonoBehaviour
     public Timer timer;
     public StoreButtonData data;
     public MessageManager messageManager;
+    public Image TimeRing;
+    public TextMeshProUGUI timerText;
+    private float time;
     private float timeUp;
     private float timeStop; 
     private int idx = 0;
@@ -26,7 +30,9 @@ public class SetButton : MonoBehaviour
     async void Update()
     {
         timeUp = timer.GetTimeUp();
-
+        TimeRing.fillAmount = 1.0f - (timeUp / timer.GetTIMELIMIT());
+        time = 10.0f - timeUp;
+        timerText.text = time.ToString("f0");
         if (click || timer.GetTimeUp() > timer.GetTIMELIMIT())
         {
             timeStop = float.Parse(timeUp.ToString("f2"));
