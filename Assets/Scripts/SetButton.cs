@@ -21,10 +21,8 @@ public class SetButton : MonoBehaviour
     private bool click = false;
 
     async void Start(){
-        ButtonNotAct();
-        await messageManager.Q_Displaycontrol();
         InitButton();
-        timer.GoTimer();
+        await messageManager.Q_Displaycontrol();
     }
 
     async void Update()
@@ -39,10 +37,8 @@ public class SetButton : MonoBehaviour
             StoreInfo();
             click = false;
             timer.InitTimer();
-            ButtonNotAct();
-            await messageManager.NextQuestion();
             InitButton();
-            timer.GoTimer();
+            await messageManager.NextQuestion();
         }
     }
 

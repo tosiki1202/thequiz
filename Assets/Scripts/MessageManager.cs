@@ -18,18 +18,22 @@ public class MessageManager : MonoBehaviour
     public TextMeshProUGUI sel_2_box;
     public TextMeshProUGUI sel_3_box;
     public TextMeshProUGUI sel_4_box;
+    public Timer timer;
 
     public async UniTask Q_Displaycontrol()
     {
-        qNumText.text = "Q:" + (NowQuestionIndex + 1) + "/" + MessageGeter.question.Length;
-        correctAnsNum.text = "正答数：" + correct;
+        correctAnsNum.text = "正答数：" + correct + "/" + MessageGeter.question.Length;
         ClearQuizSet();
-        await Show(sentence_box, MessageGeter.question[NowQuestionIndex].sentence);
-        await UniTask.Delay(1000);
+        await Show(qNumText, "問題." + (NowQuestionIndex + 1));
+        await UniTask.Delay(700);
+        timer.GoTimer();
         sel_1_box.text = MessageGeter.question[NowQuestionIndex].sel_1;
         sel_2_box.text = MessageGeter.question[NowQuestionIndex].sel_2;
         sel_3_box.text = MessageGeter.question[NowQuestionIndex].sel_3;
         sel_4_box.text = MessageGeter.question[NowQuestionIndex].sel_4;
+        await Show(sentence_box, MessageGeter.question[NowQuestionIndex].sentence);
+        await UniTask.Delay(1000);
+        
     }
 
     public async UniTask NextQuestion(){
@@ -62,6 +66,7 @@ public class MessageManager : MonoBehaviour
     // 文章が入るボックスを綺麗にする関数
     public void ClearQuizSet()
     {
+        qNumText.text = null;
         sentence_box.text = null;
         sel_1_box.text = null;
         sel_2_box.text = null;
