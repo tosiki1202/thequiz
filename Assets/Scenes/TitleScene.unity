@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 43451286}
   - component: {fileID: 43451285}
   m_Layer: 5
-  m_Name: Button1
+  m_Name: OpenOptionButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -741,8 +741,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: e681e11f2db2feb40bb6f61dd85e9574, type: 2}
-  bGMSlider: {fileID: 0}
-  sESlider: {fileID: 0}
+  bGMSlider: {fileID: 136328547}
+  sESlider: {fileID: 1547947396}
 --- !u!4 &581561298
 Transform:
   m_ObjectHideFlags: 0
@@ -938,7 +938,7 @@ GameObject:
   - component: {fileID: 648434879}
   - component: {fileID: 648434878}
   m_Layer: 5
-  m_Name: Button2
+  m_Name: ClosePanelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2500,7 +2500,7 @@ GameObject:
   - component: {fileID: 1433846834}
   - component: {fileID: 1433846833}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: SoundOptionPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
