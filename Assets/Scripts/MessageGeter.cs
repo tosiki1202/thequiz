@@ -77,7 +77,6 @@ public class MessageGeter : MonoBehaviour
         GeneUIManager.instance.SetGeneratingText("生成完了！");
         await UniTask.Delay(500);
         GeneUIManager.instance.CloseGeneUI();
-        SceneManager.LoadScene("QuizScene");
     }
 
     public async void Generator(string Request_sentence)
