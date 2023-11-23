@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
-public class OnMouseButtonEnlarge : MonoBehaviour
+public class OnMouseScaleChange : MonoBehaviour
 {
     [SerializeField] float onScale = 1.1f;
     private EventTrigger eventTrigger;
