@@ -21,9 +21,11 @@ public class SetButton : MonoBehaviour
     private bool click = false;
     private List<Button> children = new List<Button>();
 
+    //Start()の実行前に呼び出される初期化関数
     void Awake()
     {
         messageManager.ClearQuizSet();
+        //子オブジェクトのButtonコンポーネントをListに格納
         for (int i=0; i<gameObject.transform.childCount; i++)
         {
             children.Add(gameObject.transform.GetChild(i).GetComponent<Button>());

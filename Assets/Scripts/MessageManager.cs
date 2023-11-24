@@ -28,6 +28,7 @@ public class MessageManager : MonoBehaviour
 
     public async UniTask Q_Displaycontrol()
     {
+        //UniTaskの関数をキャンセル可能にするために、トークンを作る
         cancelToken = new CancellationTokenSource();  
         CancellationToken token = cancelToken.Token;
 
@@ -39,6 +40,8 @@ public class MessageManager : MonoBehaviour
         sel_4_box.text = MessageGeter.question[NowQuestionIndex].sel_4;
         setButton.timer.GoTimer();
         setButton.InitButton();
+
+        //Show()の実行状態を、UniTask型変数に格納
         task = Show(sentence_box, MessageGeter.question[NowQuestionIndex].sentence, token);   
     }
 
@@ -69,6 +72,7 @@ public class MessageManager : MonoBehaviour
             _box.maxVisibleCharacters = i;
             _box.text = _text;
             await UniTask.Delay(DELAYSHOWMS);
+            //Show()のキャンセルがリクエストされた時に、_boxの最大文字数表示を0にする
             if (token.IsCancellationRequested)
             {
                 _box.maxVisibleCharacters = 0;
@@ -77,20 +81,11 @@ public class MessageManager : MonoBehaviour
         }
         _box.maxVisibleCharacters = _text.Length;
     }
-    private async UniTask Show(TextMeshProUGUI _box, string _text)
-    {
-        for (int i=0; i<_text.Length; i++)
-        {
-            _box.maxVisibleCharacters = i;
-            _box.text = _text;
-            await UniTask.Delay(DELAYSHOWMS);
-        }
-        _box.maxVisibleCharacters = _text.Length;
-    }
 
     // 文章が入るボックスを綺麗にする関数
     public void ClearQuizSet()
     {
+        //Show()が完了していないときに呼び出されたら、トークンを用いてそのShow()をキャンセルする
         var isCompleted = task.GetAwaiter().IsCompleted;
         if (!isCompleted)
         {
