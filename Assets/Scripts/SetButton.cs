@@ -19,11 +19,23 @@ public class SetButton : MonoBehaviour
     private float timeStop; 
     private int idx = 0;
     private bool click = false;
+    private List<Button> children = new List<Button>();
+
+    void Awake()
+    {
+        messageManager.ClearQuizSet();
+        for (int i=0; i<gameObject.transform.childCount; i++)
+        {
+            children.Add(gameObject.transform.GetChild(i).GetComponent<Button>());
+        }
+    }
 
     async void Start(){
         InitButton();
+        ButtonNotAct();
         await messageManager.Q_Displaycontrol();
     }
+    
 
     async void Update()
     {
@@ -37,7 +49,6 @@ public class SetButton : MonoBehaviour
             StoreInfo();
             click = false;
             timer.InitTimer();
-            InitButton();
             await messageManager.NextQuestion();
         }
     }
@@ -48,18 +59,18 @@ public class SetButton : MonoBehaviour
         ButtonAct();
     }
 
-    private void ButtonAct(){
-        MyCanvas.SetActive("Button1", true);
-        MyCanvas.SetActive("Button2", true);
-        MyCanvas.SetActive("Button3", true);
-        MyCanvas.SetActive("Button4", true);
+    public void ButtonAct(){
+        for (int i=0; i<children.Count; i++)
+        {
+            children[i].interactable = true;
+        }
     }
     
-    private void ButtonNotAct(){
-        MyCanvas.SetActive("Button1", false);
-        MyCanvas.SetActive("Button2", false);
-        MyCanvas.SetActive("Button3", false);
-        MyCanvas.SetActive("Button4", false);        
+    public void ButtonNotAct(){
+        for (int i=0; i<children.Count; i++)
+        {
+            children[i].interactable = false;
+        }    
     }
 
     //OnClickに追加
@@ -84,6 +95,7 @@ public class SetButton : MonoBehaviour
                 break;
         }
         click = true;
+        messageManager.ClearQuizSet();
     }
 
     public void StoreInfo(){
