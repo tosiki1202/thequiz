@@ -147,8 +147,8 @@ GameObject:
   - component: {fileID: 8906608952598812031}
   - component: {fileID: 5664211704530210683}
   - component: {fileID: 4664706937729810605}
-  - component: {fileID: 4904163822469725283}
   - component: {fileID: 5221028098022952849}
+  - component: {fileID: 4904163822469725283}
   m_Layer: 5
   m_Name: QItemButton
   m_TagString: Untagged
@@ -201,9 +201,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -261,6 +261,24 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5221028098022952849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132590259965752776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 797670f66c3383845a7c56709a1a160a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maru: {fileID: 21300000, guid: 8b5eed47e334a4f3698cf510ef616cb6, type: 3}
+  batu: {fileID: 21300000, guid: e911664a9b4a14feeaa3893fb13f1f8e, type: 3}
+  id: {fileID: 924180986831411918}
+  ans: {fileID: 8929241624875076892}
+  time: {fileID: 3507312893747272518}
+  detailButton: {fileID: 4664706937729810605}
 --- !u!114 &4904163822469725283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,24 +292,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onScale: 1.1
---- !u!114 &5221028098022952849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6132590259965752776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 797670f66c3383845a7c56709a1a160a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maru: {fileID: 0}
-  batu: {fileID: 0}
-  id: {fileID: 924180986831411918}
-  ans: {fileID: 0}
-  time: {fileID: 3507312893747272518}
-  detailButton: {fileID: 4664706937729810605}
 --- !u!1 &7267696033548265454
 GameObject:
   m_ObjectHideFlags: 0
