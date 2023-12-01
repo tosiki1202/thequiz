@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class OnMouseScaleChange : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] float onScale = 1.1f;
+    [SerializeField] float onScale = 1.03f;
     private Vector3 originalScale;
 
     void Start()
