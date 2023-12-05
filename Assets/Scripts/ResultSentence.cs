@@ -22,7 +22,7 @@ public class ResultSentence : MonoBehaviour
     }
     public void SentenceDisplay(int selectNumber){
         id.text = StoreButtonData.data[selectNumber].q_num.ToString() + "問目";
-        sel_Player.text = "あなたの解答：" + StoreButtonData.data[selectNumber].q_sel.ToString();
+        sel_Player.text = "選択：" + StoreButtonData.data[selectNumber].q_sel.ToString();
         sentence.text = "問題\n" + MessageGeter.question[selectNumber].sentence;
         sel_1.text = "選択肢１\n" + MessageGeter.question[selectNumber].sel_1;
         sel_2.text = "選択肢２\n" + MessageGeter.question[selectNumber].sel_2;
