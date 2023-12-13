@@ -24,12 +24,24 @@ public class MessageManager : MonoBehaviour
     public SetButton setButton;
     public CancellationTokenSource cancelToken;
     private UniTask task;
+    
+    public Image maru;
+    public Image batu;
+    public Sprite Spritemaru;
+    public Sprite Spritebatu;
+    public TextMeshProUGUI answer;
+    [SerializeField] GameObject marubatupanel;
 
     AudioSource audioSource;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        maru.sprite = Spritemaru;
+        batu.sprite = Spritebatu;
+        maru.enabled = false;
+        batu.enabled = false;
+        answer.enabled = false;
     }
 
     public async UniTask Q_Displaycontrol()
@@ -55,8 +67,26 @@ public class MessageManager : MonoBehaviour
         setButton.ButtonNotAct();
         
         if(StoreButtonData.data[NowQuestionIndex].q_correct == true){
+            marubatupanel.SetActive(true);
+            maru.enabled = true;
+            await UniTask.Delay(700);
+            maru.enabled = false;
+            marubatupanel.SetActive(false);
             correct += 1;
             correctAnsNum.text = "正答数：" + correct + "/" + MessageGeter.question.Length;
+            sentence_box.maxVisibleCharacters = MessageGeter.question[NowQuestionIndex].sentence.Length;
+            await UniTask.Delay(700);
+        }else{
+            marubatupanel.SetActive(true);
+            batu.enabled = true;
+            answer.text = "正解:" + MessageGeter.question[NowQuestionIndex].answer_index.ToString();
+            answer.enabled = true;
+            await UniTask.Delay(700);
+            batu.enabled = false;
+            answer.enabled = false;
+            marubatupanel.SetActive(false);
+            sentence_box.maxVisibleCharacters = MessageGeter.question[NowQuestionIndex].sentence.Length;
+            await UniTask.Delay(700);
         }
 
         NowQuestionIndex++;
@@ -81,6 +111,7 @@ public class MessageManager : MonoBehaviour
             //Show()のキャンセルがリクエストされた時に、_boxの最大文字数表示を0にする
             if (token.IsCancellationRequested)
             {
+                await UniTask.Delay(700*2);
                 _box.maxVisibleCharacters = 0;
                 return;
             }  
@@ -91,18 +122,18 @@ public class MessageManager : MonoBehaviour
     // 文章が入るボックスを綺麗にする関数
     public void ClearQuizSet()
     {
-        //Show()が完了していないときに呼び出されたら、トークンを用いてそのShow()をキャンセルする
+        //Show()が完了していないときに呼び出されたら、トークンを用いてそのShow()をキャンセルする 
         var isCompleted = task.GetAwaiter().IsCompleted;
         if (!isCompleted)
         {
             cancelToken.Cancel();
         }
-        qNumText.text = null;
+/*        qNumText.text = null;
         sentence_box.text = null;
         sel_1_box.text = null;
         sel_2_box.text = null;
         sel_3_box.text = null;
-        sel_4_box.text = null;
+        sel_4_box.text = null;*/
     }
 
     public void SetQuestionIndex(int idx)
