@@ -25,13 +25,19 @@ public class MessageManager : MonoBehaviour
     public CancellationTokenSource cancelToken;
     private UniTask task;
 
+    AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public async UniTask Q_Displaycontrol()
     {
         //UniTaskの関数をキャンセル可能にするために、トークンを作る
         cancelToken = new CancellationTokenSource();  
         CancellationToken token = cancelToken.Token;
-
+        audioSource.PlayOneShot(audioSource.clip);
         await Show(qNumText, "問題." + (NowQuestionIndex + 1), token);
         await UniTask.Delay(700);
         sel_1_box.text = MessageGeter.question[NowQuestionIndex].sel_1;

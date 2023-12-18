@@ -1343,7 +1343,7 @@ MonoBehaviour:
   m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4d3d90c4843464cefaecee0111a5a0a7, type: 2}
-  m_sharedMaterial: {fileID: 7643409143741675415, guid: 0e8e7ee9dbf5640eb92d468282a0062a, type: 2}
+  m_sharedMaterial: {fileID: 7643409143741675415, guid: 4d3d90c4843464cefaecee0111a5a0a7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3219,10 +3219,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 960, y: 540}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -3301,6 +3301,12 @@ MonoBehaviour:
   errorPanel: {fileID: 1194343247}
   errorText: {fileID: 1235489678}
   roomListPanel: {fileID: 1146165576}
+  originalRoomButton: {fileID: -1675291260154610905, guid: ea017f3da23634dc59bcaf2b1af077d3, type: 3}
+  roomButtonContent: {fileID: 1992265834}
+  playerNameText: {fileID: 6266574663416450419, guid: 69e3b82eece714865a5773bf9aca84c4, type: 3}
+  playerNameContent: {fileID: 1421382234}
+  startButton: {fileID: 4181425252794274755}
+  levelToPlay: GeneScene
 --- !u!1 &1524953308
 GameObject:
   m_ObjectHideFlags: 0
@@ -4784,7 +4790,7 @@ MonoBehaviour:
   m_text: "\u30EB\u30FC\u30E0\u306E\u4F5C\u6210"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4d3d90c4843464cefaecee0111a5a0a7, type: 2}
-  m_sharedMaterial: {fileID: 7643409143741675415, guid: 0e8e7ee9dbf5640eb92d468282a0062a, type: 2}
+  m_sharedMaterial: {fileID: 7643409143741675415, guid: 4d3d90c4843464cefaecee0111a5a0a7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5130,7 +5136,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4715171732488022935}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1500525904}
+        m_TargetAssemblyTypeName: PhotonManager, Assembly-CSharp
+        m_MethodName: PlayGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6503417594389626581
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,4 +17,10 @@ public class Room : MonoBehaviour
 
         buttonText.text = this.info.Name;
     }
+
+    public void OpenRoom()
+    {
+        //ルーム参加関数をよぶ
+        PhotonManager.instance.JoinRoom(info);
+    }
 }
