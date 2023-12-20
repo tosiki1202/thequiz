@@ -10,13 +10,13 @@ public class PlayerControler : MonoBehaviourPunCallbacks
 
     public void Update()
     {
-        photonView.RPC("PrintJyanru",RpcTarget.All);
+        jyanru = MessageGeter.genre;
         if (!photonView.IsMine)
         {
             return;
         }
 
-        jyanru = MessageGeter.genre;
+        
     }
 
     [PunRPC]

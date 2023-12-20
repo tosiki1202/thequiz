@@ -52,30 +52,19 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
     public void UpdatePlayerInfo()
     {
-        info[0] = playerList[0].name;
-        info[1] = playerList[0].jyanru;
-        Debug.Log(info[0]);
-        Debug.Log(info[1]);
-        Debug.Log(playerList[0].name);
-        Debug.Log(playerList[0].jyanru);
-
+        //info[0] = playerList[0].name;
+        //info[1] = playerList[0].jyanru;
+        //Debug.Log(info[0]);
+        //Debug.Log(info[1]);
+        //Debug.Log(playerList[0].name);
+        //Debug.Log(playerList[0].jyanru);
         photonView.RPC("SetGenre",RpcTarget.All);
     }
 
     [PunRPC]
     public void SetGenre()
     {
-        playerList.Clear();
-        PlayerInfo player = new PlayerInfo((string)info[0], (string)info[1]);
-        playerList.Add(player);
-        if (PhotonNetwork.IsMasterClient)
-        {
-            player1_genre_box.text = MessageGeter.genre;
-        }
-        else
-        {
-            player2_genre_box.text = MessageGeter.genre;
-        }
+        player1_genre_box.text = MessageGeter.genre;
     }
 
     [System.Serializable]

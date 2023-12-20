@@ -81,7 +81,7 @@ public class MessageGeter : MonoBehaviourPunCallbacks
         GeneUIManager.instance.CloseGeneUI();
         //GeneUIManager.PlayerInfo playerInfo = new GeneUIManager.PlayerInfo(PhotonNetwork.NickName,genre);
         //GeneUIManager.instance.playerList.Add(playerInfo);
-        //GeneUIManager.instance.UpdatePlayerInfo();
+        GeneUIManager.instance.UpdatePlayerInfo();
         //GeneUIManager.instance.SendListToOthers();
     }
 
