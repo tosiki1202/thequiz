@@ -35,6 +35,7 @@ public class MessageGeter : MonoBehaviourPunCallbacks
         //少し生成を待つコード(雰囲気的に)
         
         await UniTask.Delay(1200);  
+        /*
         string[] lines = new string[6*MAXQUESTIONINDEX];
         for (int i=0; i<MAXQUESTIONINDEX; i++)
         {
@@ -46,15 +47,15 @@ public class MessageGeter : MonoBehaviourPunCallbacks
             lines[lines_index+4] = "Q"+ (i+1) + "_select4";
             lines[lines_index+5] = "Q"+ (i+1) + "_answerIndex";
         }
+        */
         
-        /*
+        
         var chatGPTConnection = new ChatGPTConnection();
         await chatGPTConnection.RequestAsync(str);
         string context = chatGPTConnection.GetMessageList();
         Regex rex = new Regex("\n+");
         context = rex.Replace(context, "\n");
         string[] lines = context.Split("\n");
-        */
 
         //１問当たり6行、格納できていないならエラー処理
         if (lines.Length != 6*MAXQUESTIONINDEX)
