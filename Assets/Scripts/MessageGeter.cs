@@ -8,8 +8,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using TMPro;
+using Photon.Pun;
 
-public class MessageGeter : MonoBehaviour
+public class MessageGeter : MonoBehaviourPunCallbacks
 {
     [SerializeField] private int MAXQUESTIONINDEX = 3;
     private string Request_sentence;
@@ -24,6 +25,7 @@ public class MessageGeter : MonoBehaviour
         public int answer_index;
     }
     public static Question[] question = new Question[3];
+
     private async UniTask GenerateMessage(string str)
     {
         genre = str;
@@ -62,7 +64,7 @@ public class MessageGeter : MonoBehaviour
             GeneUIManager.instance.CloseGeneUI();
             return;
         }
-        
+                
         for (int i=0; i<MAXQUESTIONINDEX; i++)
         {
             int lines_index = i * 6;
@@ -77,6 +79,10 @@ public class MessageGeter : MonoBehaviour
         GeneUIManager.instance.SetGeneratingText("生成完了！");
         await UniTask.Delay(500);
         GeneUIManager.instance.CloseGeneUI();
+        //GeneUIManager.PlayerInfo playerInfo = new GeneUIManager.PlayerInfo(PhotonNetwork.NickName,genre);
+        //GeneUIManager.instance.playerList.Add(playerInfo);
+        //GeneUIManager.instance.UpdatePlayerInfo();
+        //GeneUIManager.instance.SendListToOthers();
     }
 
     public async void Generator(string Request_sentence)
@@ -89,4 +95,5 @@ public class MessageGeter : MonoBehaviour
         this.Request_sentence = Request_sentence;
         await GenerateMessage(Request_sentence);
     }
+
 }
