@@ -52,12 +52,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
     public void UpdatePlayerInfo()
     {
-        //info[0] = playerList[0].name;
-        //info[1] = playerList[0].jyanru;
-        //Debug.Log(info[0]);
-        //Debug.Log(info[1]);
-        //Debug.Log(playerList[0].name);
-        //Debug.Log(playerList[0].jyanru);
         photonView.RPC("SetGenre",RpcTarget.All);
     }
 
