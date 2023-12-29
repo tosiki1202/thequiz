@@ -58,7 +58,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void SetGenre(string newGenre)
     {
-        if (photonView.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             player1_genre_box.text = newGenre;
         }
