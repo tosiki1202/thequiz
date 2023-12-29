@@ -6,10 +6,9 @@ using TMPro;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
-    [SerializeField] public float HP;
     public string jyanru;
     public string name;
-    public GeneUIManager geneUIManager;
+    
     private void Awake()
     {
         name = photonView.Owner.NickName;
@@ -18,7 +17,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [PunRPC]
     public void StoreGenre(string jyanru)
     {
-        if (photonView.IsMine)
+        if (!photonView.IsMine)
         {
             this.jyanru = jyanru;
         }

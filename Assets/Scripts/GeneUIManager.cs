@@ -48,6 +48,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
     public void UpdatePlayerInfo()
     { 
+        player.GetComponent<PlayerController>().jyanru = MessageGeter.genre;
         photonView.RPC("SetGenre",
         RpcTarget.All,
         photonView.Owner.NickName,
@@ -59,7 +60,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     public void SetGenre(string name, string newGenre, int actor)
     {
         player.GetComponent<PlayerController>().photonView.RPC("StoreGenre",
-                                                                RpcTarget.All,
+                                                                RpcTarget.Others,
                                                                 newGenre);
     }
 }
