@@ -44,6 +44,7 @@ MonoBehaviour:
   - PrintJyanru
   - SetGenre_Player1
   - SetGenre_Player2
+  - StoreGenre
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

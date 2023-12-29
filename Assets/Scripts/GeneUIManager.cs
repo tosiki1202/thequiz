@@ -58,11 +58,8 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void SetGenre(string name, string newGenre, int actor)
     {
-        if (photonView.IsMine)
-        {
-            player.GetComponent<PlayerController>().photonView.RPC("StoreGenre",
-                                                                        RpcTarget.All,
-                                                                        newGenre);
-        }
+        player.GetComponent<PlayerController>().photonView.RPC("StoreGenre",
+                                                                RpcTarget.All,
+                                                                newGenre);
     }
 }

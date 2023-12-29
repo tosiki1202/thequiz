@@ -2142,7 +2142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &911521433
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3318,7 +3318,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1500525904}
         m_TargetAssemblyTypeName: PhotonManager, Assembly-CSharp
-        m_MethodName: CreateRoomButton
+        m_MethodName: SetName
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3852,6 +3852,9 @@ MonoBehaviour:
   playerNameContent: {fileID: 1421382234}
   startButton: {fileID: 4181425252794274755}
   levelToPlay: GeneScene_photon
+  nameInputPanel: {fileID: 911521432}
+  placeholderText: {fileID: 1986539506}
+  nameInput: {fileID: 32771835}
 --- !u!1 &1524953308
 GameObject:
   m_ObjectHideFlags: 0
@@ -5086,7 +5089,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1986539507
