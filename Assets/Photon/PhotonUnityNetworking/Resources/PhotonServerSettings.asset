@@ -42,6 +42,8 @@ MonoBehaviour:
   - SetGenre
   - DebugLists
   - PrintJyanru
+  - SetGenre_Player1
+  - SetGenre_Player2
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

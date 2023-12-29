@@ -45,12 +45,15 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     private List<TextMeshProUGUI> allPlayerNames = new List<TextMeshProUGUI>();
     //名前の親
     public GameObject playerNameContent;
-
     //ボタン格納
     public GameObject startButton;
-
     //遷移シーン名
     public string levelToPlay;
+
+    public GameObject nameInputPanel;
+    public TextMeshProUGUI placeholderText;
+    public TMP_InputField nameInput;
+    private bool setName;
 
     //Awake
     private void Awake()
@@ -83,6 +86,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         //名前ランダム
         PhotonNetwork.NickName = Random.Range(0,1000).ToString();
+
+        ConfirmationName();
     }
 
     //Start//
@@ -112,6 +117,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         roomPanel.SetActive(false);
         errorPanel.SetActive(false);
         roomListPanel.SetActive(false);
+        nameInputPanel.SetActive(false);
     }
 
     //ロビーUIを表示する関数
@@ -347,5 +353,39 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void PlayGame()
     {
         PhotonNetwork.LoadLevel(levelToPlay);
+    }
+
+    public void ConfirmationName()
+    {
+        if (!setName)
+        {
+            CloseMenuUI();
+            nameInputPanel.SetActive(true);
+
+            //名前を入力したことがあれば、スキップ
+            if (PlayerPrefs.HasKey("playerName"))
+            {
+                placeholderText.text = PlayerPrefs.GetString("playerName");
+                nameInput.text = PlayerPrefs.GetString("playerName");
+            }
+            else
+            {
+                PhotonNetwork.NickName = PlayerPrefs.GetString("playerName");
+            }
+        }
+    }
+
+    public void SetName()
+    {
+        if (!string.IsNullOrEmpty(nameInput.text))
+        {
+            PhotonNetwork.NickName = nameInput.text;
+
+            PlayerPrefs.SetString("playerName", nameInput.text);
+
+            LobbyMenuDisplay();
+
+            setName = true;
+        }
     }
 }
