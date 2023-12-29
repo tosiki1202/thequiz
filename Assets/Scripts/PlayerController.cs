@@ -7,9 +7,11 @@ using TMPro;
 public class PlayerController : MonoBehaviourPunCallbacks
 {
     public string jyanru;
+    public string name;
     public GeneUIManager geneUIManager;
     private void Awake()
     {
+        name = PhotonNetwork.NickName;
         geneUIManager = GameObject.FindGameObjectWithTag("GeneUIManager").GetComponent<GeneUIManager>();
     }
 
