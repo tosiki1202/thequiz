@@ -11,12 +11,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public GeneUIManager geneUIManager;
     private void Awake()
     {
-        if (!photonView.IsMine)
-        {
-            return;
-        }
-        
-        name = PhotonNetwork.NickName;
+        name = photonView.Owner.NickName;
         geneUIManager = GameObject.FindGameObjectWithTag("GeneUIManager").GetComponent<GeneUIManager>();
     }
 
