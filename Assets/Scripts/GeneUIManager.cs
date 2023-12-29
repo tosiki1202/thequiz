@@ -50,14 +50,11 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     { 
         //自分は普通に値を格納して、他のクライアントにRPCを出して格納してもらう
         player.GetComponent<PlayerController>().jyanru = MessageGeter.genre;
-        photonView.RPC("SetGenre",
-        RpcTarget.All,
-        photonView.Owner.NickName,
-        MessageGeter.genre,
-        PhotonNetwork.LocalPlayer.ActorNumber);    
+        SetGenre(photonView.Owner.NickName,
+                 MessageGeter.genre,
+                 PhotonNetwork.LocalPlayer.ActorNumber);
     }
 
-    [PunRPC]
     public void SetGenre(string name, string newGenre, int actor)
     {
         player.GetComponent<PlayerController>().photonView.RPC("StoreGenre",
