@@ -48,29 +48,16 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
     public void UpdatePlayerInfo()
     { 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            photonView.RPC("SetGenre_Player1",RpcTarget.All,MessageGeter.genre);    
-        }
-        else
-        {
-            photonView.RPC("SetGenre_Player2",RpcTarget.All,MessageGeter.genre);    
-        }
+        photonView.RPC("SetGenre",
+        RpcTarget.All,
+        photonView.Owner.NickName,
+        MessageGeter.genre,
+        PhotonNetwork.LocalPlayer.ActorNumber);    
     }
 
     [PunRPC]
-    public void SetGenre_Player1(string newGenre)
+    public void SetGenre(string name, string newGenre, int actor)
     {
-        player1_genre_box.text = newGenre;
-        if (photonView.IsMine)
-        {
-            player.GetComponent<PlayerController>().StoreGenre(newGenre);
-        }
-    }
-    [PunRPC]
-    public void SetGenre_Player2(string newGenre)
-    {
-        player2_genre_box.text = newGenre;   
         if (photonView.IsMine)
         {
             player.GetComponent<PlayerController>().StoreGenre(newGenre);
