@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         geneUIManager = GameObject.FindGameObjectWithTag("GeneUIManager").GetComponent<GeneUIManager>();
     }
 
+    [PunRPC]
     public void StoreGenre(string jyanru)
     {
         this.jyanru = jyanru;

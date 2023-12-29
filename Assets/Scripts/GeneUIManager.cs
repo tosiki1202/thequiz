@@ -60,7 +60,9 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            player.GetComponent<PlayerController>().StoreGenre(newGenre);
+            player.GetComponent<PlayerController>().photonView.RPC("StoreGenre",
+                                                                        RpcTarget.All,
+                                                                        newGenre);
         }
     }
 }
