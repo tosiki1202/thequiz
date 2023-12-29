@@ -84,9 +84,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //辞書の初期化
         roomsList.Clear();
 
-        //名前ランダム
-        PhotonNetwork.NickName = Random.Range(0,1000).ToString();
-
         ConfirmationName();
     }
 
