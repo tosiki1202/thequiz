@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     
     private void Awake()
     {
-        GameObject parentObject = GameObject.Find("PlayersOrigin");
+        this.transform.SetParent(GameObject.Find("PlayersOrigin").transform);
         name = photonView.Owner.NickName;
     }
 
