@@ -31,7 +31,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsConnected)
         {
             player = PhotonNetwork.Instantiate(playerPrefab.name,new Vector3(0,0,0),Quaternion.identity);
-            player.transform.SetParent(playersOrigin.transform);
+            photonView.RPC("SetPlayerParent",RpcTarget.All);
         }
     }
 
@@ -85,12 +85,18 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     public void SetPlayerInfo()
     {
         
-            allPlayerInfo.Clear();
-            List<Transform> children = GetChildren(playersOrigin.transform);
-            foreach (var players in children)
-            {
-                allPlayerInfo.Add(players.GetComponent<PlayerController>());
-            }
+        allPlayerInfo.Clear();
+        List<Transform> children = GetChildren(playersOrigin.transform);
+        foreach (var players in children)
+        {
+            allPlayerInfo.Add(players.GetComponent<PlayerController>());
+        }
         
+    }
+
+    [PunRPC]
+    public void SetPlayerParent()
+    {
+        player.transform.SetParent(playersOrigin.transform);
     }
 }
