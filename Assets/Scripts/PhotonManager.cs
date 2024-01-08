@@ -42,7 +42,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     //名前テキスト
     public TextMeshProUGUI playerNameText;
     //名前テキスト格納リスト
-    private List<TextMeshProUGUI> allPlayerNames = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> allPlayerNames = new List<TextMeshProUGUI>();
     //名前の親
     public GameObject playerNameContent;
     //ボタン格納
