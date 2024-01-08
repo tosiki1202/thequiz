@@ -83,20 +83,12 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
     [PunRPC]
     public void SetPlayerInfo()
-    {
-        
+    {  
         allPlayerInfo.Clear();
         List<Transform> children = GetChildren(playersOrigin.transform);
         foreach (var players in children)
         {
             allPlayerInfo.Add(players.GetComponent<PlayerController>());
-        }
-        
-    }
-
-    [PunRPC]
-    public void SetPlayerParent()
-    {
-        player.transform.SetParent(playersOrigin.transform);
+        }      
     }
 }
