@@ -318,7 +318,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        PlayerTextGeneration(newPlayer);
+        PlayerTextGeneration(newPlayer); 
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

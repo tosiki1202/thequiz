@@ -18,6 +18,9 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI player2_genre_box;
     private GameObject player; // PhotonNetworkでInstantiateしたプレハブを入れる
 
+    public List<PlayerController> allPlayerInfo = new List<PlayerController>();
+    public GameObject playersOrigin;
+
     private void Awake()
     {
         instance = this;
@@ -28,6 +31,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsConnected)
         {
             player = PhotonNetwork.Instantiate(playerPrefab.name,new Vector3(0,0,0),Quaternion.identity);
+            player.transform.SetParent(playersOrigin.transform);
         }
     }
 
@@ -53,6 +57,9 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         SetGenre(photonView.Owner.NickName,
                  MessageGeter.genre,
                  PhotonNetwork.LocalPlayer.ActorNumber);
+
+        photonView.RPC("SetPlayerInfo",RpcTarget.All);
+        
     }
 
     public void SetGenre(string name, string newGenre, int actor)
@@ -60,5 +67,30 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         player.GetComponent<PlayerController>().photonView.RPC("StoreGenre",
                                                                 RpcTarget.Others,
                                                                 newGenre);
+    }
+
+    private List<Transform> GetChildren(Transform parent)
+    {
+        List<Transform> children = new List<Transform>();
+
+        for (int i=0; i < parent.childCount; i++)
+        {
+            children.Add(parent.GetChild(i));
+        }
+
+        return children;
+    }
+
+    [PunRPC]
+    public void SetPlayerInfo()
+    {
+        
+            allPlayerInfo.Clear();
+            List<Transform> children = GetChildren(playersOrigin.transform);
+            foreach (var players in children)
+            {
+                allPlayerInfo.Add(players.GetComponent<PlayerController>());
+            }
+        
     }
 }
