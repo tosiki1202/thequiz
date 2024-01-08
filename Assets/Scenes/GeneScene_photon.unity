@@ -385,6 +385,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 3722613892077144014, guid: 5b99109d817d247b591af5c950d31f19, type: 3}
   player1_genre_box: {fileID: 1956900598}
   player2_genre_box: {fileID: 1003317780}
+  allPlayerInfo: []
+  playersOrigin: {fileID: 256810527}
 --- !u!114 &46637956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -935,6 +937,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244720512}
   m_CullTransparentMesh: 1
+--- !u!1 &256810527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 256810528}
+  m_Layer: 0
+  m_Name: PlayersOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &256810528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256810527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 251.48878, y: 219.03802, z: -7.1388326}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &341902227
 GameObject:
   m_ObjectHideFlags: 0

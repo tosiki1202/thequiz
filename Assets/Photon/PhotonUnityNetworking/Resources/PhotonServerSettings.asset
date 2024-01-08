@@ -45,6 +45,8 @@ MonoBehaviour:
   - SetGenre_Player1
   - SetGenre_Player2
   - StoreGenre
+  - SetPlayerInfo
+  - SetPlayerParent
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
