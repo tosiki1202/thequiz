@@ -31,7 +31,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsConnected)
         {
             player = PhotonNetwork.Instantiate(playerPrefab.name,new Vector3(0,0,0),Quaternion.identity);
-            photonView.RPC("SetPlayerParent",RpcTarget.All);
         }
     }
 
