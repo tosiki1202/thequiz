@@ -97,6 +97,9 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         {
             allPlayerInfo.Add(playersDictionary[i+1]);
         }
+
+        player1_genre_box.text = allPlayerInfo[0].jyanru;
+        player2_genre_box.text = allPlayerInfo[1].jyanru;
         
     }
 }
