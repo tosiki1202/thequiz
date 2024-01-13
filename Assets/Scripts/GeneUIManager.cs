@@ -120,7 +120,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     //プレイヤーリスト情報を更新して、UIを書き換える
     [PunRPC]
     public void SetPlayerInfo()
-    {  
+    {
         playersDictionary.Clear();
         List<Transform> children = GetChildren(playersOrigin.transform);
         foreach (var players in children)
@@ -129,7 +129,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         }
 
         allPlayerInfo.Clear();
-        if (playersDictionary.Count == 0) return;
+        if (playersDictionary.Count < 2) return;
         for (int i=0; i<playersDictionary.Count; i++)
         {
             allPlayerInfo.Add(playersDictionary[i+1]);
@@ -137,7 +137,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
         player1_genre_box.text = allPlayerInfo[0].jyanru;
         player2_genre_box.text = allPlayerInfo[1].jyanru;
-        
-        
+        player1_name_box.text = allPlayerInfo[0].name;
+        player2_name_box.text = allPlayerInfo[1].name;   
     }
 }
