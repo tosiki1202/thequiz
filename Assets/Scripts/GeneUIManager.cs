@@ -20,6 +20,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI player2_name_box;
     public GameObject player1_ready_box;
     public GameObject player2_ready_box;
+    public Button StartButton;
     private GameObject player; // PhotonNetworkでInstantiateしたプレハブを入れる
 
     public List<PlayerController> allPlayerInfo = new List<PlayerController>();
@@ -40,6 +41,14 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private void Update()
+    {
+        if (player.GetComponent<PlayerController>().ready)
+        {
+            StartButton.interactable = true;
+        }
+    }
+
     public void CloseGeneUI()
     {
         GeneratePanel.SetActive(false);
@@ -54,7 +63,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     {
         GeneratingText.text = _text;
     }
-    public void SetReady()
+    public void SetReadyStat()
     {
         if (player.GetComponent<PlayerController>().my_question.Length == 0)
         {
@@ -78,6 +87,8 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         SetQuestion(photonView.Owner.NickName,
                     MessageGeter.question,
                     PhotonNetwork.LocalPlayer.ActorNumber);
+
+        SetReady(player.GetComponent<PlayerController>().ready);
 
 
         photonView.RPC("SetPlayerInfo",RpcTarget.All);
@@ -121,6 +132,13 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
                                                                 sel_3,
                                                                 sel_4,
                                                                 answer_index);
+    }
+
+    public void SetReady(bool newReady)
+    {
+        player.GetComponent<PlayerController>().photonView.RPC("StoreReady",
+                                                                RpcTarget.Others,
+                                                                newReady);
     }
 
     private List<Transform> GetChildren(Transform parent)

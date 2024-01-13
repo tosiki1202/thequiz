@@ -44,4 +44,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    [PunRPC]
+    public void StoreReady(bool ready)
+    {
+        if (!photonView.IsMine)
+        {
+            this.ready = ready;
+        }
+    }
 }
