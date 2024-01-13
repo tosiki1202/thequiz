@@ -18,6 +18,8 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI player2_genre_box;
     public TextMeshProUGUI player1_name_box;
     public TextMeshProUGUI player2_name_box;
+    public GameObject player1_ready_box;
+    public GameObject player2_ready_box;
     private GameObject player; // PhotonNetworkでInstantiateしたプレハブを入れる
 
     public List<PlayerController> allPlayerInfo = new List<PlayerController>();
@@ -51,6 +53,20 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     public void SetGeneratingText(string _text)
     {
         GeneratingText.text = _text;
+    }
+    public void SetReady()
+    {
+        if (player.GetComponent<PlayerController>().my_question.Length == 0)
+        {
+            Debug.Log("question is null!");
+            return;
+        }
+        player.GetComponent<PlayerController>().ready = true;
+        photonView.RPC("SetPlayerInfo",RpcTarget.All);
+    }
+    public void StartGame()
+    {
+        PhotonNetwork.LoadLevel("QuizScene");
     }
 
     public void UpdatePlayerInfo()
@@ -131,15 +147,18 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         }
 
         allPlayerInfo.Clear();
-        if (playersDictionary.Count < 2) return;
+        if (playersDictionary.Count < 1) return;
         for (int i=0; i<playersDictionary.Count; i++)
         {
             allPlayerInfo.Add(playersDictionary[i+1]);
         }
 
         player1_genre_box.text = allPlayerInfo[0].jyanru;
-        player2_genre_box.text = allPlayerInfo[1].jyanru;
         player1_name_box.text = allPlayerInfo[0].name;
+        player1_ready_box.SetActive(allPlayerInfo[0].ready);
+
+        player2_genre_box.text = allPlayerInfo[1].jyanru;
         player2_name_box.text = allPlayerInfo[1].name;   
+        player2_ready_box.SetActive(allPlayerInfo[1].ready);
     }
 }

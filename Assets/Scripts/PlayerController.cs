@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public string name;
     public Question[] my_question = new Question[MessageGeter.question.Length];
     public string debug_sent;
+    public bool ready = false;
     
     private void Awake()
     {
