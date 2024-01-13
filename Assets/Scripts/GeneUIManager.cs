@@ -71,6 +71,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
             return;
         }
         player.GetComponent<PlayerController>().ready = true;
+        SetReady(player.GetComponent<PlayerController>().ready);
         photonView.RPC("SetPlayerInfo",RpcTarget.All);
     }
     public void StartGame()
@@ -87,9 +88,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         SetQuestion(photonView.Owner.NickName,
                     MessageGeter.question,
                     PhotonNetwork.LocalPlayer.ActorNumber);
-
-        SetReady(player.GetComponent<PlayerController>().ready);
-
 
         photonView.RPC("SetPlayerInfo",RpcTarget.All);
         
