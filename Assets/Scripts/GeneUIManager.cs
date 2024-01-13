@@ -16,6 +16,8 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     public GameObject playerPrefab;
     public TextMeshProUGUI player1_genre_box;
     public TextMeshProUGUI player2_genre_box;
+    public TextMeshProUGUI player1_name_box;
+    public TextMeshProUGUI player2_name_box;
     private GameObject player; // PhotonNetworkでInstantiateしたプレハブを入れる
 
     public List<PlayerController> allPlayerInfo = new List<PlayerController>();
