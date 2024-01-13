@@ -53,11 +53,14 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
     public void UpdatePlayerInfo()
     { 
-        //自分は普通に値を格納して、他のクライアントにRPCを出して格納してもらう
-        player.GetComponent<PlayerController>().jyanru = MessageGeter.genre;
         SetGenre(photonView.Owner.NickName,
                  MessageGeter.genre,
                  PhotonNetwork.LocalPlayer.ActorNumber);
+        
+        SetQuestion(photonView.Owner.NickName,
+                    MessageGeter.question,
+                    PhotonNetwork.LocalPlayer.ActorNumber);
+
 
         photonView.RPC("SetPlayerInfo",RpcTarget.All);
         
@@ -65,9 +68,41 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
     public void SetGenre(string name, string newGenre, int actor)
     {
+        //自分は普通に値を格納して、他のクライアントにRPCを出して格納してもらう
+        player.GetComponent<PlayerController>().jyanru = MessageGeter.genre;
         player.GetComponent<PlayerController>().photonView.RPC("StoreGenre",
                                                                 RpcTarget.Others,
                                                                 newGenre);
+    }
+
+    public void SetQuestion(string name, Question[] newQuestion, int actor)
+    {
+        string[] sentences = new string[MessageGeter.question.Length];
+        string[] sel_1 = new string[MessageGeter.question.Length];
+        string[] sel_2 = new string[MessageGeter.question.Length];
+        string[] sel_3 = new string[MessageGeter.question.Length];
+        string[] sel_4 = new string[MessageGeter.question.Length];
+        int[] answer_index = new int[MessageGeter.question.Length];
+        for (int i=0; i<newQuestion.Length; i++)
+        {
+            sentences[i] = newQuestion[i].sentence;
+            sel_1[i] = newQuestion[i].sel_1;
+            sel_2[i] = newQuestion[i].sel_2;
+            sel_3[i] = newQuestion[i].sel_3;
+            sel_4[i] = newQuestion[i].sel_4;
+            answer_index[i] = newQuestion[i].answer_index;
+        }
+
+        player.GetComponent<PlayerController>().my_question = MessageGeter.question;
+        player.GetComponent<PlayerController>().debug_sent = MessageGeter.question[0].sentence;
+        player.GetComponent<PlayerController>().photonView.RPC("StoreQuestions",
+                                                                RpcTarget.Others,
+                                                                sentences,
+                                                                sel_1,
+                                                                sel_2,
+                                                                sel_3,
+                                                                sel_4,
+                                                                answer_index);
     }
 
     private List<Transform> GetChildren(Transform parent)
@@ -82,6 +117,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         return children;
     }
 
+    //プレイヤーリスト情報を更新して、UIを書き換える
     [PunRPC]
     public void SetPlayerInfo()
     {  
@@ -93,6 +129,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         }
 
         allPlayerInfo.Clear();
+        if (playersDictionary.Count == 0) return;
         for (int i=0; i<playersDictionary.Count; i++)
         {
             allPlayerInfo.Add(playersDictionary[i+1]);
@@ -100,6 +137,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
         player1_genre_box.text = allPlayerInfo[0].jyanru;
         player2_genre_box.text = allPlayerInfo[1].jyanru;
+        
         
     }
 }
