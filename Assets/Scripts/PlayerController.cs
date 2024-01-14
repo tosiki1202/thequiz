@@ -22,8 +22,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (!photonView.IsMine) return;
 
-        name = photonView.Owner.NickName;
         jyanru = MessageGeter.genre;
+        name = photonView.Owner.NickName;
+        my_question = MessageGeter.question;
         debug_sent = MessageGeter.question[0].sentence;
     }
 
@@ -36,7 +37,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(name);
             for (int i=0; i<my_question.Length; i++)
             {
-                //stream.SendNext(my_question[i]);
+                stream.SendNext(my_question[i].sentence);
+                stream.SendNext(my_question[i].sel_1);
+                stream.SendNext(my_question[i].sel_2);
+                stream.SendNext(my_question[i].sel_3);
+                stream.SendNext(my_question[i].sel_4);
+                stream.SendNext(my_question[i].answer_index);
             }
             stream.SendNext(my_question[0].sentence);
             stream.SendNext(ready);
@@ -48,7 +54,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             name = (string)stream.ReceiveNext();
             for (int i=0; i<my_question.Length; i++)
             {
-                //my_question[i] = (Question)stream.ReceiveNext();
+                my_question[i].sentence = (string)stream.ReceiveNext();
+                my_question[i].sel_1 = (string)stream.ReceiveNext();
+                my_question[i].sel_2 = (string)stream.ReceiveNext();
+                my_question[i].sel_3 = (string)stream.ReceiveNext();
+                my_question[i].sel_4 = (string)stream.ReceiveNext();
+                my_question[i].answer_index = (int)stream.ReceiveNext();
             }
             debug_sent = (string)stream.ReceiveNext();
             ready = (bool)stream.ReceiveNext();
