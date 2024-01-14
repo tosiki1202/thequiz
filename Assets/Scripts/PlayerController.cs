@@ -20,12 +20,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public void UpdatePlayerInfo()
     {
+        if (!photonView.IsMine) return;
+
         name = photonView.Owner.NickName;
         jyanru = MessageGeter.genre;
         debug_sent = MessageGeter.question[0].sentence;
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
