@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         debug_sent = MessageGeter.question[0].sentence;
     }
 
-    public void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
