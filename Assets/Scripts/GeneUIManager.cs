@@ -81,9 +81,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
     public void UpdatePlayerInfo()
     { 
-        player.GetComponent<PlayerController>().jyanru = MessageGeter.genre;
-        player.GetComponent<PlayerController>().my_question = MessageGeter.question;
-        player.GetComponent<PlayerController>().debug_sent = MessageGeter.question[0].sentence;
+        player.GetComponent<PlayerController>().UpdatePlayerInfo();
         photonView.RPC("SetPlayerInfo",RpcTarget.All);
         
     }

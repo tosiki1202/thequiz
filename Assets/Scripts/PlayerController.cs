@@ -18,9 +18,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         name = photonView.Owner.NickName;
     }
 
-    private void Update()
+    public void UpdatePlayerInfo()
     {
         name = photonView.Owner.NickName;
+        jyanru = MessageGeter.genre;
+        debug_sent = MessageGeter.question[0].sentence;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
