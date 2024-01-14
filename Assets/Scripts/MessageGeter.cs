@@ -10,16 +10,6 @@ using Cysharp.Threading.Tasks;
 using TMPro;
 using Photon.Pun;
 
-public struct Question
-{
-    public string sentence;
-    public string sel_1;
-    public string sel_2;
-    public string sel_3;
-    public string sel_4;
-    public int answer_index;
-}
-
 public class MessageGeter : MonoBehaviourPunCallbacks
 {
     [SerializeField] private int MAXQUESTIONINDEX = 3;

@@ -71,7 +71,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
             return;
         }
         player.GetComponent<PlayerController>().ready = true;
-        SetReady(player.GetComponent<PlayerController>().ready);
+        //SetReady(player.GetComponent<PlayerController>().ready);
         photonView.RPC("SetPlayerInfo",RpcTarget.All);
     }
     public void StartGame()
@@ -81,64 +81,14 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
     public void UpdatePlayerInfo()
     { 
-        SetGenre(photonView.Owner.NickName,
-                 MessageGeter.genre,
-                 PhotonNetwork.LocalPlayer.ActorNumber);
-        
-        SetQuestion(photonView.Owner.NickName,
-                    MessageGeter.question,
-                    PhotonNetwork.LocalPlayer.ActorNumber);
-
+        player.GetComponent<PlayerController>().jyanru = MessageGeter.genre;
+        player.GetComponent<PlayerController>().my_question = MessageGeter.question;
+        player.GetComponent<PlayerController>().debug_sent = MessageGeter.question[0].sentence;
         photonView.RPC("SetPlayerInfo",RpcTarget.All);
         
     }
 
-    public void SetGenre(string name, string newGenre, int actor)
-    {
-        //自分は普通に値を格納して、他のクライアントにRPCを出して格納してもらう
-        player.GetComponent<PlayerController>().jyanru = MessageGeter.genre;
-        player.GetComponent<PlayerController>().photonView.RPC("StoreGenre",
-                                                                RpcTarget.Others,
-                                                                newGenre);
-    }
-
-    public void SetQuestion(string name, Question[] newQuestion, int actor)
-    {
-        string[] sentences = new string[MessageGeter.question.Length];
-        string[] sel_1 = new string[MessageGeter.question.Length];
-        string[] sel_2 = new string[MessageGeter.question.Length];
-        string[] sel_3 = new string[MessageGeter.question.Length];
-        string[] sel_4 = new string[MessageGeter.question.Length];
-        int[] answer_index = new int[MessageGeter.question.Length];
-        for (int i=0; i<newQuestion.Length; i++)
-        {
-            sentences[i] = newQuestion[i].sentence;
-            sel_1[i] = newQuestion[i].sel_1;
-            sel_2[i] = newQuestion[i].sel_2;
-            sel_3[i] = newQuestion[i].sel_3;
-            sel_4[i] = newQuestion[i].sel_4;
-            answer_index[i] = newQuestion[i].answer_index;
-        }
-
-        player.GetComponent<PlayerController>().my_question = MessageGeter.question;
-        player.GetComponent<PlayerController>().debug_sent = MessageGeter.question[0].sentence;
-        player.GetComponent<PlayerController>().photonView.RPC("StoreQuestions",
-                                                                RpcTarget.Others,
-                                                                sentences,
-                                                                sel_1,
-                                                                sel_2,
-                                                                sel_3,
-                                                                sel_4,
-                                                                answer_index);
-    }
-
-    public void SetReady(bool newReady)
-    {
-        player.GetComponent<PlayerController>().photonView.RPC("StoreReady",
-                                                                RpcTarget.Others,
-                                                                newReady);
-    }
-
+    //SetPlayerInfoで使用
     private List<Transform> GetChildren(Transform parent)
     {
         List<Transform> children = new List<Transform>();

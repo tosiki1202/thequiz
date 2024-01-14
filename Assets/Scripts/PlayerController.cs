@@ -18,39 +18,31 @@ public class PlayerController : MonoBehaviourPunCallbacks
         name = photonView.Owner.NickName;
     }
 
-    [PunRPC]
-    public void StoreGenre(string jyanru)
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (!photonView.IsMine)
+        if (stream.IsWriting)
         {
-            this.jyanru = jyanru;
-        }
-    }
-
-    [PunRPC]
-    public void StoreQuestions(string[] sentences, string[] sel_1, string[] sel_2, string[] sel_3, string[] sel_4, int[] answer_index)
-    {
-        if (!photonView.IsMine)
-        {
-            for (int i=0; i<MessageGeter.question.Length; i++)
+            // データの送信
+            stream.SendNext(jyanru);
+            stream.SendNext(name);
+            for (int i=0; i<my_question.Length; i++)
             {
-                this.my_question[i].sentence = sentences[i];
-                this.my_question[i].sel_1 = sel_1[i];
-                this.my_question[i].sel_2 = sel_2[i];
-                this.my_question[i].sel_3 = sel_3[i];
-                this.my_question[i].sel_4 = sel_4[i];
-                this.my_question[i].answer_index = answer_index[i];
-                this.debug_sent = sentences[0];
+                stream.SendNext(my_question[i]);
             }
+            stream.SendNext(my_question[0].sentence);
+            stream.SendNext(ready);
         }
-    }
-
-    [PunRPC]
-    public void StoreReady(bool ready)
-    {
-        if (!photonView.IsMine)
+        else
         {
-            this.ready = ready;
+            // データの受信
+            jyanru = (string)stream.ReceiveNext();
+            name = (string)stream.ReceiveNext();
+            for (int i=0; i<my_question.Length; i++)
+            {
+                my_question[i] = (Question)stream.ReceiveNext();
+            }
+            debug_sent = (string)stream.ReceiveNext();
+            ready = (bool)stream.ReceiveNext();
         }
     }
 }
