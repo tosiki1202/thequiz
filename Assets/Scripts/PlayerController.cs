@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(name);
             for (int i=0; i<my_question.Length; i++)
             {
-                stream.SendNext(my_question[i]);
+                //stream.SendNext(my_question[i]);
             }
             stream.SendNext(my_question[0].sentence);
             stream.SendNext(ready);
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             name = (string)stream.ReceiveNext();
             for (int i=0; i<my_question.Length; i++)
             {
-                my_question[i] = (Question)stream.ReceiveNext();
+                //my_question[i] = (Question)stream.ReceiveNext();
             }
             debug_sent = (string)stream.ReceiveNext();
             ready = (bool)stream.ReceiveNext();
