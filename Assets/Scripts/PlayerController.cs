@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(name);
             for (int i=0; i<my_question.Length; i++)
             {
-                if (String.IsNullOrEmpty(my_question[i].sentence)) return;
                 stream.SendNext(my_question[i].sentence);
                 stream.SendNext(my_question[i].sel_1);
                 stream.SendNext(my_question[i].sel_2);

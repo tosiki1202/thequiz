@@ -22,6 +22,15 @@ public class MessageGeter : MonoBehaviourPunCallbacks
     private void Awake()
     {
         instance = this;
+        for (int i=0; i<MAXQUESTIONINDEX; i++)
+        {
+            question[i].sentence = "";
+            question[i].sel_1 = "";
+            question[i].sel_2 = "";
+            question[i].sel_3 = "";
+            question[i].sel_4 = "";
+            question[i].answer_index = 0;
+        }
     }
     private async UniTask GenerateMessage(string str)
     {
