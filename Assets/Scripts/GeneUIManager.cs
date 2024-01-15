@@ -49,7 +49,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         {
             StartButton.interactable = true;
         }
-        SetPlayerInfo();
     }
 
     public void CloseGeneUI()
@@ -112,7 +111,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         if (playersDictionary.Count < 1) return;
         for (int i=0; i<playersDictionary.Count; i++)
         {
-            if (String.IsNullOrEmpty(playersDictionary[i+1].my_question[0].sentence)) continue;
             allPlayerInfo.Add(playersDictionary[i+1]);
         }
 
