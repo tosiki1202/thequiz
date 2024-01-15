@@ -42,6 +42,8 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        if (!PhotonNetwork.IsConnected) return;
+        
         if (player.GetComponent<PlayerController>().ready)
         {
             StartButton.interactable = true;
