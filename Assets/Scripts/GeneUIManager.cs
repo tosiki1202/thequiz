@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,7 +38,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsConnected)
         {
             player = PhotonNetwork.Instantiate(playerPrefab.name,new Vector3(0,0,0),Quaternion.identity);
-            SetPlayerInfo();
         }
     }
 
@@ -49,6 +49,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         {
             StartButton.interactable = true;
         }
+        SetPlayerInfo();
     }
 
     public void CloseGeneUI()
@@ -111,6 +112,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         if (playersDictionary.Count < 1) return;
         for (int i=0; i<playersDictionary.Count; i++)
         {
+            if (String.IsNullOrEmpty(playersDictionary[i+1].my_question[0].sentence)) continue;
             allPlayerInfo.Add(playersDictionary[i+1]);
         }
 
