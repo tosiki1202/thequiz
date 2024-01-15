@@ -37,7 +37,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsConnected)
         {
             player = PhotonNetwork.Instantiate(playerPrefab.name,new Vector3(0,0,0),Quaternion.identity);
-            photonView.RPC("SetPlayerInfo",RpcTarget.All);
         }
     }
 
@@ -71,8 +70,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
             return;
         }
         player.GetComponent<PlayerController>().ready = true;
-        //SetReady(player.GetComponent<PlayerController>().ready);
-        photonView.RPC("SetPlayerInfo",RpcTarget.All);
     }
     public void StartGame()
     {
@@ -82,8 +79,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     public void UpdatePlayerInfo()
     { 
         player.GetComponent<PlayerController>().UpdatePlayerInfo();
-        photonView.RPC("SetPlayerInfo",RpcTarget.All);
-        
     }
 
     //SetPlayerInfoで使用
@@ -100,7 +95,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     }
 
     //プレイヤーリスト情報を更新して、UIを書き換える
-    [PunRPC]
     public void SetPlayerInfo()
     {
         playersDictionary.Clear();

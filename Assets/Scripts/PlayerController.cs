@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         debug_sent = MessageGeter.question[0].sentence;
     }
 
+    //毎秒10回呼び出し
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -64,5 +65,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             debug_sent = (string)stream.ReceiveNext();
             ready = (bool)stream.ReceiveNext();
         }
+        GeneUIManager.instance.SetPlayerInfo();
     }
 }
