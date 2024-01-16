@@ -1199,8 +1199,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u30B2\u30FC\u30E0\u30B9\u30BF\u30FC\u30C8"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0ea99f18b766f1e4a8b4de0674995706, type: 2}
-  m_sharedMaterial: {fileID: -155265319524172089, guid: 0ea99f18b766f1e4a8b4de0674995706, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e0269d545549545ed94247a36aad552d, type: 2}
+  m_sharedMaterial: {fileID: 5987460787714763506, guid: e0269d545549545ed94247a36aad552d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1230,7 +1230,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2255,7 +2255,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Your Quiz Genre:'
+  m_text: 'Input Your Quiz Genre:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a24e3cb9312094de78a7f1140ee1c76a, type: 2}
   m_sharedMaterial: {fileID: 5974178279631118931, guid: a24e3cb9312094de78a7f1140ee1c76a, type: 2}
