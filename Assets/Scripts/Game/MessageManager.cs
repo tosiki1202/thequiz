@@ -8,12 +8,14 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using TMPro;
+using Photon.Pun;
 
 public class MessageManager : MonoBehaviour
 {
     [SerializeField] private int NowQuestionIndex;
     [SerializeField] private int DELAYSHOWMS;
     private int correct = 0;
+    public static MessageManager instance;
     public TextMeshProUGUI correctAnsNum;
     public TextMeshProUGUI qNumText;
     public TextMeshProUGUI sentence_box;
@@ -24,12 +26,25 @@ public class MessageManager : MonoBehaviour
     public SetButton setButton;
     public CancellationTokenSource cancelToken;
     private UniTask task;
+    public Question[] merged_question = new Question[MessageGeter.question.Length * 2];
 
     AudioSource audioSource;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+    
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        for (int i=0; i<GeneUIManager.instance.allPlayerInfo.Count; i++)
+        {
+            for (int j=0; j<MessageGeter.question.Length; j++)
+            {
+                merged_question[i*MessageGeter.question.Length + j] = GeneUIManager.instance.allPlayerInfo[i].my_question[j];
+            }
+        }
     }
 
     public async UniTask Q_Displaycontrol()
@@ -37,18 +52,18 @@ public class MessageManager : MonoBehaviour
         //UniTaskの関数をキャンセル可能にするために、トークンを作る
         cancelToken = new CancellationTokenSource();  
         CancellationToken token = cancelToken.Token;
-        audioSource.PlayOneShot(audioSource.clip);
+        //audioSource.PlayOneShot(audioSource.clip);
         await Show(qNumText, "問題." + (NowQuestionIndex + 1), token);
         await UniTask.Delay(700);
-        sel_1_box.text = MessageGeter.question[NowQuestionIndex].sel_1;
-        sel_2_box.text = MessageGeter.question[NowQuestionIndex].sel_2;
-        sel_3_box.text = MessageGeter.question[NowQuestionIndex].sel_3;
-        sel_4_box.text = MessageGeter.question[NowQuestionIndex].sel_4;
+        sel_1_box.text = merged_question[NowQuestionIndex].sel_1;
+        sel_2_box.text = merged_question[NowQuestionIndex].sel_2;
+        sel_3_box.text = merged_question[NowQuestionIndex].sel_3;
+        sel_4_box.text = merged_question[NowQuestionIndex].sel_4;
         setButton.timer.GoTimer();
         setButton.InitButton();
 
         //Show()の実行状態を、UniTask型変数に格納
-        task = Show(sentence_box, MessageGeter.question[NowQuestionIndex].sentence, token);   
+        task = Show(sentence_box, merged_question[NowQuestionIndex].sentence, token);   
     }
 
     public async UniTask NextQuestion(){
@@ -56,11 +71,11 @@ public class MessageManager : MonoBehaviour
         
         if(StoreButtonData.data[NowQuestionIndex].q_correct == true){
             correct += 1;
-            correctAnsNum.text = "正答数：" + correct + "/" + MessageGeter.question.Length;
+            correctAnsNum.text = "正答数：" + correct + "/" + merged_question.Length;
         }
 
         NowQuestionIndex++;
-        if (NowQuestionIndex+1 > MessageGeter.question.Length)
+        if (NowQuestionIndex+1 > merged_question.Length)
         {
             Debug.Log("問題終了");
             await UniTask.Delay(1500);

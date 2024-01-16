@@ -17,6 +17,7 @@ public class MessageGeter : MonoBehaviourPunCallbacks
     private string Request_sentence;
     public static string genre;
     
+    //Question[]の定義はPhoton.Punの中に移動させました
     public static Question[] question = new Question[3];
 
     private void Awake()

@@ -123,9 +123,8 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         for (int i=0; i<allPlayerInfo.Count; i++)
         {
             PlayerInfoPrefab newPrefab = Instantiate(originalPlayerInfoPrefab);
-            newPrefab.RegisterPlayerInfoPrefab(allPlayerInfo[i].name, allPlayerInfo[i].jyanru);
+            newPrefab.RegisterPlayerInfoPrefab(allPlayerInfo[i].name, allPlayerInfo[i].jyanru, allPlayerInfo[i].ready);
             newPrefab.transform.SetParent(playerInfoContent.transform);
-            newPrefab.image.SetActive(player.GetComponent<PlayerController>().ready);
         }
     }
 }

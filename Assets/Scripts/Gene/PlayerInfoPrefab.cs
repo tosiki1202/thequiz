@@ -10,10 +10,11 @@ public class PlayerInfoPrefab : MonoBehaviour
     public TextMeshProUGUI genre;
     public GameObject image;
 
-    public void RegisterPlayerInfoPrefab(string name, string genre)
+    public void RegisterPlayerInfoPrefab(string name, string genre, bool is_ready)
     {
         this.name.text = name;
         this.genre.text = genre;
+        this.image.SetActive(is_ready);
     }
 }
 
