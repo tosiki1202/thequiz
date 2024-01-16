@@ -8,6 +8,7 @@ public class PlayerInfoPrefab : MonoBehaviour
 {
     public TextMeshProUGUI name;
     public TextMeshProUGUI genre;
+    public GameObject image;
 
     public void RegisterPlayerInfoPrefab(string name, string genre)
     {

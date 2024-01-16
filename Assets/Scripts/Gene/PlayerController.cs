@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         jyanru = MessageGeter.genre;
         name = photonView.Owner.NickName;
         my_question = MessageGeter.question;
+        ready = true;
         debug_sent = MessageGeter.question[0].sentence;
     }
 
