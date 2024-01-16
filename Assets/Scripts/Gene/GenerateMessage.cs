@@ -12,10 +12,8 @@ public class GenerateMessage : MonoBehaviour
     private string str;
     private Button button;
     private MessageGeter messageGeter;
-    public Button soloStartButton;
     void Start()
     {
-        soloStartButton.interactable = false;
         messageGeter = gameObject.AddComponent<MessageGeter>();
         button = GetComponent<Button>();
         button.onClick.AddListener(() => messageGeter.Generator(jyanru.text));
@@ -26,7 +24,7 @@ public class GenerateMessage : MonoBehaviour
     {
         if (MessageGeter.question != null)
         {
-            soloStartButton.interactable = true;
+            //soloStartButton.interactable = true;
         }
     }
 

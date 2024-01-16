@@ -12,16 +12,14 @@ using ExitGames.Client.Photon;
 public class GeneUIManager : MonoBehaviourPunCallbacks
 {
     public static GeneUIManager instance;
-    [SerializeField] TextMeshProUGUI GeneratingText;
-    [SerializeField] GameObject GeneratePanel;
-    public GameObject playerPrefab;
-    public TextMeshProUGUI player1_genre_box;
-    public TextMeshProUGUI player2_genre_box;
-    public TextMeshProUGUI player1_name_box;
-    public TextMeshProUGUI player2_name_box;
-    public GameObject player1_ready_box;
-    public GameObject player2_ready_box;
+    public TextMeshProUGUI generatingText;
+    public PlayerInfoPrefab originalPlayerInfoPrefab;
+    public GameObject playerInfoContent;
+    public GameObject generatePanel;
+    public GameObject readyPanel;
+    public GameObject geneInputPanel;
     public Button StartButton;
+    public GameObject playerPrefab; // PhotonNetworkで生成するオブジェクトを指定(Resoursesフォルダに入っていること)
     private GameObject player; // PhotonNetworkでInstantiateしたプレハブを入れる
 
     public List<PlayerController> allPlayerInfo = new List<PlayerController>();
@@ -39,6 +37,8 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         {
             player = PhotonNetwork.Instantiate(playerPrefab.name,new Vector3(0,0,0),Quaternion.identity);
         }
+        CloseMenuUI();
+        geneInputPanel.SetActive(true);
     }
 
     private void Update()
@@ -51,19 +51,21 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void CloseGeneUI()
+    public void CloseMenuUI()
     {
-        GeneratePanel.SetActive(false);
+        readyPanel.SetActive(false);
+        generatePanel.SetActive(false);
+        geneInputPanel.SetActive(false);
     }
     public void GeneratingUIDisplay()
     {
-        CloseGeneUI();
-        GeneratePanel.SetActive(true);
+        CloseMenuUI();
+        generatePanel.SetActive(true);
 
     }
     public void SetGeneratingText(string _text)
     {
-        GeneratingText.text = _text;
+        generatingText.text = _text;
     }
     public void SetReadyStat()
     {
@@ -108,18 +110,21 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         }
 
         allPlayerInfo.Clear();
-        if (playersDictionary.Count < 1) return;
+        if (playersDictionary.Count < 2) return;
         for (int i=0; i<playersDictionary.Count; i++)
         {
             allPlayerInfo.Add(playersDictionary[i+1]);
         }
 
-        player1_genre_box.text = allPlayerInfo[0].jyanru;
-        player1_name_box.text = allPlayerInfo[0].name;
-        player1_ready_box.SetActive(allPlayerInfo[0].ready);
-
-        player2_genre_box.text = allPlayerInfo[1].jyanru;
-        player2_name_box.text = allPlayerInfo[1].name;   
-        player2_ready_box.SetActive(allPlayerInfo[1].ready);
+        foreach (Transform child in playerInfoContent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        for (int i=0; i<allPlayerInfo.Count; i++)
+        {
+            PlayerInfoPrefab newPrefab = Instantiate(originalPlayerInfoPrefab);
+            newPrefab.RegisterPlayerInfoPrefab(allPlayerInfo[i].name, allPlayerInfo[i].jyanru);
+            newPrefab.transform.SetParent(playerInfoContent.transform);
+        }
     }
 }

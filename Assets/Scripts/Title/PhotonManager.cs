@@ -16,7 +16,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     //ロードテキスト
     public TextMeshProUGUI loadingText;
     //ボタンの親オブジェクト
-    public GameObject buttons;
+    public GameObject SelectPanel;
     //ルーム作成パネル
     public GameObject createRoomPanel;
     //ルーム名の入力テキスト
@@ -49,6 +49,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public GameObject startButton;
     //遷移シーン名
     public string levelToPlay;
+    public TextMeshProUGUI connectionStatus;
 
     public GameObject nameInputPanel;
     public TextMeshProUGUI placeholderText;
@@ -62,6 +63,19 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         instance = this;
     }
 
+    private void Update()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            connectionStatus.text = " Connection Status: Connected";
+        }
+        else
+        {
+            connectionStatus.text = " Connection Status: Unconnected";
+            ErrorPanelDisplay();
+        }
+    }
+
     //関数//
     //マスターサーバーに接続された時に呼ばれる関数(継承:コールバック)
     public override void OnConnectedToMaster()
@@ -70,7 +84,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
 
         //テキスト更新
-        loadingText.text = "ロビーに参加中...";
+        loadingText.text = "Joining...";
 
         //Masterと同じシーンに遷移する設定
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -79,12 +93,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     //ロビー接続時に呼ばれる関数(継承:コールバック)
     public override void OnJoinedLobby()
     {
-        LobbyMenuDisplay();
+        if (!setName) ConfirmationName();
+        else LobbyMenuDisplay();
 
         //辞書の初期化
         roomsList.Clear();
-
-        ConfirmationName();
     }
 
     //Start//
@@ -95,7 +108,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         //パネルとテキスト更新
         loadingPanel.SetActive(true);
-        loadingText.text = "ネットワークに接続中...";
+        loadingText.text = "Establishing a Connection...";
 
         if (!PhotonNetwork.IsConnected)
         {
@@ -109,7 +122,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void CloseMenuUI()
     {
         loadingPanel.SetActive(false);
-        buttons.SetActive(false);
+        SelectPanel.SetActive(false);
         createRoomPanel.SetActive(false);
         roomPanel.SetActive(false);
         errorPanel.SetActive(false);
@@ -121,7 +134,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void LobbyMenuDisplay()
     {
         CloseMenuUI();
-        buttons.SetActive(true);
+        SelectPanel.SetActive(true);
     }
 
     //ルームを作るボタン用の関数
@@ -145,7 +158,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             CloseMenuUI();
 
             //ロードパネル表示
-            loadingText.text = "ルーム作成中...";
+            loadingText.text = "Creating...";
             loadingPanel.SetActive(true);
         }
     }
@@ -173,7 +186,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         //UI
         CloseMenuUI();
-        loadingText.text = "退出中...";
+        loadingText.text = "Exiting...";
         loadingPanel.SetActive(true);
     }
 
@@ -188,8 +201,15 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         //UIの表示を変える
         CloseMenuUI();
-        errorText.text = "ルームの作成に失敗しました"+message;
+        errorText.text = "Failed to Create"+message;
 
+        errorPanel.SetActive(true);
+    }
+
+    public void ErrorPanelDisplay()
+    {
+        CloseMenuUI();
+        errorText.text = "ネットワークとの接続が切断されました。ページを再読み込みしてください。";
         errorPanel.SetActive(true);
     }
 
@@ -267,7 +287,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         CloseMenuUI();
 
-        loadingText.text = "ルーム参加中";
+        loadingText.text = "Joining...";
         loadingPanel.SetActive(true);
     }
 
