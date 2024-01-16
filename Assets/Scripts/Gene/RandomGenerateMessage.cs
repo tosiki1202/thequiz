@@ -469,7 +469,7 @@ public class RandomGenerateMessage : MonoBehaviour
     {
         if (MessageGeter.question != null)
         {
-            soloStartButton.interactable = true;
+            //soloStartButton.interactable = true;
         }
     }
     

@@ -35,7 +35,7 @@ public class MessageGeter : MonoBehaviourPunCallbacks
     private async UniTask GenerateMessage(string str)
     {
         genre = str;
-        GeneUIManager.instance.SetGeneratingText("生成中・・・");
+        GeneUIManager.instance.SetGeneratingText("Generating...");
         GeneUIManager.instance.GeneratingUIDisplay();
         // APIは使用料かかるのでダミーデータをquestion[i]に入れるようにします
         //少し生成を待つコード(雰囲気的に)
@@ -66,9 +66,10 @@ public class MessageGeter : MonoBehaviourPunCallbacks
         //１問当たり6行、格納できていないならエラー処理
         if (lines.Length != 6*MAXQUESTIONINDEX)
         {
-            GeneUIManager.instance.SetGeneratingText("生成中に問題が発生しました。\n再度お試し下さい。");
+            GeneUIManager.instance.SetGeneratingText("An error occrred. Please try it again.");
             await UniTask.Delay(2000);
-            GeneUIManager.instance.CloseGeneUI();
+            GeneUIManager.instance.CloseMenuUI();
+            GeneUIManager.instance.geneInputPanel.SetActive(true);
             return;
         }
                 
@@ -83,9 +84,10 @@ public class MessageGeter : MonoBehaviourPunCallbacks
             question[i].answer_index = int.Parse(Regex.Replace (lines[lines_index+5], @"[^0-9]", ""));
         }
         
-        GeneUIManager.instance.SetGeneratingText("生成完了！");
+        GeneUIManager.instance.SetGeneratingText("Success!");
         await UniTask.Delay(500);
-        GeneUIManager.instance.CloseGeneUI();
+        GeneUIManager.instance.CloseMenuUI();
+        GeneUIManager.instance.readyPanel.SetActive(true);
         GeneUIManager.instance.UpdatePlayerInfo();
     }
 
