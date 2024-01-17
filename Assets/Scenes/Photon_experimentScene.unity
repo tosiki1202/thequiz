@@ -4067,7 +4067,7 @@ MonoBehaviour:
   levelToPlay: GeneScene_photon
   connectionStatus: {fileID: 1646046596}
   nameInputPanel: {fileID: 911521432}
-  placeholderText: {fileID: 0}
+  placeholderText: {fileID: 382136723}
   nameInput: {fileID: 32771835}
 --- !u!1 &1524953308
 GameObject:
