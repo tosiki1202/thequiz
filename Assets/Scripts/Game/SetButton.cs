@@ -42,19 +42,35 @@ public class SetButton : MonoBehaviour
 
     async void Update()
     {
-        timeUp = timer.GetTimeUp();
-        TimeRing.fillAmount = 1.0f - (timeUp / timer.GetTIMELIMIT());
-        time = 10.0f - timeUp;
-        timerText.text = time.ToString("f0");
+        if (!GeneUIManager.instance.player.GetComponent<PlayerController>().is_answered)
+        {
+            timeUp = timer.GetTimeUp();
+            TimeRing.fillAmount = 1.0f - (timeUp / timer.GetTIMELIMIT());
+            time = 10.0f - timeUp;
+            timerText.text = time.ToString("f0");
+        }
+        
         if (click || timer.GetTimeUp() > timer.GetTIMELIMIT())
         {
+            GeneUIManager.instance.player.GetComponent<PlayerController>().is_answered = true;
             timeStop = float.Parse(timeUp.ToString("f2"));
             StoreInfo();
             click = false;
             timer.InitTimer();
-            messageManager.photonView.RPC("NextQuestion",RpcTarget.All);
-        
+            
         }
+
+        for (int i=0; i<GeneUIManager.instance.allPlayerInfo.Count; i++)
+        {
+            if (!GeneUIManager.instance.allPlayerInfo[i].is_answered) return;
+        }
+        
+        for (int i=0; i<GeneUIManager.instance.allPlayerInfo.Count; i++)
+        {
+            GeneUIManager.instance.allPlayerInfo[i].is_answered = false;
+        }
+        messageManager.photonView.RPC("NextQuestion",RpcTarget.All);
+        
     }
 
     public void InitButton(){

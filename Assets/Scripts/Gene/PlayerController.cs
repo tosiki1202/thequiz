@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     public string name;
     public Question[] my_question = new Question[MessageGeter.question.Length];
     public string debug_sent;
-    public bool ready = false;
+    public bool ready = false; //問題を生成したか
+    public bool is_answered = false; //問題に回答済みか
     public Data[] my_data = new Data[MessageGeter.question.Length];
     
     private void Awake()
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             }
             stream.SendNext(my_question[0].sentence);
             stream.SendNext(ready);
+            stream.SendNext(is_answered);
         }
         else
         {
@@ -68,6 +70,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             }
             debug_sent = (string)stream.ReceiveNext();
             ready = (bool)stream.ReceiveNext();
+            is_answered = (bool)stream.ReceiveNext();
         }
         GeneUIManager.instance.SetPlayerInfo();
     }
