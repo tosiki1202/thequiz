@@ -42,7 +42,7 @@ public class SetButton : MonoBehaviour
 
     async void Update()
     {
-        if (!GeneUIManager.instance.player.GetComponent<PlayerController>().is_answered)
+        if (!GeneUIManager.player.GetComponent<PlayerController>().is_answered)
         {
             timeUp = timer.GetTimeUp();
             TimeRing.fillAmount = 1.0f - (timeUp / timer.GetTIMELIMIT());
@@ -52,7 +52,7 @@ public class SetButton : MonoBehaviour
         
         if (click || timer.GetTimeUp() > timer.GetTIMELIMIT())
         {
-            GeneUIManager.instance.player.GetComponent<PlayerController>().is_answered = true;
+            GeneUIManager.instance.GetComponent<PlayerController>().is_answered = true;
             timeStop = float.Parse(timeUp.ToString("f2"));
             StoreInfo();
             click = false;

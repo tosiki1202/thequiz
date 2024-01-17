@@ -20,7 +20,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     public GameObject geneInputPanel;
     public Button StartButton;
     public GameObject playerPrefab; // PhotonNetworkで生成するオブジェクトを指定(Resoursesフォルダに入っていること)
-    public GameObject player; // PhotonNetworkでInstantiateしたプレハブを入れる
+    public static GameObject player; // PhotonNetworkでInstantiateしたプレハブを入れる
     public List<PlayerController> allPlayerInfo = new List<PlayerController>();
     public Dictionary<int,PlayerController> playersDictionary = new Dictionary<int,PlayerController>();
     public GameObject playersOrigin;
