@@ -25,6 +25,13 @@ namespace Photon.Pun
         public int answer_index;
     }
 
+    public struct Data{
+        public int q_num;
+        public int q_sel;
+        public float q_time;
+        public bool q_correct;
+    }
+
     /// <summary>
     /// Internally used class, containing de/serialization method for PUN specific classes.
     /// </summary>

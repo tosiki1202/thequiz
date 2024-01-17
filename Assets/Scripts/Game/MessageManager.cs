@@ -27,6 +27,7 @@ public class MessageManager : MonoBehaviourPunCallbacks
     public CancellationTokenSource cancelToken;
     private UniTask task;
     public Question[] merged_question = new Question[MessageGeter.question.Length * 2];
+    public Data[] merged_data = new Data[MessageGeter.question.Length * 2];
 
     AudioSource audioSource;
 
@@ -43,6 +44,7 @@ public class MessageManager : MonoBehaviourPunCallbacks
             for (int j=0; j<MessageGeter.question.Length; j++)
             {
                 merged_question[i*MessageGeter.question.Length + j] = GeneUIManager.instance.allPlayerInfo[i].my_question[j];
+                merged_data[i*MessageGeter.question.Length + j] = GeneUIManager.instance.allPlayerInfo[i].my_data[j];
             }
         }
     }

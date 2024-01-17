@@ -2,15 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class StoreButtonData : MonoBehaviour{
     private int i;
-    public struct Data{
-        public int q_num;
-        public int q_sel;
-        public float q_time;
-        public bool q_correct;
-    }
 
     public static Data[] data = new Data[MessageGeter.question.Length*2];//問題数に応じて変更
     public void Comparison(int i){

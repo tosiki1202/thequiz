@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     public Question[] my_question = new Question[MessageGeter.question.Length];
     public string debug_sent;
     public bool ready = false;
+    public Data[] my_data = new Data[MessageGeter.question.Length];
     
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         jyanru = MessageGeter.genre;
         name = photonView.Owner.NickName;
         my_question = MessageGeter.question;
+        my_data = StoreButtonData.data;
         ready = true;
         debug_sent = MessageGeter.question[0].sentence;
     }
