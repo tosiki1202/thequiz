@@ -74,6 +74,7 @@ MonoBehaviour:
   name: 
   debug_sent: 
   ready: 0
+  is_answered: 0
 --- !u!114 &6996105338420762084
 MonoBehaviour:
   m_ObjectHideFlags: 0
