@@ -21,7 +21,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     public Button StartButton;
     public GameObject playerPrefab; // PhotonNetworkで生成するオブジェクトを指定(Resoursesフォルダに入っていること)
     private GameObject player; // PhotonNetworkでInstantiateしたプレハブを入れる
-
     public List<PlayerController> allPlayerInfo = new List<PlayerController>();
     public Dictionary<int,PlayerController> playersDictionary = new Dictionary<int,PlayerController>();
     public GameObject playersOrigin;
@@ -44,9 +43,14 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     private void Update()
     {
         if (!PhotonNetwork.IsConnected) return;
+        if (!PhotonNetwork.IsMasterClient) return;
 
         if (player.GetComponent<PlayerController>().ready)
         {
+            for (int i=0; i<allPlayerInfo.Count; i++)
+            {
+                if (!allPlayerInfo[i].ready) return;
+            }
             StartButton.interactable = true;
         }
     }

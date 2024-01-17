@@ -49,6 +49,7 @@ MonoBehaviour:
   - SetPlayerParent
   - StoreQuestions
   - StoreReady
+  - NextQuestion
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Threading;
 using System.Threading.Tasks;
+using Photon.Pun;
 public class SetButton : MonoBehaviour
 {
     public Timer timer;
@@ -51,7 +52,8 @@ public class SetButton : MonoBehaviour
             StoreInfo();
             click = false;
             timer.InitTimer();
-            await messageManager.NextQuestion();
+            messageManager.photonView.RPC("NextQuestion",RpcTarget.All);
+        
         }
     }
 

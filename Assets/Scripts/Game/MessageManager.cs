@@ -10,7 +10,7 @@ using Cysharp.Threading.Tasks;
 using TMPro;
 using Photon.Pun;
 
-public class MessageManager : MonoBehaviour
+public class MessageManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private int NowQuestionIndex;
     [SerializeField] private int DELAYSHOWMS;
@@ -66,6 +66,7 @@ public class MessageManager : MonoBehaviour
         task = Show(sentence_box, merged_question[NowQuestionIndex].sentence, token);   
     }
 
+    [PunRPC]
     public async UniTask NextQuestion(){
         setButton.ButtonNotAct();
         
