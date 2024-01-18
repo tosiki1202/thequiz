@@ -52,7 +52,7 @@ public class SetButton : MonoBehaviour
         
         if (click || timer.GetTimeUp() > timer.GetTIMELIMIT())
         {
-            GeneUIManager.instance.GetComponent<PlayerController>().is_answered = true;
+            GeneUIManager.player.GetComponent<PlayerController>().is_answered = true;
             timeStop = float.Parse(timeUp.ToString("f2"));
             StoreInfo();
             click = false;

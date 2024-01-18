@@ -36,6 +36,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         {
             player = PhotonNetwork.Instantiate(playerPrefab.name,new Vector3(0,0,0),Quaternion.identity);
         }
+        DontDestroyOnLoad(playersOrigin);
         CloseMenuUI();
         geneInputPanel.SetActive(true);
     }
