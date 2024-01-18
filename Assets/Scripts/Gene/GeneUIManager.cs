@@ -83,6 +83,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     }
     public void StartGame()
     {
+        player.GetComponent<PlayerController>().ready = false;
         PhotonNetwork.LoadLevel("QuizScene");
     }
 
@@ -121,6 +122,10 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
             allPlayerInfo.Add(playersDictionary[i+1]);
         }
 
+        if (SceneManager.GetActiveScene().name != "GeneScene_photon")
+        {
+            return;
+        }
         foreach (Transform child in playerInfoContent.transform)
         {
             Destroy(child.gameObject);
