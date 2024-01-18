@@ -57,7 +57,6 @@ public class SetButton : MonoBehaviour
         
         if (click || timer.GetTimeUp() > timer.GetTIMELIMIT())
         {
-            GeneUIManager.player.GetComponent<PlayerController>().is_answered = true;
             timeStop = float.Parse(timeUp.ToString("f2"));
             StoreInfo();
             click = false;
@@ -74,6 +73,7 @@ public class SetButton : MonoBehaviour
             answeredPanel.SetActive(true);
             await UniTask.Delay(700);
             answeredPanel.SetActive(false);
+            GeneUIManager.player.GetComponent<PlayerController>().is_answered = true;
         }
 
         for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
