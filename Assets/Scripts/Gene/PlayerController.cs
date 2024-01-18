@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     public bool ready = false; //問題を生成したか
     public bool is_answered = false; //問題に回答済みか
     public bool is_stored = false; //問題の解答を保存したか
-    public Data[] my_data = new Data[MessageGeter.question.Length];
+    public Data[] my_data = new Data[MessageGeter.question.Length*GeneUIManager.allPlayerInfo.Count];
     public int correct;//何問正解か
     
     private void Awake()
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(my_question[0].sentence);
             stream.SendNext(ready);
             stream.SendNext(is_answered);
-            for (int i=0; i<my_question.Length; i++)
+            for (int i=0; i<my_data.Length; i++)
             {
                 stream.SendNext(my_data[i].q_correct);
                 stream.SendNext(my_data[i].q_num);
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             debug_sent = (string)stream.ReceiveNext();
             ready = (bool)stream.ReceiveNext();
             is_answered = (bool)stream.ReceiveNext();
-            for (int i=0; i<my_question.Length; i++)
+            for (int i=0; i<my_data.Length; i++)
             {
                 my_data[i].q_correct = (bool)stream.ReceiveNext();
                 my_data[i].q_num = (int)stream.ReceiveNext();

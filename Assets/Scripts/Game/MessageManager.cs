@@ -54,13 +54,13 @@ public class MessageManager : MonoBehaviourPunCallbacks
             for (int j=0; j<MessageGeter.question.Length; j++)
             {
                 merged_question[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_question[j];
-                merged_data[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_data[j];
+                //merged_data[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_data[j];
             }
         }
     }
 
     void Update()
-    {
+    {   
         playerName_1.text = GeneUIManager.allPlayerInfo[0].name;
         correctAnsNum_1.text = "正答数：" + GeneUIManager.allPlayerInfo[0].correct + "/" + merged_question.Length;
         if (!GeneUIManager.allPlayerInfo[0].is_answered) playerIsCorrectImage_1.sprite = none_sprite;
