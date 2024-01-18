@@ -107,6 +107,9 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     //プレイヤーリスト情報を更新して、UIを書き換える
     public void SetPlayerInfo()
     {
+        Debug.Log("プレイヤーインフォセット");
+        Debug.Log("all: "+allPlayerInfo.Count);
+        
         playersDictionary.Clear();
         List<Transform> children = GetChildren(playersOrigin.transform);
         foreach (var players in children)
