@@ -47,6 +47,7 @@ public class SetButton : MonoBehaviour
 
     async void Update()
     {
+        Debug.Log("faioej");
         if (!GeneUIManager.player.GetComponent<PlayerController>().is_answered)
         {
             timeUp = timer.GetTimeUp();
@@ -61,6 +62,7 @@ public class SetButton : MonoBehaviour
             StoreInfo();
             click = false;
             timer.InitTimer();
+            GeneUIManager.player.GetComponent<PlayerController>().is_answered = true;
 
             if (GeneUIManager.player.GetComponent<PlayerController>().my_data[messageManager.GetQuestionIndex()].q_correct)
             {
@@ -73,14 +75,14 @@ public class SetButton : MonoBehaviour
             answeredPanel.SetActive(true);
             await UniTask.Delay(700);
             answeredPanel.SetActive(false);
-            GeneUIManager.player.GetComponent<PlayerController>().is_answered = true;
+            GeneUIManager.player.GetComponent<PlayerController>().is_stored = true;
         }
 
         for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
         {
-            if (!GeneUIManager.allPlayerInfo[i].is_answered) return;
+            if (!GeneUIManager.allPlayerInfo[i].is_stored) return;
         }
-        
+        //全員のis_answeredがtrueになってからn秒後にRPC
         messageManager.photonView.RPC("NextQuestion",RpcTarget.All);
         
     }

@@ -16,7 +16,15 @@ public class MessageManager : MonoBehaviourPunCallbacks
     [SerializeField] private int DELAYSHOWMS;
     private int correct = 0;
     public static MessageManager instance;
-    public TextMeshProUGUI correctAnsNum;
+    public TextMeshProUGUI correctAnsNum_1;
+    public TextMeshProUGUI correctAnsNum_2;
+    public TextMeshProUGUI playerName_1;
+    public TextMeshProUGUI playerName_2;
+    public Image playerIsCorrectImage_1;
+    public Image playerIsCorrectImage_2;
+    public Sprite maru;
+    public Sprite batu;
+    public Sprite none_sprite;
     public TextMeshProUGUI qNumText;
     public TextMeshProUGUI sentence_box;
     public TextMeshProUGUI sel_1_box;
@@ -28,6 +36,7 @@ public class MessageManager : MonoBehaviourPunCallbacks
     private UniTask task;
     public Question[] merged_question = new Question[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
     public Data[] merged_data = new Data[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
+    private bool is_correct;
 
     AudioSource audioSource;
 
@@ -39,7 +48,6 @@ public class MessageManager : MonoBehaviourPunCallbacks
     
     void Start()
     {
-        correctAnsNum.text = "正答数：" + correct + "/" + merged_question.Length;
         audioSource = GetComponent<AudioSource>();
         for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
         {
@@ -49,6 +57,23 @@ public class MessageManager : MonoBehaviourPunCallbacks
                 merged_data[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_data[j];
             }
         }
+    }
+
+    void Update()
+    {
+        playerName_1.text = GeneUIManager.allPlayerInfo[0].name;
+        correctAnsNum_1.text = "正答数：" + GeneUIManager.allPlayerInfo[0].correct + "/" + merged_question.Length;
+        if (!GeneUIManager.allPlayerInfo[0].is_answered) playerIsCorrectImage_1.sprite = none_sprite;
+        else if (GeneUIManager.allPlayerInfo[0].my_data[NowQuestionIndex].q_correct) playerIsCorrectImage_1.sprite = maru;
+        else if (!GeneUIManager.allPlayerInfo[0].my_data[NowQuestionIndex].q_correct) playerIsCorrectImage_1.sprite = batu;
+        
+        if (GeneUIManager.allPlayerInfo.Count == 1) return;
+        playerName_2.text = GeneUIManager.allPlayerInfo[1].name;
+        correctAnsNum_2.text = "正答数：" + GeneUIManager.allPlayerInfo[1].correct + "/" + merged_question.Length;
+        if (!GeneUIManager.allPlayerInfo[1].is_answered) playerIsCorrectImage_2.sprite = none_sprite;
+        else if (GeneUIManager.allPlayerInfo[1].my_data[NowQuestionIndex].q_correct) playerIsCorrectImage_2.sprite = maru;
+        else if (GeneUIManager.allPlayerInfo[1].my_data[NowQuestionIndex].q_correct) playerIsCorrectImage_2.sprite = batu;
+
     }
 
     public async UniTask Q_Displaycontrol()
@@ -74,11 +99,12 @@ public class MessageManager : MonoBehaviourPunCallbacks
     public async UniTask NextQuestion(){
         setButton.ButtonNotAct();
         GeneUIManager.player.GetComponent<PlayerController>().is_answered = false;
+        GeneUIManager.player.GetComponent<PlayerController>().is_stored = false;
         
-        if(StoreButtonData.data[NowQuestionIndex].q_correct == true){
-            correct += 1;
-        }
-        correctAnsNum.text = "正答数：" + correct + "/" + merged_question.Length;
+        // if(StoreButtonData.data[NowQuestionIndex].q_correct == true){
+        //     correct += 1;
+        // }
+        //correctAnsNum.text = "正答数：" + correct + "/" + merged_question.Length;
 
         NowQuestionIndex++;
         if (NowQuestionIndex+1 > merged_question.Length)

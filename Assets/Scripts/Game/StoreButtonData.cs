@@ -11,6 +11,7 @@ public class StoreButtonData : MonoBehaviour{
     public void Comparison(int i){
         if(MessageManager.instance.merged_question[i].answer_index == data[i].q_sel){
             data[i].q_correct = true;
+            GeneUIManager.player.GetComponent<PlayerController>().correct++;
         }else{
             data[i].q_correct = false;
         }

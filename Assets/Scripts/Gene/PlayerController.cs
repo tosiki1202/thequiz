@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     public string debug_sent;
     public bool ready = false; //問題を生成したか
     public bool is_answered = false; //問題に回答済みか
+    public bool is_stored = false; //問題の解答を保存したか
     public Data[] my_data = new Data[MessageGeter.question.Length];
+    public int correct;//何問正解か
     
     private void Awake()
     {
@@ -58,6 +60,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(my_question[0].sentence);
             stream.SendNext(ready);
             stream.SendNext(is_answered);
+            for (int i=0; i<my_question.Length; i++)
+            {
+                stream.SendNext(my_data[i].q_correct);
+                stream.SendNext(my_data[i].q_num);
+                stream.SendNext(my_data[i].q_sel);
+                stream.SendNext(my_data[i].q_time);
+            }
+            stream.SendNext(correct);
+            stream.SendNext(is_stored);
         }
         else
         {
@@ -76,6 +87,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             debug_sent = (string)stream.ReceiveNext();
             ready = (bool)stream.ReceiveNext();
             is_answered = (bool)stream.ReceiveNext();
+            for (int i=0; i<my_question.Length; i++)
+            {
+                my_data[i].q_correct = (bool)stream.ReceiveNext();
+                my_data[i].q_num = (int)stream.ReceiveNext();
+                my_data[i].q_sel = (int)stream.ReceiveNext();
+                my_data[i].q_time = (float)stream.ReceiveNext();
+            }
+            correct = (int)stream.ReceiveNext();
+            is_stored= (bool)stream.ReceiveNext();
         }
         //GeneUIManager.instance.SetPlayerInfo();
     }
