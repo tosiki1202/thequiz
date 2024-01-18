@@ -109,7 +109,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     {
         playersDictionary.Clear();
         List<Transform> children = GetChildren(playersOrigin.transform);
-        Debug.Log("c"+children.Count);
         foreach (var players in children)
         {
             playersDictionary.Add(players.GetComponent<PhotonView>().Owner.ActorNumber, players.GetComponent<PlayerController>());
