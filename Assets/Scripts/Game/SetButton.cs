@@ -8,6 +8,7 @@ using TMPro;
 using System.Threading;
 using System.Threading.Tasks;
 using Photon.Pun;
+using Cysharp.Threading.Tasks;
 public class SetButton : MonoBehaviour
 {
     public Timer timer;
@@ -21,6 +22,10 @@ public class SetButton : MonoBehaviour
     private int idx = 0;
     private bool click = false;
     private List<Button> children = new List<Button>();
+    public GameObject answeredPanel;
+    public Image answeredImage;
+    public Sprite maru;
+    public Sprite batu;
 
     //Start()の実行前に呼び出される初期化関数
     void Awake()
@@ -57,7 +62,18 @@ public class SetButton : MonoBehaviour
             StoreInfo();
             click = false;
             timer.InitTimer();
-            
+
+            if (GeneUIManager.player.GetComponent<PlayerController>().my_data[messageManager.GetQuestionIndex()].q_correct)
+            {
+                answeredImage.sprite = maru;
+            }
+            else
+            {
+                answeredImage.sprite = batu;
+            }
+            answeredPanel.SetActive(true);
+            await UniTask.Delay(700);
+            answeredPanel.SetActive(false);
         }
 
         for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)

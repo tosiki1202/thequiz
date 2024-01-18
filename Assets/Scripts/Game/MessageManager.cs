@@ -34,10 +34,12 @@ public class MessageManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         instance = this;
+        GeneUIManager.player.GetComponent<PlayerController>().ready = false;
     }
     
     void Start()
     {
+        correctAnsNum.text = "正答数：" + correct + "/" + merged_question.Length;
         audioSource = GetComponent<AudioSource>();
         for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
         {
@@ -47,13 +49,6 @@ public class MessageManager : MonoBehaviourPunCallbacks
                 merged_data[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_data[j];
             }
         }
-    }
-
-    void Update()
-    {
-        Debug.Log("length: "+GeneUIManager.allPlayerInfo.Count);
-        Debug.Log("length2: "+GeneUIManager.playersDictionary.Count);
-        Debug.Log("length3: "+GeneUIManager.player.name);
     }
 
     public async UniTask Q_Displaycontrol()

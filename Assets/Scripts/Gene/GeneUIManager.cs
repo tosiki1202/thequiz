@@ -83,7 +83,6 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     }
     public void StartGame()
     {
-        player.GetComponent<PlayerController>().ready = false;
         PhotonNetwork.LoadLevel("QuizScene");
     }
 
