@@ -65,11 +65,6 @@ public class SetButton : MonoBehaviour
             if (!GeneUIManager.allPlayerInfo[i].is_answered) return;
         }
         
-        GeneUIManager.player.GetComponent<PlayerController>().is_answered = false;
-        for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
-        {
-            GeneUIManager.allPlayerInfo[i].is_answered = false;
-        }
         messageManager.photonView.RPC("NextQuestion",RpcTarget.All);
         
     }

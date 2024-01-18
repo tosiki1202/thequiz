@@ -78,11 +78,12 @@ public class MessageManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public async UniTask NextQuestion(){
         setButton.ButtonNotAct();
+        GeneUIManager.player.GetComponent<PlayerController>().is_answered = false;
         
         if(StoreButtonData.data[NowQuestionIndex].q_correct == true){
             correct += 1;
-            correctAnsNum.text = "正答数：" + correct + "/" + merged_question.Length;
         }
+        correctAnsNum.text = "正答数：" + correct + "/" + merged_question.Length;
 
         NowQuestionIndex++;
         if (NowQuestionIndex+1 > merged_question.Length)
