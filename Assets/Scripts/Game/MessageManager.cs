@@ -26,8 +26,8 @@ public class MessageManager : MonoBehaviourPunCallbacks
     public SetButton setButton;
     public CancellationTokenSource cancelToken;
     private UniTask task;
-    public Question[] merged_question = new Question[MessageGeter.question.Length * 2];
-    public Data[] merged_data = new Data[MessageGeter.question.Length * 2];
+    public Question[] merged_question = new Question[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
+    public Data[] merged_data = new Data[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
 
     AudioSource audioSource;
 
@@ -39,14 +39,21 @@ public class MessageManager : MonoBehaviourPunCallbacks
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        for (int i=0; i<GeneUIManager.instance.allPlayerInfo.Count; i++)
+        for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
         {
             for (int j=0; j<MessageGeter.question.Length; j++)
             {
-                merged_question[i*MessageGeter.question.Length + j] = GeneUIManager.instance.allPlayerInfo[i].my_question[j];
-                merged_data[i*MessageGeter.question.Length + j] = GeneUIManager.instance.allPlayerInfo[i].my_data[j];
+                merged_question[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_question[j];
+                merged_data[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_data[j];
             }
         }
+    }
+
+    void Update()
+    {
+        Debug.Log("length: "+GeneUIManager.allPlayerInfo.Count);
+        Debug.Log("length2: "+GeneUIManager.playersDictionary.Count);
+        Debug.Log("length3: "+GeneUIManager.player.name);
     }
 
     public async UniTask Q_Displaycontrol()

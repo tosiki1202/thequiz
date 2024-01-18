@@ -21,8 +21,8 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     public Button StartButton;
     public GameObject playerPrefab; // PhotonNetworkで生成するオブジェクトを指定(Resoursesフォルダに入っていること)
     public static GameObject player; // PhotonNetworkでInstantiateしたプレハブを入れる
-    public List<PlayerController> allPlayerInfo = new List<PlayerController>();
-    public Dictionary<int,PlayerController> playersDictionary = new Dictionary<int,PlayerController>();
+    public static List<PlayerController> allPlayerInfo = new List<PlayerController>();
+    public static Dictionary<int,PlayerController> playersDictionary = new Dictionary<int,PlayerController>();
     public GameObject playersOrigin;
 
     private void Awake()
@@ -110,12 +110,17 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     {
         playersDictionary.Clear();
         List<Transform> children = GetChildren(playersOrigin.transform);
+        Debug.Log("c"+children.Count);
         foreach (var players in children)
         {
             playersDictionary.Add(players.GetComponent<PhotonView>().Owner.ActorNumber, players.GetComponent<PlayerController>());
         }
 
         allPlayerInfo.Clear();
+        if (playersDictionary.Count == 1)
+        {
+            allPlayerInfo.Add(playersDictionary[1]);
+        }
         if (playersDictionary.Count < 2) return;
         for (int i=0; i<playersDictionary.Count; i++)
         {

@@ -7,7 +7,7 @@ using Photon.Pun;
 public class StoreButtonData : MonoBehaviour{
     private int i;
 
-    public static Data[] data = new Data[MessageGeter.question.Length*2];//問題数に応じて変更
+    public static Data[] data = new Data[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];//問題数に応じて変更
     public void Comparison(int i){
         if(MessageManager.instance.merged_question[i].answer_index == data[i].q_sel){
             data[i].q_correct = true;

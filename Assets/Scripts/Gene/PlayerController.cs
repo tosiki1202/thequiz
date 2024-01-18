@@ -21,6 +21,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         name = photonView.Owner.NickName;
     }
 
+    private void Update()
+    {
+        GeneUIManager.instance.SetPlayerInfo();
+    }
+
     public void UpdatePlayerInfo()
     {
         if (!photonView.IsMine) return;
@@ -72,6 +77,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             ready = (bool)stream.ReceiveNext();
             is_answered = (bool)stream.ReceiveNext();
         }
-        GeneUIManager.instance.SetPlayerInfo();
+        //GeneUIManager.instance.SetPlayerInfo();
     }
 }
