@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     public bool ready = false; //問題を生成したか
     public bool is_answered = false; //問題に回答済みか
     public bool is_stored = false; //問題の解答を保存したか
-    public Data[] my_data = new Data[MessageGeter.question.Length*GeneUIManager.allPlayerInfo.Count];
+    public Data[] my_data = new Data[MessageGeter.question.Length*2];
     public int correct;//何問正解か
     
     private void Awake()
