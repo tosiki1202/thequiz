@@ -61,7 +61,10 @@ public class MessageManager : MonoBehaviourPunCallbacks
 
     void Update()
     {   
+        Debug.Log("Player1_isanswer: "+GeneUIManager.allPlayerInfo[0].is_answered);
+        Debug.Log("Player2_isanswer: "+GeneUIManager.allPlayerInfo[1].is_answered);
         Debug.Log("Nowq: "+NowQuestionIndex);
+
         playerName_1.text = GeneUIManager.allPlayerInfo[0].name;
         correctAnsNum_1.text = "正答数：" + GeneUIManager.allPlayerInfo[0].correct + "/" + merged_question.Length;
         if (!GeneUIManager.allPlayerInfo[0].is_answered) playerIsCorrectImage_1.sprite = none_sprite;
@@ -73,7 +76,7 @@ public class MessageManager : MonoBehaviourPunCallbacks
         correctAnsNum_2.text = "正答数：" + GeneUIManager.allPlayerInfo[1].correct + "/" + merged_question.Length;
         if (!GeneUIManager.allPlayerInfo[1].is_answered) playerIsCorrectImage_2.sprite = none_sprite;
         else if (GeneUIManager.allPlayerInfo[1].my_data[NowQuestionIndex].q_correct) playerIsCorrectImage_2.sprite = maru;
-        else if (GeneUIManager.allPlayerInfo[1].my_data[NowQuestionIndex].q_correct) playerIsCorrectImage_2.sprite = batu;
+        else if (!GeneUIManager.allPlayerInfo[1].my_data[NowQuestionIndex].q_correct) playerIsCorrectImage_2.sprite = batu;
 
     }
 
