@@ -73,8 +73,9 @@ public class SetButton : MonoBehaviour
                 answeredImage.sprite = batu;
             }
             answeredPanel.SetActive(true);
-            await UniTask.Delay(700);
+            await UniTask.Delay(1200);
             answeredPanel.SetActive(false);
+            await UniTask.Delay(1200);
             GeneUIManager.player.GetComponent<PlayerController>().is_stored = true;
         }
 
@@ -83,6 +84,7 @@ public class SetButton : MonoBehaviour
             if (!GeneUIManager.allPlayerInfo[i].is_stored) return;
         }
         //全員のis_answeredがtrueになってからn秒後にRPC
+        messageManager.ClearQuizSet();
         messageManager.photonView.RPC("NextQuestion",RpcTarget.All);
         
     }
@@ -129,7 +131,6 @@ public class SetButton : MonoBehaviour
                 break;
         }
         click = true;
-        messageManager.ClearQuizSet();
     }
 
     public void StoreInfo(){
