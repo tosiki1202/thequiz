@@ -57,7 +57,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public TMP_InputField nameInput;
     private bool setName;
     public TextMeshProUGUI waitingText;
-    public int maxPlayers;
 
     //Awake
     private void Awake()
@@ -154,7 +153,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             RoomOptions options = new RoomOptions();
             options.MaxPlayers = 2;
-            maxPlayers = options.MaxPlayers;
 
             //ルーム作成
             PhotonNetwork.CreateRoom(enterRoomName.text, options);
@@ -187,7 +185,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     IEnumerator SwitchText()
     {
-        while (allPlayerNames.Count != maxPlayers)
+        while (allPlayerNames.Count != PhotonNetwork.CurrentRoom.MaxPlayers)
         {
             startButton.GetComponent<Button>().interactable = false;
             for (int i=0; i<4; i++)
@@ -195,16 +193,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 switch(i)
                 {
                     case 0:
-                        waitingText.text = "他のプレイヤーの参加を待機しています "+allPlayerNames.Count+"/"+maxPlayers;
+                        waitingText.text = "他のプレイヤーの参加を待機しています "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
                     break;
                     case 1:
-                        waitingText.text = "他のプレイヤーの参加を待機しています. "+allPlayerNames.Count+"/"+maxPlayers;
+                        waitingText.text = "他のプレイヤーの参加を待機しています. "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
                     break;
                     case 2:
-                    waitingText.text = "他のプレイヤーの参加を待機しています.. "+allPlayerNames.Count+"/"+maxPlayers;
+                    waitingText.text = "他のプレイヤーの参加を待機しています.. "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
                     break;
                     case 3:
-                    waitingText.text = "他のプレイヤーの参加を待機しています... "+allPlayerNames.Count+"/"+maxPlayers;
+                    waitingText.text = "他のプレイヤーの参加を待機しています... "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
                     break;
                 }
                 
