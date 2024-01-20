@@ -182,56 +182,45 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //マスターか判定してボタン表示
         CheckRoomMaster();
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            if (allPlayerNames.Count == maxPlayers)
-            {
-                waitingText.text = "準備完了!";
-                startButton.GetComponent<Button>().interactable = true;
-            }
-            else
-            {
-                StartCoroutine(SwitchText());
-                startButton.GetComponent<Button>().interactable = false;
-            }
-        }
-        else
-        {
-            if (allPlayerNames.Count == maxPlayers)
-            {
-                waitingText.text = "ホストがゲーム開始するのを待っています...";
-                startButton.GetComponent<Button>().interactable = false;
-            }
-            else
-            {
-                StartCoroutine(SwitchText());
-                startButton.GetComponent<Button>().interactable = false;
-            }
-        }
+        StartCoroutine(SwitchText());
     }
 
     IEnumerator SwitchText()
     {
-        for (int i=0; i<4; i++)
+        while (allPlayerNames.Count != maxPlayers)
         {
-            switch(i)
+            startButton.GetComponent<Button>().interactable = false;
+            for (int i=0; i<4; i++)
             {
-                case 0:
-                    waitingText.text = "他のプレイヤーの参加を待機しています "+allPlayerNames.Count+"/"+maxPlayers;
-                break;
-                case 1:
-                    waitingText.text = "他のプレイヤーの参加を待機しています. "+allPlayerNames.Count+"/"+maxPlayers;
-                break;
-                case 2:
-                waitingText.text = "他のプレイヤーの参加を待機しています.. "+allPlayerNames.Count+"/"+maxPlayers;
-                break;
-                case 3:
-                waitingText.text = "他のプレイヤーの参加を待機しています... "+allPlayerNames.Count+"/"+maxPlayers;
-                break;
+                switch(i)
+                {
+                    case 0:
+                        waitingText.text = "他のプレイヤーの参加を待機しています "+allPlayerNames.Count+"/"+maxPlayers;
+                    break;
+                    case 1:
+                        waitingText.text = "他のプレイヤーの参加を待機しています. "+allPlayerNames.Count+"/"+maxPlayers;
+                    break;
+                    case 2:
+                    waitingText.text = "他のプレイヤーの参加を待機しています.. "+allPlayerNames.Count+"/"+maxPlayers;
+                    break;
+                    case 3:
+                    waitingText.text = "他のプレイヤーの参加を待機しています... "+allPlayerNames.Count+"/"+maxPlayers;
+                    break;
+                }
+                
+                yield return new WaitForSeconds(0.5f);
             }
-            
-            yield return new WaitForSeconds(0.5f);
-        }   
+        }
+        if (PhotonNetwork.IsMasterClient)
+        {
+            startButton.GetComponent<Button>().interactable = true;
+            waitingText.text = "準備完了!";
+        }
+        else
+        {
+            waitingText.text = "ホストがゲーム開始するのを待っています...";
+        }
+        
     }
 
     //ルーム退出関数
@@ -399,6 +388,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         GetAllPlayer();
+        StartCoroutine(SwitchText());
     }
 
     public void CheckRoomMaster()
