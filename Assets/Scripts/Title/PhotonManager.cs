@@ -414,6 +414,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     //遷移
     public async void PlayGame()
     {
+        startButton.SetActive(false);
         photonView.RPC("SetStartText",RpcTarget.All);
         await UniTask.Delay(1200);
         PhotonNetwork.LoadLevel(levelToPlay);
