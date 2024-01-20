@@ -57,7 +57,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public TMP_InputField nameInput;
     private bool setName;
     public TextMeshProUGUI waitingText;
-    private int maxPlayers;
+    public int maxPlayers;
 
     //Awake
     private void Awake()
@@ -212,29 +212,26 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     IEnumerator SwitchText()
     {
-        while(true)
+        for (int i=0; i<4; i++)
         {
-            for (int i=0; i<4; i++)
+            switch(i)
             {
-                switch(i)
-                {
-                    case 0:
-                        waitingText.text = "他のプレイヤーの参加を待機しています "+allPlayerNames.Count+"/"+maxPlayers;
-                    break;
-                    case 1:
-                        waitingText.text = "他のプレイヤーの参加を待機しています. "+allPlayerNames.Count+"/"+maxPlayers;
-                    break;
-                    case 2:
-                    waitingText.text = "他のプレイヤーの参加を待機しています.. "+allPlayerNames.Count+"/"+maxPlayers;
-                    break;
-                    case 3:
-                    waitingText.text = "他のプレイヤーの参加を待機しています... "+allPlayerNames.Count+"/"+maxPlayers;
-                    break;
-                }
-                
-                yield return new WaitForSeconds(0.5f);
-            }   
-        }
+                case 0:
+                    waitingText.text = "他のプレイヤーの参加を待機しています "+allPlayerNames.Count+"/"+maxPlayers;
+                break;
+                case 1:
+                    waitingText.text = "他のプレイヤーの参加を待機しています. "+allPlayerNames.Count+"/"+maxPlayers;
+                break;
+                case 2:
+                waitingText.text = "他のプレイヤーの参加を待機しています.. "+allPlayerNames.Count+"/"+maxPlayers;
+                break;
+                case 3:
+                waitingText.text = "他のプレイヤーの参加を待機しています... "+allPlayerNames.Count+"/"+maxPlayers;
+                break;
+            }
+            
+            yield return new WaitForSeconds(0.5f);
+        }   
     }
 
     //ルーム退出関数
