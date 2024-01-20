@@ -47,7 +47,6 @@ public class SetButton : MonoBehaviour
 
     async void Update()
     {
-        Debug.Log("faioej");
         if (!GeneUIManager.player.GetComponent<PlayerController>().is_answered)
         {
             timeUp = timer.GetTimeUp();

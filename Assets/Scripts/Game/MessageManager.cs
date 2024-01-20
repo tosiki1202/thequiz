@@ -61,10 +61,6 @@ public class MessageManager : MonoBehaviourPunCallbacks
 
     void Update()
     {   
-        Debug.Log("Player1_isanswer: "+GeneUIManager.allPlayerInfo[0].is_answered);
-        Debug.Log("Player2_isanswer: "+GeneUIManager.allPlayerInfo[1].is_answered);
-        Debug.Log("Nowq: "+NowQuestionIndex);
-
         playerName_1.text = GeneUIManager.allPlayerInfo[0].name;
         correctAnsNum_1.text = "正答数：" + GeneUIManager.allPlayerInfo[0].correct + "/" + merged_question.Length;
         if (!GeneUIManager.allPlayerInfo[0].is_answered) playerIsCorrectImage_1.sprite = none_sprite;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
@@ -55,6 +56,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI placeholderText;
     public TMP_InputField nameInput;
     private bool setName;
+    public TextMeshProUGUI waitingText;
+    private int maxPlayers;
 
     //Awake
     private void Awake()
@@ -150,7 +153,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         if (!string.IsNullOrEmpty(enterRoomName.text))
         {
             RoomOptions options = new RoomOptions();
-            options.MaxPlayers = 8;
+            options.MaxPlayers = 2;
+            maxPlayers = options.MaxPlayers;
 
             //ルーム作成
             PhotonNetwork.CreateRoom(enterRoomName.text, options);
@@ -177,6 +181,60 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         //マスターか判定してボタン表示
         CheckRoomMaster();
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (allPlayerNames.Count == maxPlayers)
+            {
+                waitingText.text = "準備完了!";
+                startButton.GetComponent<Button>().interactable = true;
+            }
+            else
+            {
+                StartCoroutine(SwitchText());
+                startButton.GetComponent<Button>().interactable = false;
+            }
+        }
+        else
+        {
+            if (allPlayerNames.Count == maxPlayers)
+            {
+                waitingText.text = "ホストがゲーム開始するのを待っています...";
+                startButton.GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                StartCoroutine(SwitchText());
+                startButton.GetComponent<Button>().interactable = false;
+            }
+        }
+    }
+
+    IEnumerator SwitchText()
+    {
+        while(true)
+        {
+            for (int i=0; i<4; i++)
+            {
+                switch(i)
+                {
+                    case 0:
+                        waitingText.text = "他のプレイヤーの参加を待機しています "+allPlayerNames.Count+"/"+maxPlayers;
+                    break;
+                    case 1:
+                        waitingText.text = "他のプレイヤーの参加を待機しています. "+allPlayerNames.Count+"/"+maxPlayers;
+                    break;
+                    case 2:
+                    waitingText.text = "他のプレイヤーの参加を待機しています.. "+allPlayerNames.Count+"/"+maxPlayers;
+                    break;
+                    case 3:
+                    waitingText.text = "他のプレイヤーの参加を待機しています... "+allPlayerNames.Count+"/"+maxPlayers;
+                    break;
+                }
+                
+                yield return new WaitForSeconds(0.5f);
+            }   
+        }
     }
 
     //ルーム退出関数
