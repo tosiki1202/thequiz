@@ -44,11 +44,13 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         {
             StartButton.SetActive(false);
             onlineStartText.text = "ホストを待機中...";
+            onlineStartText.gameObject.SetActive(true);
         }
         else
         {
             StartButton.SetActive(true);
             onlineStartText.text = "";
+            onlineStartText.gameObject.SetActive(false);
         }
     }
 
