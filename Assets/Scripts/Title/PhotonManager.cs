@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using Cysharp.Threading.Tasks;
 using TMPro;
 
     //継承//
     //MonoBehaviourPunCallbacks
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private int MAXPLAYERS = 2;
     //変数
     public static PhotonManager instance;
     //ロードパネル
@@ -152,7 +154,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         if (!string.IsNullOrEmpty(enterRoomName.text))
         {
             RoomOptions options = new RoomOptions();
-            options.MaxPlayers = 2;
+            options.MaxPlayers = MAXPLAYERS;
 
             //ルーム作成
             PhotonNetwork.CreateRoom(enterRoomName.text, options);
@@ -410,8 +412,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
 
     //遷移
-    public void PlayGame()
+    public async void PlayGame()
     {
+        waitingText.text = "ホストがゲームをスタートしました。まもなく開始します!";
+        await UniTask.Delay(1200);
         PhotonNetwork.LoadLevel(levelToPlay);
     }
 
