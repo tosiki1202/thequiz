@@ -13,12 +13,13 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 {
     public static GeneUIManager instance;
     public TextMeshProUGUI generatingText;
+    public TextMeshProUGUI onlineStartText;
     public PlayerInfoPrefab originalPlayerInfoPrefab;
     public GameObject playerInfoContent;
     public GameObject generatePanel;
     public GameObject readyPanel;
     public GameObject geneInputPanel;
-    public Button StartButton;
+    public GameObject StartButton;
     public GameObject playerPrefab; // PhotonNetworkで生成するオブジェクトを指定(Resoursesフォルダに入っていること)
     public static GameObject player; // PhotonNetworkでInstantiateしたプレハブを入れる
     public static List<PlayerController> allPlayerInfo = new List<PlayerController>();
@@ -39,6 +40,16 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(playersOrigin);
         CloseMenuUI();
         geneInputPanel.SetActive(true);
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            StartButton.SetActive(false);
+            onlineStartText.text = "ホストを待機中...";
+        }
+        else
+        {
+            StartButton.SetActive(true);
+            onlineStartText.text = "";
+        }
     }
 
     private void Update()
@@ -52,7 +63,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
             {
                 if (!allPlayerInfo[i].ready) return;
             }
-            StartButton.interactable = true;
+            StartButton.GetComponent<Button>().interactable = true;
         }
     }
 

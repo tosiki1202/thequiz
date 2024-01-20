@@ -414,9 +414,15 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     //遷移
     public async void PlayGame()
     {
-        waitingText.text = "ホストがゲームをスタートしました。まもなく開始します!";
+        photonView.RPC("SetStartText",RpcTarget.All);
         await UniTask.Delay(1200);
         PhotonNetwork.LoadLevel(levelToPlay);
+    }
+
+    [PunRPC]
+    public void SetStartText()
+    {
+        waitingText.text = "ホストがゲームをスタートしました。まもなく開始します!";
     }
 
     public void ConfirmationName()
