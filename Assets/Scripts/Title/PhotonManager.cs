@@ -59,6 +59,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public TMP_InputField nameInput;
     private bool setName;
     public TextMeshProUGUI waitingText;
+    public GameObject howToPlayPanel;
 
     //Awake
     private void Awake()
@@ -132,6 +133,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         errorPanel.SetActive(false);
         roomListPanel.SetActive(false);
         nameInputPanel.SetActive(false);
+        howToPlayPanel.SetActive(false);
     }
 
     //ロビーUIを表示する関数
@@ -458,5 +460,15 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
             setName = true;
         }
+    }
+
+    public void HowToPlayDisPlay()
+    {
+        howToPlayPanel.SetActive(true);
+    }
+
+    public void CloseHowToPlay()
+    {
+        howToPlayPanel.SetActive(false);
     }
 }

@@ -96,7 +96,14 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     }
     public void StartGame()
     {
+        photonView.RPC("SetOnlineText",RpcTarget.All);
         PhotonNetwork.LoadLevel("QuizScene");
+    }
+
+    [PunRPC]
+    public void SetOnlineText()
+    {
+        onlineStartText.text = "スタート!";
     }
 
     public void UpdatePlayerInfo()
