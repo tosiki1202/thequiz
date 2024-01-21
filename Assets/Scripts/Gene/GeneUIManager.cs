@@ -129,23 +129,21 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("プレイヤーインフォセット");
         Debug.Log("all: "+allPlayerInfo.Count);
+        List<int> temp = new List<int>();
         
         playersDictionary.Clear();
         List<Transform> children = GetChildren(playersOrigin.transform);
         foreach (var players in children)
         {
             playersDictionary.Add(players.GetComponent<PhotonView>().Owner.ActorNumber, players.GetComponent<PlayerController>());
+            temp.Add(players.GetComponent<PhotonView>().Owner.ActorNumber);
         }
+        temp.Sort();
 
         allPlayerInfo.Clear();
-        if (playersDictionary.Count == 1)
-        {
-            allPlayerInfo.Add(playersDictionary[1]);
-        }
-        if (playersDictionary.Count < 2) return;
         for (int i=0; i<playersDictionary.Count; i++)
         {
-            allPlayerInfo.Add(playersDictionary[i+1]);
+            allPlayerInfo.Add(playersDictionary[temp[i]]);
         }
 
         if (SceneManager.GetActiveScene().name != "GeneScene_photon")
