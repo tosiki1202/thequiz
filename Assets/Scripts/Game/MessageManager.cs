@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using Photon.Pun;
-
+using System.Linq;
 public class MessageManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private int NowQuestionIndex;
@@ -54,13 +54,20 @@ public class MessageManager : MonoBehaviourPunCallbacks
             player2Panel.SetActive(false);
         }
         audioSource = GetComponent<AudioSource>();
+
+        Question[] temp = new Question[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
         for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
         {
             for (int j=0; j<MessageGeter.question.Length; j++)
             {
-                merged_question[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_question[j];
-                //merged_data[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_data[j];
+                temp[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_question[j];
             }
+        }
+        int[] numbers = Enumerable.Range(0, MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count).OrderBy(x => UnityEngine.Random.value).ToArray();
+        for (int i=0; i<MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count; i++)
+        {
+            Debug.Log(numbers[i]);
+            merged_question[i] = temp[numbers[i]];
         }
     }
 
