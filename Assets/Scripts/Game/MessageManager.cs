@@ -9,6 +9,9 @@ using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using Photon.Pun;
+using Unity.VisualScripting;
+using System.Transactions;
+using System.Linq;
 
 public class MessageManager : MonoBehaviourPunCallbacks
 {
@@ -111,6 +114,9 @@ public class MessageManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("問題終了");
             await UniTask.Delay(1500);
+            if(GeneUIManager.allPlayerInfo[1].name.Count() != 0){
+                SceneManager.LoadScene("ResultSceneMulti");
+            }
             SceneManager.LoadScene("ResultScene");
             return;
         }

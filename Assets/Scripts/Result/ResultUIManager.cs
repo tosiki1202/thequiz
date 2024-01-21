@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 public class ResultUIManager : MonoBehaviour
 {
     //プレハブ化したものを設定する
@@ -17,7 +18,7 @@ public class ResultUIManager : MonoBehaviour
     private int correctNum = 0;
     void Start()
     {
-        for (int i=0; i<MessageGeter.question.Length; i++)
+        for (int i=0; i<MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count; i++)
         {
             int _count = i;
             if(StoreButtonData.data[i].q_correct == true){
