@@ -36,7 +36,8 @@ public class MessageManager : MonoBehaviourPunCallbacks
     private UniTask task;
     public Question[] merged_question = new Question[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
     public Data[] merged_data = new Data[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
-    private bool is_correct;
+    public GameObject player1Panel;
+    public GameObject player2Panel;
 
     AudioSource audioSource;
 
@@ -48,6 +49,10 @@ public class MessageManager : MonoBehaviourPunCallbacks
     
     void Start()
     {
+        if (GeneUIManager.allPlayerInfo.Count == 1)
+        {
+            player2Panel.SetActive(false);
+        }
         audioSource = GetComponent<AudioSource>();
         for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
         {
