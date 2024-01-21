@@ -38,6 +38,8 @@ public class MessageManager : MonoBehaviourPunCallbacks
     public Data[] merged_data = new Data[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
     public GameObject player1Panel;
     public GameObject player2Panel;
+    public TextMeshProUGUI answerText;
+    public GameObject waitingText;
 
     AudioSource audioSource;
 
@@ -111,6 +113,7 @@ public class MessageManager : MonoBehaviourPunCallbacks
         setButton.ButtonNotAct();
         GeneUIManager.player.GetComponent<PlayerController>().is_answered = false;
         GeneUIManager.player.GetComponent<PlayerController>().is_stored = false;
+        ClearQuizSet();
         
         // if(StoreButtonData.data[NowQuestionIndex].q_correct == true){
         //     correct += 1;
@@ -161,6 +164,8 @@ public class MessageManager : MonoBehaviourPunCallbacks
         sel_2_box.text = null;
         sel_3_box.text = null;
         sel_4_box.text = null;
+        answerText.maxVisibleCharacters = 0;
+        waitingText.SetActive(false);
     }
 
     public void SetQuestionIndex(int idx)

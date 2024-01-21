@@ -31,6 +31,7 @@ public class SetButton : MonoBehaviourPunCallbacks
     private bool disconnectToClient = false;
     public GameObject errorPanel;
     public TextMeshProUGUI errorText;
+    public GameObject waitingText;
 
     //Start()の実行前に呼び出される初期化関数
     void Awake()
@@ -86,6 +87,7 @@ public class SetButton : MonoBehaviourPunCallbacks
             answeredPanel.SetActive(false);
             await Show(answerText.GetComponent<TextMeshProUGUI>(),"正解: "+messageManager.merged_question[messageManager.GetQuestionIndex()].answer_index);
             GeneUIManager.player.GetComponent<PlayerController>().is_stored = true;
+            waitingText.SetActive(true);
         }
 
         for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
@@ -93,7 +95,6 @@ public class SetButton : MonoBehaviourPunCallbacks
             if (!GeneUIManager.allPlayerInfo[i].is_stored) return;
         }
         //全員のis_answeredがtrueになってからn秒後にRPC
-        messageManager.ClearQuizSet();
         messageManager.photonView.RPC("NextQuestion",RpcTarget.All);
         
     }
@@ -161,7 +162,6 @@ public class SetButton : MonoBehaviourPunCallbacks
             await UniTask.Delay(50);
         }
         await UniTask.Delay(1800);
-        _box.maxVisibleCharacters = 0;
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
