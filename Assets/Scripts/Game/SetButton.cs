@@ -9,7 +9,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Photon.Pun;
 using Cysharp.Threading.Tasks;
-public class SetButton : MonoBehaviour
+using UnityEngine.SceneManagement;
+public class SetButton : MonoBehaviourPunCallbacks
 {
     public Timer timer;
     public StoreButtonData data;
@@ -27,6 +28,9 @@ public class SetButton : MonoBehaviour
     public Sprite maru;
     public Sprite batu;
     public GameObject answerText;
+    private bool disconnectToClient = false;
+    public GameObject errorPanel;
+    public TextMeshProUGUI errorText;
 
     //Start()の実行前に呼び出される初期化関数
     void Awake()
@@ -49,6 +53,10 @@ public class SetButton : MonoBehaviour
 
     async void Update()
     {
+        if (disconnectToClient)
+        {
+            return;
+        }
         if (!GeneUIManager.player.GetComponent<PlayerController>().is_answered)
         {
             timeUp = timer.GetTimeUp();
@@ -154,5 +162,12 @@ public class SetButton : MonoBehaviour
         }
         await UniTask.Delay(1800);
         _box.maxVisibleCharacters = 0;
+    }
+
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        disconnectToClient = true;
+        errorPanel.SetActive(true);
+        errorText.text = "他のプレイヤーとの接続が切断されました。ページを再読み込みしてください。";
     }
 }
