@@ -32,6 +32,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public GameObject errorPanel;
     //エラーテキスト
     public TextMeshProUGUI errorText;
+    public GameObject errorExitButton;
     //ルーム一覧
     public GameObject roomListPanel;
     //ルームボタン格納
@@ -60,6 +61,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     private bool setName;
     public TextMeshProUGUI waitingText;
     public GameObject howToPlayPanel;
+    public GameObject soloStartButton;
+    private bool is_solo = false;
 
     //Awake
     private void Awake()
@@ -172,6 +175,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     //ルームに参加時に呼ばれる関数(継承：コールバック)
     public override void OnJoinedRoom()
     {
+        if (is_solo) return;
         CloseMenuUI();
         roomPanel.SetActive(true);
 
@@ -256,6 +260,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         CloseMenuUI();
         errorText.text = "ネットワークとの接続が切断されました。ページを再読み込みしてください。";
+        errorExitButton.SetActive(false);
         errorPanel.SetActive(true);
     }
 
@@ -422,6 +427,20 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(levelToPlay);
     }
 
+    public async void SoloPlayGame()
+    {
+        is_solo = true;
+        soloStartButton.SetActive(false);
+        RoomOptions options = new RoomOptions();
+        options.MaxPlayers = 1;
+        PhotonNetwork.CreateRoom("", options);
+        CloseMenuUI();
+        loadingText.text = "Starting...";
+        loadingPanel.SetActive(true);
+        await UniTask.Delay(1200);
+        PhotonNetwork.LoadLevel(levelToPlay);
+    }
+
     [PunRPC]
     public void SetStartText()
     {
@@ -452,6 +471,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         if (!string.IsNullOrEmpty(nameInput.text))
         {
+            if (nameInput.text.Length > 7)
+            {
+                errorText.text = "名前は７文字以内で入力してください。";
+                errorPanel.SetActive(true);
+                return;
+            }
             PhotonNetwork.NickName = nameInput.text;
 
             PlayerPrefs.SetString("playerName", nameInput.text);
@@ -470,5 +495,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void CloseHowToPlay()
     {
         howToPlayPanel.SetActive(false);
+    }
+
+    public void CloseErrorPanel()
+    {
+        errorPanel.SetActive(false);
     }
 }

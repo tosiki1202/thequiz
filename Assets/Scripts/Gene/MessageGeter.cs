@@ -73,6 +73,19 @@ public class MessageGeter : MonoBehaviourPunCallbacks
             GeneUIManager.instance.geneInputPanel.SetActive(true);
             return;
         }
+
+        for (int i=0; i<MAXQUESTIONINDEX; i++)
+        {
+            int lines_index = i * 6;
+            if(!lines[lines_index+5].Any(char.IsDigit))
+            {
+                GeneUIManager.instance.SetGeneratingText("An error occrred. Please try it again.");
+                await UniTask.Delay(2000);
+                GeneUIManager.instance.CloseMenuUI();
+                GeneUIManager.instance.geneInputPanel.SetActive(true);
+                return;
+            }
+        }
                 
         for (int i=0; i<MAXQUESTIONINDEX; i++)
         {

@@ -12,7 +12,6 @@ using Photon.Pun;
 using Unity.VisualScripting;
 using System.Transactions;
 using System.Linq;
-
 public class MessageManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private int NowQuestionIndex;
@@ -39,7 +38,10 @@ public class MessageManager : MonoBehaviourPunCallbacks
     private UniTask task;
     public Question[] merged_question = new Question[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
     public Data[] merged_data = new Data[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
-    private bool is_correct;
+    public GameObject player1Panel;
+    public GameObject player2Panel;
+    public TextMeshProUGUI answerText;
+    public GameObject waitingText;
 
     AudioSource audioSource;
 
@@ -51,14 +53,24 @@ public class MessageManager : MonoBehaviourPunCallbacks
     
     void Start()
     {
+        if (GeneUIManager.allPlayerInfo.Count == 1)
+        {
+            player2Panel.SetActive(false);
+        }
         audioSource = GetComponent<AudioSource>();
+
+        Question[] temp = new Question[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
         for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
         {
             for (int j=0; j<MessageGeter.question.Length; j++)
             {
-                merged_question[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_question[j];
-                //merged_data[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_data[j];
+                temp[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_question[j];
             }
+        }
+        ShuffleArray(temp,GeneUIManager.allPlayerInfo[0].my_question[0].sentence.Length);
+        for (int i=0; i<MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count; i++)
+        {
+            merged_question[i] = temp[i];
         }
     }
 
@@ -103,6 +115,7 @@ public class MessageManager : MonoBehaviourPunCallbacks
         setButton.ButtonNotAct();
         GeneUIManager.player.GetComponent<PlayerController>().is_answered = false;
         GeneUIManager.player.GetComponent<PlayerController>().is_stored = false;
+        ClearQuizSet();
         
         // if(StoreButtonData.data[NowQuestionIndex].q_correct == true){
         //     correct += 1;
@@ -156,6 +169,8 @@ public class MessageManager : MonoBehaviourPunCallbacks
         sel_2_box.text = null;
         sel_3_box.text = null;
         sel_4_box.text = null;
+        answerText.maxVisibleCharacters = 0;
+        waitingText.SetActive(false);
     }
 
     public void SetQuestionIndex(int idx)
@@ -165,5 +180,20 @@ public class MessageManager : MonoBehaviourPunCallbacks
     public int GetQuestionIndex()
     {
         return NowQuestionIndex;
+    }
+
+    void ShuffleArray<T>(T[] array, int seed)
+    {
+        System.Random random = new System.Random(seed);
+
+        //Fisher-Yates
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            int randomIndex = random.Next(0, i + 1);
+
+            T temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
     }
 }

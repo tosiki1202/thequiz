@@ -25,6 +25,8 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
     public static List<PlayerController> allPlayerInfo = new List<PlayerController>();
     public static Dictionary<int,PlayerController> playersDictionary = new Dictionary<int,PlayerController>();
     public GameObject playersOrigin;
+    public GameObject errorPanel;
+    public TextMeshProUGUI errorText;
 
     private void Awake()
     {
@@ -160,5 +162,10 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
             newPrefab.RegisterPlayerInfoPrefab(allPlayerInfo[i].name, allPlayerInfo[i].jyanru, allPlayerInfo[i].ready);
             newPrefab.transform.SetParent(playerInfoContent.transform);
         }
+    }
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        errorPanel.SetActive(true);
+        errorText.text = "他のプレイヤーとの接続が切断されました。ページを再読み込みしてください。";
     }
 }

@@ -9,7 +9,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Photon.Pun;
 using Cysharp.Threading.Tasks;
-public class SetButton : MonoBehaviour
+using UnityEngine.SceneManagement;
+public class SetButton : MonoBehaviourPunCallbacks
 {
     public Timer timer;
     public StoreButtonData data;
@@ -26,6 +27,11 @@ public class SetButton : MonoBehaviour
     public Image answeredImage;
     public Sprite maru;
     public Sprite batu;
+    public GameObject answerText;
+    private bool disconnectToClient = false;
+    public GameObject errorPanel;
+    public TextMeshProUGUI errorText;
+    public GameObject waitingText;
 
     //Start()の実行前に呼び出される初期化関数
     void Awake()
@@ -41,12 +47,17 @@ public class SetButton : MonoBehaviour
     async void Start(){
         InitButton();
         ButtonNotAct();
+        answerText.GetComponent<TextMeshProUGUI>().maxVisibleCharacters = 0;
         await messageManager.Q_Displaycontrol();
     }
     
 
     async void Update()
     {
+        if (disconnectToClient)
+        {
+            return;
+        }
         if (!GeneUIManager.player.GetComponent<PlayerController>().is_answered)
         {
             timeUp = timer.GetTimeUp();
@@ -74,8 +85,9 @@ public class SetButton : MonoBehaviour
             answeredPanel.SetActive(true);
             await UniTask.Delay(1200);
             answeredPanel.SetActive(false);
-            await UniTask.Delay(1200);
+            await Show(answerText.GetComponent<TextMeshProUGUI>(),"正解: "+messageManager.merged_question[messageManager.GetQuestionIndex()].answer_index);
             GeneUIManager.player.GetComponent<PlayerController>().is_stored = true;
+            waitingText.SetActive(true);
         }
 
         for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
@@ -83,7 +95,6 @@ public class SetButton : MonoBehaviour
             if (!GeneUIManager.allPlayerInfo[i].is_stored) return;
         }
         //全員のis_answeredがtrueになってからn秒後にRPC
-        messageManager.ClearQuizSet();
         messageManager.photonView.RPC("NextQuestion",RpcTarget.All);
         
     }
@@ -140,5 +151,23 @@ public class SetButton : MonoBehaviour
     }
     public int GetIdx(){
         return idx;
+    }
+
+    private async UniTask Show(TextMeshProUGUI _box, string _text)
+    {
+        for (int i=0; i<_text.Length+1; i++)
+        {
+            _box.maxVisibleCharacters = i;
+            _box.text = _text;
+            await UniTask.Delay(50);
+        }
+        await UniTask.Delay(1800);
+    }
+
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        disconnectToClient = true;
+        errorPanel.SetActive(true);
+        errorText.text = "他のプレイヤーとの接続が切断されました。ページを再読み込みしてください。";
     }
 }
