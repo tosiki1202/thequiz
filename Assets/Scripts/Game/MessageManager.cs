@@ -63,11 +63,10 @@ public class MessageManager : MonoBehaviourPunCallbacks
                 temp[i*MessageGeter.question.Length + j] = GeneUIManager.allPlayerInfo[i].my_question[j];
             }
         }
-        int[] numbers = Enumerable.Range(0, MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count).OrderBy(x => UnityEngine.Random.value).ToArray();
+        ShuffleArray(temp,GeneUIManager.allPlayerInfo[0].my_question[0].sentence.Length);
         for (int i=0; i<MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count; i++)
         {
-            Debug.Log(numbers[i]);
-            merged_question[i] = temp[numbers[i]];
+            merged_question[i] = temp[i];
         }
     }
 
@@ -171,5 +170,20 @@ public class MessageManager : MonoBehaviourPunCallbacks
     public int GetQuestionIndex()
     {
         return NowQuestionIndex;
+    }
+
+    void ShuffleArray<T>(T[] array, int seed)
+    {
+        System.Random random = new System.Random(seed);
+
+        //Fisher-Yates
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            int randomIndex = random.Next(0, i + 1);
+
+            T temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
     }
 }
