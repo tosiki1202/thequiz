@@ -251,7 +251,15 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         //UIの表示を変える
         CloseMenuUI();
-        errorText.text = "Failed to Create"+message;
+        errorText.text = "Failed to Create: "+message;
+
+        errorPanel.SetActive(true);
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        CloseMenuUI();
+        errorText.text = "Failed to Join: "+message;
 
         errorPanel.SetActive(true);
     }
