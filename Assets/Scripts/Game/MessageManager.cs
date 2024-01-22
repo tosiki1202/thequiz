@@ -127,10 +127,11 @@ public class MessageManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("問題終了");
             await UniTask.Delay(1500);
-            if(GeneUIManager.allPlayerInfo[1].name.Count() != 0){
+            if(GeneUIManager.allPlayerInfo[1].name == null){
+                SceneManager.LoadScene("ResultScene");
+            }else{
                 SceneManager.LoadScene("ResultSceneMulti");
             }
-            SceneManager.LoadScene("ResultScene");
             return;
         }
         await Q_Displaycontrol();
