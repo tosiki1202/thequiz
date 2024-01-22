@@ -42,7 +42,7 @@ public class ResultUIManagerMulti : MonoBehaviour
             newPrefab.transform.SetParent(qContent.transform);
             time1 += GeneUIManager.allPlayerInfo[0].my_data[i].q_time;
             time2 += GeneUIManager.allPlayerInfo[1].my_data[i].q_time;
-                    janru.text = "ジャンル：" + GeneUIManager.allPlayerInfo[0].jyanru + "\n" + GeneUIManager.allPlayerInfo[1].jyanru;
+                    janru.text = "ジャンル：" + GeneUIManager.allPlayerInfo[0].jyanru + "\n　　　　" + GeneUIManager.allPlayerInfo[1].jyanru;
         info1.text = GeneUIManager.allPlayerInfo[0].name + "\n正答数：" + GeneUIManager.allPlayerInfo[0].correct + "\n時間：" + time1;
         info2.text = GeneUIManager.allPlayerInfo[1].name + "\n正答数：" + GeneUIManager.allPlayerInfo[1].correct + "\n時間：" + time2;
         }
