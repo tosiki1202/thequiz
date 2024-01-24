@@ -72,6 +72,7 @@ public class SetButton : MonoBehaviourPunCallbacks
             StoreInfo();
             click = false;
             timer.InitTimer();
+            ButtonNotAct();
             GeneUIManager.player.GetComponent<PlayerController>().is_answered = true;
 
             if (GeneUIManager.player.GetComponent<PlayerController>().my_data[messageManager.GetQuestionIndex()].q_correct)
@@ -85,8 +86,9 @@ public class SetButton : MonoBehaviourPunCallbacks
             answeredPanel.SetActive(true);
             await UniTask.Delay(1200);
             answeredPanel.SetActive(false);
-            await Show(answerText.GetComponent<TextMeshProUGUI>(),"正解: "+messageManager.merged_question[messageManager.GetQuestionIndex()].answer_index);
+            await Show(answerText.GetComponent<TextMeshProUGUI>(),"正解: "+MessageManager.merged_question[messageManager.GetQuestionIndex()].answer_index);
             GeneUIManager.player.GetComponent<PlayerController>().is_stored = true;
+            waitingText.GetComponent<TextMeshProUGUI>().text = "他のプレイヤーを待っています...";
             waitingText.SetActive(true);
         }
 

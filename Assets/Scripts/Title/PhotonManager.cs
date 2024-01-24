@@ -24,6 +24,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public GameObject createRoomPanel;
     //ルーム名の入力テキスト
     public TextMeshProUGUI enterRoomName;
+    public TMP_InputField roomNameInputField;
     //ルームパネル
     public GameObject roomPanel;
     //ルームネーム
@@ -63,6 +64,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public GameObject howToPlayPanel;
     public GameObject soloStartButton;
     private bool is_solo = false;
+    public GameObject cautionPanel;
+    public TextMeshProUGUI cautionText;
 
     //Awake
     private void Awake()
@@ -137,6 +140,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         roomListPanel.SetActive(false);
         nameInputPanel.SetActive(false);
         howToPlayPanel.SetActive(false);
+        cautionPanel.SetActive(false);
     }
 
     //ロビーUIを表示する関数
@@ -207,10 +211,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                         waitingText.text = "他のプレイヤーの参加を待機しています. "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
                     break;
                     case 2:
-                    waitingText.text = "他のプレイヤーの参加を待機しています.. "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
+                        waitingText.text = "他のプレイヤーの参加を待機しています.. "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
                     break;
                     case 3:
-                    waitingText.text = "他のプレイヤーの参加を待機しています... "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
+                        waitingText.text = "他のプレイヤーの参加を待機しています... "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
                     break;
                 }
                 
@@ -323,7 +327,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             newButton.RegisterRoomDetails(roomInfo.Value);
 
             //親の設定
-            newButton.transform.SetParent(roomButtonContent.transform);
+            newButton.transform.SetParent(roomButtonContent.transform,false);
 
             allRoomButtons.Add(newButton);
         }
@@ -389,7 +393,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         newPlayerText.text = players.NickName;
 
         //親の設定
-        newPlayerText.transform.SetParent(playerNameContent.transform);
+        newPlayerText.transform.SetParent(playerNameContent.transform,false);
 
         //リストに登録
         allPlayerNames.Add(newPlayerText);
@@ -467,6 +471,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             {
                 placeholderText.text = PlayerPrefs.GetString("playerName");
                 nameInput.text = PlayerPrefs.GetString("playerName");
+                roomNameInputField.text = PlayerPrefs.GetString("playerName")+"の部屋";
             }
             else
             {
@@ -481,16 +486,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             if (nameInput.text.Length > 7)
             {
-                errorText.text = "名前は７文字以内で入力してください。";
-                errorPanel.SetActive(true);
+                cautionText.text = "名前は７文字以内で入力してください。";
+                cautionPanel.SetActive(true);
                 return;
             }
             PhotonNetwork.NickName = nameInput.text;
 
             PlayerPrefs.SetString("playerName", nameInput.text);
+            roomNameInputField.text = PlayerPrefs.GetString("playerName")+"の部屋";
 
             LobbyMenuDisplay();
-
             setName = true;
         }
     }
@@ -508,5 +513,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void CloseErrorPanel()
     {
         errorPanel.SetActive(false);
+        LobbyMenuDisplay();
+    }
+
+    public void CloseCautionPanel()
+    {
+        cautionPanel.SetActive(false);
     }
 }

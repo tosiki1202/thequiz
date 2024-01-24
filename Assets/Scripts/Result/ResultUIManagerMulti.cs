@@ -21,6 +21,7 @@ public class ResultUIManagerMulti : MonoBehaviour
     public TextMeshProUGUI correctQNum;
     private float time1 = 0;
     private float time2 = 0;
+    public GameObject winOrLoseText;
     void Start()
     {
         for (int i=0; i<MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count; i++)
@@ -39,12 +40,37 @@ public class ResultUIManagerMulti : MonoBehaviour
                                            GeneUIManager.allPlayerInfo[1].my_data[i].q_time);
 
             //親オブジェクトを設定する
-            newPrefab.transform.SetParent(qContent.transform);
+            newPrefab.transform.SetParent(qContent.transform,false);
             time1 += GeneUIManager.allPlayerInfo[0].my_data[i].q_time;
             time2 += GeneUIManager.allPlayerInfo[1].my_data[i].q_time;
-                    janru.text = "ジャンル：" + GeneUIManager.allPlayerInfo[0].jyanru + "\n　　　　" + GeneUIManager.allPlayerInfo[1].jyanru;
-        info1.text = GeneUIManager.allPlayerInfo[0].name + "\n正答数：" + GeneUIManager.allPlayerInfo[0].correct + "\n時間：" + time1;
-        info2.text = GeneUIManager.allPlayerInfo[1].name + "\n正答数：" + GeneUIManager.allPlayerInfo[1].correct + "\n時間：" + time2;
+                    janru.text = "ジャンル：" + GeneUIManager.allPlayerInfo[0].jyanru + "　" + GeneUIManager.allPlayerInfo[1].jyanru;
+            info1.text = GeneUIManager.allPlayerInfo[0].name + "\n正答数：" + GeneUIManager.allPlayerInfo[0].correct;
+            info2.text = GeneUIManager.allPlayerInfo[1].name + "\n正答数：" + GeneUIManager.allPlayerInfo[1].correct;
+        }
+
+        int other_index=0;
+        for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
+        {
+            if (GeneUIManager.player.GetComponent<PlayerController>().name != GeneUIManager.allPlayerInfo[i].name)
+            {
+                other_index = i;
+                break;
+            }
+        }
+        if (GeneUIManager.player.GetComponent<PlayerController>().point > GeneUIManager.allPlayerInfo[other_index].point)
+        {
+            winOrLoseText.GetComponent<TextMeshProUGUI>().text = "You Win!";   
+            winOrLoseText.GetComponent<TextMeshProUGUI>().color = new Color(0.542f,1f,0.887f,1f);
+        }
+        else if (GeneUIManager.player.GetComponent<PlayerController>().point < GeneUIManager.allPlayerInfo[other_index].point)
+        {
+            winOrLoseText.GetComponent<TextMeshProUGUI>().text = "You Lose...";   
+            winOrLoseText.GetComponent<TextMeshProUGUI>().color = new Color(0.542f,1f,0.887f,1f);
+        }
+        else
+        {
+            winOrLoseText.GetComponent<TextMeshProUGUI>().text = "DRAW";
+            winOrLoseText.GetComponent<TextMeshProUGUI>().color = new Color(0.542f,1f,0.887f,1f);
         }
     }
     public void Transit()

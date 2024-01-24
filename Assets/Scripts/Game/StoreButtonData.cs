@@ -9,7 +9,7 @@ public class StoreButtonData : MonoBehaviour{
 
     public static Data[] data = new Data[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];//問題数に応じて変更
     public void Comparison(int i){
-        if(MessageManager.instance.merged_question[i].answer_index == data[i].q_sel){
+        if(MessageManager.merged_question[i].answer_index == data[i].q_sel){
             data[i].q_correct = true;
             GeneUIManager.player.GetComponent<PlayerController>().correct++;
         }else{
@@ -18,7 +18,7 @@ public class StoreButtonData : MonoBehaviour{
     }
     public void DataSave(int idx, float timeStop){
         i = MessageManager.instance.GetQuestionIndex();
-        if(i<MessageManager.instance.merged_question.Length){
+        if(i<MessageManager.merged_question.Length){
             data[i].q_num = i + 1;
             data[i].q_sel = idx;
             data[i].q_time = timeStop;

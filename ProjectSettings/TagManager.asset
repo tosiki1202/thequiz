@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - GeneUIManager
+  - origin
   layers:
   - Default
   - TransparentFX

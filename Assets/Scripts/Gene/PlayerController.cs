@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     public bool is_answered = false; //問題に回答済みか
     public bool is_stored = false; //問題の解答を保存したか
     public Data[] my_data = new Data[MessageGeter.question.Length*2];
-    public int correct;//何問正解か
+    public int point;//何問ポイントか
+    public int correct;
     
     private void Awake()
     {
@@ -67,8 +68,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 stream.SendNext(my_data[i].q_sel);
                 stream.SendNext(my_data[i].q_time);
             }
-            stream.SendNext(correct);
+            stream.SendNext(point);
             stream.SendNext(is_stored);
+            stream.SendNext(correct);
         }
         else
         {
@@ -94,8 +96,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 my_data[i].q_sel = (int)stream.ReceiveNext();
                 my_data[i].q_time = (float)stream.ReceiveNext();
             }
-            correct = (int)stream.ReceiveNext();
+            point = (int)stream.ReceiveNext();
             is_stored= (bool)stream.ReceiveNext();
+            correct = (int)stream.ReceiveNext();
         }
         //GeneUIManager.instance.SetPlayerInfo();
     }

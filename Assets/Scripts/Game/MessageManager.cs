@@ -36,7 +36,7 @@ public class MessageManager : MonoBehaviourPunCallbacks
     public SetButton setButton;
     public CancellationTokenSource cancelToken;
     private UniTask task;
-    public Question[] merged_question = new Question[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
+    public static Question[] merged_question = new Question[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
     public Data[] merged_data = new Data[MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count];
     public GameObject player1Panel;
     public GameObject player2Panel;
@@ -53,6 +53,7 @@ public class MessageManager : MonoBehaviourPunCallbacks
     
     void Start()
     {
+
         if (GeneUIManager.allPlayerInfo.Count == 1)
         {
             player2Panel.SetActive(false);
@@ -77,14 +78,14 @@ public class MessageManager : MonoBehaviourPunCallbacks
     void Update()
     {   
         playerName_1.text = GeneUIManager.allPlayerInfo[0].name;
-        correctAnsNum_1.text = "正答数：" + GeneUIManager.allPlayerInfo[0].correct + "/" + merged_question.Length;
+        correctAnsNum_1.text = "ポイント:" + GeneUIManager.allPlayerInfo[0].point;
         if (!GeneUIManager.allPlayerInfo[0].is_answered) playerIsCorrectImage_1.sprite = none_sprite;
         else if (GeneUIManager.allPlayerInfo[0].my_data[NowQuestionIndex].q_correct) playerIsCorrectImage_1.sprite = maru;
         else if (!GeneUIManager.allPlayerInfo[0].my_data[NowQuestionIndex].q_correct) playerIsCorrectImage_1.sprite = batu;
         
         if (GeneUIManager.allPlayerInfo.Count == 1) return;
         playerName_2.text = GeneUIManager.allPlayerInfo[1].name;
-        correctAnsNum_2.text = "正答数：" + GeneUIManager.allPlayerInfo[1].correct + "/" + merged_question.Length;
+        correctAnsNum_2.text = "ポイント:" + GeneUIManager.allPlayerInfo[1].point;
         if (!GeneUIManager.allPlayerInfo[1].is_answered) playerIsCorrectImage_2.sprite = none_sprite;
         else if (GeneUIManager.allPlayerInfo[1].my_data[NowQuestionIndex].q_correct) playerIsCorrectImage_2.sprite = maru;
         else if (!GeneUIManager.allPlayerInfo[1].my_data[NowQuestionIndex].q_correct) playerIsCorrectImage_2.sprite = batu;
@@ -116,6 +117,7 @@ public class MessageManager : MonoBehaviourPunCallbacks
         GeneUIManager.player.GetComponent<PlayerController>().is_answered = false;
         GeneUIManager.player.GetComponent<PlayerController>().is_stored = false;
         ClearQuizSet();
+        JudgeWinner();
         
         // if(StoreButtonData.data[NowQuestionIndex].q_correct == true){
         //     correct += 1;
@@ -123,11 +125,12 @@ public class MessageManager : MonoBehaviourPunCallbacks
         //correctAnsNum.text = "正答数：" + correct + "/" + merged_question.Length;
 
         NowQuestionIndex++;
-        if (NowQuestionIndex+1 > merged_question.Length)
+        if (NowQuestionIndex+1 > GeneUIManager.allPlayerInfo.Count * GeneUIManager.player.GetComponent<PlayerController>().my_question.Length)
         {
-            Debug.Log("問題終了");
-            await UniTask.Delay(1500);
-            if(GeneUIManager.allPlayerInfo[1].name == null){
+            waitingText.GetComponent<TextMeshProUGUI>().text = "問題終了!";
+            waitingText.SetActive(true);
+            await UniTask.Delay(1700);
+            if(GeneUIManager.allPlayerInfo.Count == 1){
                 SceneManager.LoadScene("ResultScene");
             }else{
                 SceneManager.LoadScene("ResultSceneMulti");
@@ -195,6 +198,47 @@ public class MessageManager : MonoBehaviourPunCallbacks
             T temp = array[i];
             array[i] = array[randomIndex];
             array[randomIndex] = temp;
+        }
+    }
+
+    public void JudgeWinner()
+    {
+        if (GeneUIManager.allPlayerInfo.Count == 1 && GeneUIManager.player.GetComponent<PlayerController>().my_data[NowQuestionIndex].q_correct)
+        {
+            GeneUIManager.player.GetComponent<PlayerController>().point += 2;
+            return;
+        }
+
+        int other_index=0;
+        for (int i=0; i<GeneUIManager.allPlayerInfo.Count; i++)
+        {
+            if (GeneUIManager.player.GetComponent<PlayerController>().name != GeneUIManager.allPlayerInfo[i].name)
+            {
+                other_index = i;
+                break;
+            }
+        }
+        //自分が正解なら
+        if (GeneUIManager.player.GetComponent<PlayerController>().my_data[NowQuestionIndex].q_correct)
+        {
+            //相手も正解なら
+            if (GeneUIManager.allPlayerInfo[other_index].my_data[NowQuestionIndex].q_correct)
+            {
+                //タイムが早かったなら
+                if (GeneUIManager.player.GetComponent<PlayerController>().my_data[NowQuestionIndex].q_time < GeneUIManager.allPlayerInfo[other_index].my_data[NowQuestionIndex].q_time)
+                {
+                    GeneUIManager.player.GetComponent<PlayerController>().point += 2;
+                }
+                else
+                {
+                    GeneUIManager.player.GetComponent<PlayerController>().point += 1;
+                }
+            }
+            //相手が正解してないなら
+            else
+            {
+                GeneUIManager.player.GetComponent<PlayerController>().point += 2;
+            }
         }
     }
 }

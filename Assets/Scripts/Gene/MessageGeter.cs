@@ -41,27 +41,27 @@ public class MessageGeter : MonoBehaviourPunCallbacks
         // APIは使用料かかるのでダミーデータをquestion[i]に入れるようにします
         // 少し生成を待つコード(雰囲気的に)
         
-        await UniTask.Delay(1200);  
+        // await UniTask.Delay(1200);  
         
-        string[] lines = new string[6*MAXQUESTIONINDEX];
-        for (int i=0; i<MAXQUESTIONINDEX; i++)
-        {
-            int lines_index = i * 6;
-            lines[lines_index] = "問題"+ (i+1) + "の文章";
-            lines[lines_index+1] = "Q"+ (i+1) + "_select1";
-            lines[lines_index+2] = "Q"+ (i+1) + "_select2";
-            lines[lines_index+3] = "Q"+ (i+1) + "_select3";
-            lines[lines_index+4] = "Q"+ (i+1) + "_select4";
-            lines[lines_index+5] = "Q"+ (i+1) + "_answerIndex";
-        }
+        // string[] lines = new string[6*MAXQUESTIONINDEX];
+        // for (int i=0; i<MAXQUESTIONINDEX; i++)
+        // {
+        //     int lines_index = i * 6;
+        //     lines[lines_index] = "問題"+ (i+1) + "の文章";
+        //     lines[lines_index+1] = "Q"+ (i+1) + "_select1";
+        //     lines[lines_index+2] = "Q"+ (i+1) + "_select2";
+        //     lines[lines_index+3] = "Q"+ (i+1) + "_select3";
+        //     lines[lines_index+4] = "Q"+ (i+1) + "_select4";
+        //     lines[lines_index+5] = "Q"+ (i+1) + "_answerIndex";
+        // }
         
         
-        // var chatGPTConnection = new ChatGPTConnection();
-        // await chatGPTConnection.RequestAsync(str);
-        // string context = chatGPTConnection.GetMessageList();
-        // Regex rex = new Regex("\n+");
-        // context = rex.Replace(context, "\n");
-        // string[] lines = context.Split("\n");
+        var chatGPTConnection = new ChatGPTConnection();
+        await chatGPTConnection.RequestAsync(str);
+        string context = chatGPTConnection.GetMessageList();
+        Regex rex = new Regex("\n+");
+        context = rex.Replace(context, "\n");
+        string[] lines = context.Split("\n");
         
 
         //１問当たり6行、格納できていないならエラー処理
