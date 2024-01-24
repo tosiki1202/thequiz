@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
 using Photon.Pun.Demo.Cockpit;
+using UnityEngine.SceneManagement;
 
 public class ResultUIManagerMulti : MonoBehaviour
 {
@@ -22,8 +23,22 @@ public class ResultUIManagerMulti : MonoBehaviour
     private float time1 = 0;
     private float time2 = 0;
     public GameObject winOrLoseText;
+    public GameObject errorPanel;
+    public TextMeshProUGUI errorText;
+
+    public void CloseErrorPanel()
+    {
+        SceneManager.LoadScene("Photon_experimentScene");
+    }
     void Start()
     {
+        errorPanel.SetActive(false);
+        if (PhotonNetwork.CurrentRoom.MaxPlayers != GeneUIManager.allPlayerInfo.Count)
+        {
+            errorText.text = "既に完了したゲームです。";
+            errorPanel.SetActive(true);
+        }
+
         for (int i=0; i<MessageGeter.question.Length * GeneUIManager.allPlayerInfo.Count; i++)
         {
             int _count = i;

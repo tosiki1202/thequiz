@@ -126,6 +126,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             //ネットワーク接続
             PhotonNetwork.ConnectUsingSettings();
         }
+        else if (PhotonNetwork.IsConnected)
+        {
+            if(PhotonNetwork.InRoom)
+            {
+                PhotonNetwork.LeaveRoom();
+            }
+            LobbyMenuDisplay();
+        }
     }
 
     //関数//
@@ -445,7 +453,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         soloStartButton.SetActive(false);
         RoomOptions options = new RoomOptions();
         options.MaxPlayers = 1;
-        PhotonNetwork.CreateRoom("", options);
+        PhotonNetwork.CreateRoom(PhotonNetwork.NickName+"の部屋", options);
         CloseMenuUI();
         loadingText.text = "Starting...";
         loadingPanel.SetActive(true);
