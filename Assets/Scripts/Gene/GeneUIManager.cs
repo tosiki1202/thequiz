@@ -7,6 +7,7 @@ using TMPro;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using Photon.Realtime;
+using Cysharp.Threading.Tasks;
 using ExitGames.Client.Photon;
 
 public class GeneUIManager : MonoBehaviourPunCallbacks
@@ -35,11 +36,17 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        this.playersOrigin = GameObject.Find("PlayersOrigin");
+        List<Transform> children = GetChildren(playersOrigin.transform);
+        foreach (Transform child in children)
+        {
+            Destroy(child.gameObject);
+        }
+
         if (PhotonNetwork.IsConnected)
         {
             player = PhotonNetwork.Instantiate(playerPrefab.name,new Vector3(0,0,0),Quaternion.identity);
         }
-        DontDestroyOnLoad(playersOrigin);
         CloseMenuUI();
         geneInputPanel.SetActive(true);
         if (!PhotonNetwork.IsMasterClient)
@@ -96,14 +103,15 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         }
         player.GetComponent<PlayerController>().ready = true;
     }
-    public void StartGame()
+    public async void StartGame()
     {
         photonView.RPC("SetOnlineText",RpcTarget.All);
+        await UniTask.Delay(1000);
         PhotonNetwork.LoadLevel("QuizScene");
     }
 
     [PunRPC]
-    public void SetOnlineText()
+    public async void SetOnlineText()
     {
         onlineStartText.text = "スタート!";
     }
@@ -160,7 +168,7 @@ public class GeneUIManager : MonoBehaviourPunCallbacks
         {
             PlayerInfoPrefab newPrefab = Instantiate(originalPlayerInfoPrefab);
             newPrefab.RegisterPlayerInfoPrefab(allPlayerInfo[i].name, allPlayerInfo[i].jyanru, allPlayerInfo[i].ready);
-            newPrefab.transform.SetParent(playerInfoContent.transform);
+            newPrefab.transform.SetParent(playerInfoContent.transform,false);
         }
     }
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)

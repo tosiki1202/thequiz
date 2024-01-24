@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class OnMouseColorChange : MonoBehaviour
 {
@@ -29,11 +30,21 @@ public class OnMouseColorChange : MonoBehaviour
     
     public void OnPointEnter()
     {
-        this.GetComponent<Image>().color = color_Enter;
+        if (this.GetComponent<TextMeshProUGUI>() == null)
+        {
+            this.GetComponent<Image>().color = color_Enter;
+            return;
+        }
+        this.GetComponent<TextMeshProUGUI>().color = color_Enter;
     }
 
     public void OnPointExit()
     {
-        this.GetComponent<Image>().color = color_Exit;
+        if (this.GetComponent<TextMeshProUGUI>() == null)
+        {
+            this.GetComponent<Image>().color = color_Exit;
+            return;
+        }
+        this.GetComponent<TextMeshProUGUI>().color = color_Exit;
     }
 }

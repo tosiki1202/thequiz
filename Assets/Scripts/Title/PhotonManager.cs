@@ -24,6 +24,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public GameObject createRoomPanel;
     //ルーム名の入力テキスト
     public TextMeshProUGUI enterRoomName;
+    public TMP_InputField roomNameInputField;
     //ルームパネル
     public GameObject roomPanel;
     //ルームネーム
@@ -207,10 +208,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                         waitingText.text = "他のプレイヤーの参加を待機しています. "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
                     break;
                     case 2:
-                    waitingText.text = "他のプレイヤーの参加を待機しています.. "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
+                        waitingText.text = "他のプレイヤーの参加を待機しています.. "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
                     break;
                     case 3:
-                    waitingText.text = "他のプレイヤーの参加を待機しています... "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
+                        waitingText.text = "他のプレイヤーの参加を待機しています... "+allPlayerNames.Count+"/"+PhotonNetwork.CurrentRoom.MaxPlayers;
                     break;
                 }
                 
@@ -323,7 +324,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             newButton.RegisterRoomDetails(roomInfo.Value);
 
             //親の設定
-            newButton.transform.SetParent(roomButtonContent.transform);
+            newButton.transform.SetParent(roomButtonContent.transform,false);
 
             allRoomButtons.Add(newButton);
         }
@@ -389,7 +390,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         newPlayerText.text = players.NickName;
 
         //親の設定
-        newPlayerText.transform.SetParent(playerNameContent.transform);
+        newPlayerText.transform.SetParent(playerNameContent.transform,false);
 
         //リストに登録
         allPlayerNames.Add(newPlayerText);
@@ -467,6 +468,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             {
                 placeholderText.text = PlayerPrefs.GetString("playerName");
                 nameInput.text = PlayerPrefs.GetString("playerName");
+                roomNameInputField.text = PlayerPrefs.GetString("playerName")+"の部屋";
             }
             else
             {
@@ -488,9 +490,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             PhotonNetwork.NickName = nameInput.text;
 
             PlayerPrefs.SetString("playerName", nameInput.text);
+            roomNameInputField.text = PlayerPrefs.GetString("playerName")+"の部屋";
 
             LobbyMenuDisplay();
-
             setName = true;
         }
     }
@@ -508,5 +510,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public void CloseErrorPanel()
     {
         errorPanel.SetActive(false);
+        LobbyMenuDisplay();
     }
 }

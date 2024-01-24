@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using Photon.Pun;
 public class ChangeScene : MonoBehaviour
 {
     [SerializeField] private string SCENENAME;
@@ -15,6 +15,10 @@ public class ChangeScene : MonoBehaviour
     }
     public void Transit()
     {
+        if (PhotonNetwork.InRoom)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
         SceneManager.LoadScene(SCENENAME);
     }
 }
