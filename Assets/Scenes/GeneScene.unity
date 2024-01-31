@@ -335,7 +335,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -378,8 +378,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44fa230acc382473caf690be8dd974e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GeneratingText: {fileID: 2087279643}
-  GeneratePanel: {fileID: 1686387551}
+  generatingText: {fileID: 0}
+  onlineStartText: {fileID: 0}
+  originalPlayerInfoPrefab: {fileID: 0}
+  playerInfoContent: {fileID: 0}
+  generatePanel: {fileID: 0}
+  readyPanel: {fileID: 0}
+  geneInputPanel: {fileID: 0}
+  StartButton: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  playersOrigin: {fileID: 0}
+  errorPanel: {fileID: 0}
+  errorText: {fileID: 0}
 --- !u!1 &79188256
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,7 +701,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jyanru: {fileID: 758018778}
-  soloStartButton: {fileID: 1036123132}
 --- !u!114 &244720515
 MonoBehaviour:
   m_ObjectHideFlags: 0

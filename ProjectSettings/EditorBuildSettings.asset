@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScene.unity
     guid: 59bb07b923e2440a38d371e9f27dcbd8
   - enabled: 1
+    path: Assets/Scenes/Photon_experimentScene.unity
+    guid: 7c102e092ac814f56b51e13342f5b53d
+  - enabled: 0
     path: Assets/Scenes/GeneScene.unity
     guid: 37eddee989e4f40b9a03f11b43839b85
   - enabled: 1
@@ -17,7 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ResultScene.unity
     guid: d485bd9c90f1d1e4d9f6a32e4f5afd48
-  - enabled: 0
-    path: Assets/Scenes/Photon_experimentScene.unity
-    guid: 7c102e092ac814f56b51e13342f5b53d
+  - enabled: 1
+    path: Assets/Scenes/GeneScene_photon.unity
+    guid: a3028fa3b75f14125a9953d41f8562ab
+  - enabled: 1
+    path: Assets/Scenes/ResultSceneMulti.unity
+    guid: c9e4c63d14cde634bb19ddaa492ed99f
   m_configObjects: {}
